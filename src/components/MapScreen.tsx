@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BookOpen } from 'lucide-react';
 import Link from 'next/link';
-import { loadProgress, isWorldUnlocked, setLanguage, type Progress } from '@/lib/progress';
+import { loadProgress, isWorldUnlocked, setLanguage, defaultProgress, type Progress } from '@/lib/progress';
 
 type World = {
   id: string;
@@ -21,7 +21,9 @@ const WORLDS: World[] = [
 
 export default function MapScreen() {
   const { t, i18n } = useTranslation();
-  const [progress, setProgress] = useState<Progress | null>(null);
+  const [progress, setProgress] = useState<Progress>(() =>
+    typeof window === 'undefined' ? defaultProgress() : loadProgress()
+  );
 
   useEffect(() => {
     setProgress(loadProgress());
@@ -96,7 +98,7 @@ export default function MapScreen() {
 
           <div className="absolute inset-0">
             {WORLDS.map((world, index) => {
-              const unlocked = isWorldUnlocked(world.id);
+              const unlocked = progress.unlocked.worlds.includes(world.id);
               const positions = ['left-[6%] top-[28%]', 'right-[6%] top-[28%]'];
 
               return (

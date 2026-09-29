@@ -18,6 +18,14 @@ const DEFAULT_PROGRESS: Progress = {
 
 const STORAGE_KEY = 'roundball.progress.v1';
 
+export function defaultProgress(): Progress {
+  return {
+    lang: DEFAULT_PROGRESS.lang,
+    tasks: {},
+    unlocked: { worlds: [...DEFAULT_PROGRESS.unlocked.worlds], levels: [...DEFAULT_PROGRESS.unlocked.levels] },
+  };
+}
+
 export function loadProgress(): Progress {
   if (typeof window === 'undefined') return DEFAULT_PROGRESS;
   
@@ -70,37 +78,26 @@ export function incrementAttempts(taskId: string): number {
   return current.attempts;
 }
 
-export function awardStars(taskId: string, attempts: number): number {
-  let stars = 0;
-  if (attempts <= 2) stars = 3;
-  else if (attempts <= 4) stars = 2;
-  else if (attempts <= 6) stars = 1;
-  else stars = 0;
-  
+export function recordTaskSuccess(taskId: string, stars: number, attempts: number): void {
   const progress = loadProgress();
   progress.tasks[taskId] = { stars, completed: true, attempts };
-  
-  // Unlock next level
-  const [world, levelNum] = taskId.split('/');
-  const levelIndex = parseInt(levelNum.replace('-', '').replace('what-color', '').replace('how-tall', '').replace('make-round', '').replace('paint-background', '').replace('add-border', '').replace('color-combo', '').replace('size-combo', '')) || 1;
-  
-  if (levelIndex < 5) {
-    const nextLevelNum = String(levelIndex + 1).padStart(2, '0');
-    const nextLevelKey = `${world}/${nextLevelNum}`;
-    if (!progress.unlocked.levels.includes(nextLevelKey)) {
-      progress.unlocked.levels.push(nextLevelKey);
-    }
-  } else if (levelIndex === 5) {
-    // Unlock next world
-    const nextWorld = world === 'colors' ? 'sizes' : null;
-    if (nextWorld && !progress.unlocked.worlds.includes(nextWorld)) {
-      progress.unlocked.worlds.push(nextWorld);
-      progress.unlocked.levels.push(`${nextWorld}/01`);
-    }
-  }
-  
   saveProgress(progress);
-  return stars;
+}
+
+export function unlockLevel(levelKey: string): void {
+  const progress = loadProgress();
+  if (!progress.unlocked.levels.includes(levelKey)) {
+    progress.unlocked.levels.push(levelKey);
+    saveProgress(progress);
+  }
+}
+
+export function unlockWorld(world: string): void {
+  const progress = loadProgress();
+  if (!progress.unlocked.worlds.includes(world)) {
+    progress.unlocked.worlds.push(world);
+    saveProgress(progress);
+  }
 }
 
 export function isWorldUnlocked(world: string): boolean {
@@ -121,29 +118,6 @@ export function getLanguage(): 'en' | 'ru' {
 export function setLanguage(lang: 'en' | 'ru'): void {
   const progress = loadProgress();
   progress.lang = lang;
-  saveProgress(progress);
-}
-
-export function replayLevel(taskId: string): void {
-  const progress = loadProgress();
-  // Reset this level and all subsequent levels in the same world
-  const [world, levelNum] = taskId.split('/');
-  const levelIndex = parseInt(levelNum) || 1;
-  
-  // Reset stars for this level
-  if (progress.tasks[taskId]) {
-    progress.tasks[taskId] = { stars: 0, completed: false, attempts: 0 };
-  }
-  
-  // Lock subsequent levels in this world
-  for (let i = levelIndex + 1; i <= 5; i++) {
-    const levelKey = `${world}/${String(i).padStart(2, '0')}`;
-    if (progress.tasks[levelKey]) {
-      progress.tasks[levelKey] = { stars: 0, completed: false, attempts: 0 };
-    }
-    progress.unlocked.levels = progress.unlocked.levels.filter(l => l !== levelKey);
-  }
-  
   saveProgress(progress);
 }
 
