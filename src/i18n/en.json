@@ -1,0 +1,42 @@
+{
+  "map": {
+    "title": "Round Ball",
+    "worlds": {
+      "colors": "Colors",
+      "sizes": "Sizes"
+    },
+    "bookButton": "Story",
+    "language": "Language"
+  },
+  "story": {
+    "title": "The Round Ball",
+    "text": "In a far corner of the cosmos, a little ball lost its shape. It traveled from planet to planet, learning the magic of CSS to become round again. Each world holds a secret — colors, sizes, and the space between things. Your code is the spell that brings the ball back to life.",
+    "close": "Back to Map"
+  },
+  "levelList": {
+    "title": "Levels",
+    "stars": "Stars",
+    "locked": "Locked",
+    "back": "Back"
+  },
+  "level": {
+    "check": "Check",
+    "back": "Back to Levels",
+    "success": "Great job!",
+    "wrongProperty": "You got the look you wanted — well done! But the property to use here is {{property}}.",
+    "wrongLook": "Not quite. {{hint}}",
+    "hint1": "Hint: {{hint}}",
+    "hint2": "The answer shape is hidden. Click to reveal.",
+    "hint3": "Here's the answer: {{solution}}",
+    "reveal": "Reveal",
+    "useSolution": "Use this solution",
+    "starsAwarded": "You earned {{stars}} stars!",
+    "levelComplete": "Level complete!",
+    "nextLevel": "Next level"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again"
+  }
+}

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-900: #0a0628;
+  --color-space-800: #160f3d;
+  --color-space-700: #1f1552;
+  --color-space-600: #2d1f7a;
+  --color-planet-yellow: #ffd600;
+  --color-planet-cyan: #00e5ff;
+  --color-planet-magenta: #ff00e5;
+  --color-planet-lime: #b2ff00;
+  --color-planet-orange: #ff6d00;
+  --font-display: "Nunito", "system-ui", sans-serif;
+  --font-body: "Quicksand", "system-ui", sans-serif;
+  --font-mono: "JetBrains Mono", "monospace";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-space-900);
+  color: white;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, button, .font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.space-bg {
+  background: 
+    radial-gradient(ellipse at 20% 20%, var(--color-space-700) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, var(--color-space-600) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, var(--color-space-800) 0%, transparent 70%),
+    var(--color-space-900);
+}
+
+.planet-glow {
+  filter: drop-shadow(0 0 20px currentColor);
+}
+
+.rocket-trail {
+  stroke-dasharray: 10, 10;
+  animation: trail-flow 3s linear infinite;
+}
+
+@keyframes trail-flow {
+  to {
+    stroke-dashoffset: 20;
+  }
+}
