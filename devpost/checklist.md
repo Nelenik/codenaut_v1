@@ -9,7 +9,7 @@ Build mode: learn
 
 ## Slices
 
-- [ ] **1. Project scaffold + MapScreen — two worlds with rocket trail**
+- [x] **1. Project scaffold + MapScreen — two worlds with rocket trail**
   Becomes usable: The app starts, shows a space map with two planets (Colors lit, Sizes locked), a dashed rocket trail connecting them, and a book button. Language switch in the corner.
   Why now: First screen the child sees. Bootstrapping lives here per spec — scaffold, deps, config, routing, i18n init, layout with language switch. Proves the wrapper stack works end to end.
   PRD ref: `prd.md > The Core Journey` (steps 1), `prd.md > Screens and Layout` #1
@@ -111,3 +111,7 @@ Reflection: [offered/answered/declined/already covered — personal answer belon
 Activity mode: [live app and editor, explicit static fallback, focused alternative, prior practice, or recap]
 
 ## Revisions
+
+- The book button links to a real `/story` route added in slice 1 rather than a modal in slice 2 — a dead link on the first working screen is a broken project, and the spec already puts StoryScreen at its own route. The slice-2 StoryScreen work is now just text/asset refinement of what exists.
+- Stack pinned to Next 15.5 / React 19.3 / react-i18next 15 / Tailwind 4 rather than the exact versions the spec named — the spec flagged these as unverified, and react-i18next 14 is React-19-only while 13 breaks on React 19. Tailwind 4 also needs `@tailwindcss/postcss` as the PostCSS plugin, not `tailwindcss` + `autoprefixer` directly.
+- Level/task identity in `progress.ts` is keyed `world/NN` plus task id rather than the spec's `colors/01-what-color` for the `unlocked.levels` list, because level unlock is a list position and not a file name. Task ids in `tasks` stay full slugs.
