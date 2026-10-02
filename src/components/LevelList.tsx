@@ -7,10 +7,6 @@ import { ArrowLeft } from 'lucide-react';
 import { getWorld, WORLDS, taskId } from '@/lib/worlds';
 import { loadProgress, isLevelUnlocked, defaultProgress, type Progress } from '@/lib/progress';
 
-function isServer() {
-  return typeof window === 'undefined';
-}
-
 function StarRow({ count }: { count: number }) {
   return (
     <span className="flex gap-0.5" aria-label={`${count}/3`}>
@@ -25,9 +21,7 @@ function StarRow({ count }: { count: number }) {
 
 export default function LevelList({ worldId }: { worldId: string }) {
   const { t } = useTranslation();
-  const [progress, setProgress] = useState<Progress>(() =>
-    isServer() ? defaultProgress() : loadProgress()
-  );
+  const [progress, setProgress] = useState<Progress>(defaultProgress);
 
   const world = getWorld(worldId);
 

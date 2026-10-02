@@ -21,9 +21,7 @@ const WORLDS: World[] = [
 
 export default function MapScreen() {
   const { t, i18n } = useTranslation();
-  const [progress, setProgress] = useState<Progress>(() =>
-    typeof window === 'undefined' ? defaultProgress() : loadProgress()
-  );
+  const [progress, setProgress] = useState<Progress>(defaultProgress);
 
   useEffect(() => {
     setProgress(loadProgress());
@@ -57,7 +55,7 @@ export default function MapScreen() {
                 key={lang}
                 onClick={() => switchLang(lang)}
                 className={`px-3 py-2 font-display font-semibold text-sm transition-colors ${
-                  progress?.lang === lang
+progress.lang === lang
                     ? 'bg-planet-yellow text-space-900'
                     : 'bg-space-800/80 text-space-200 hover:bg-space-700'
                 }`}
