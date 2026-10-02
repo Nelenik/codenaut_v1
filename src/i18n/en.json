@@ -34,7 +34,8 @@
     "narrator": "your helper",
     "yours": "yours",
     "target": "target",
-    "success": "Great job!",
+    "success": "Great job! The ball is green.",
+    "nothingTyped": "Write something in the editor first.",
     "wrongProperty": "You got the look you wanted — well done! But the property to use here is {{property}}.",
     "wrongLook": "Not quite. {{hint}}",
     "hint1": "Hint: {{hint}}",
@@ -55,7 +56,7 @@
     "colors/01-ball-color": {
       "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the ball green.",
       "teachTitle": "How to do it",
-      "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\".",
+      "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\". The colour you need here is called green.",
       "example": "background-color: blue"
     }
   }

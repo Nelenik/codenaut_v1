@@ -13,7 +13,7 @@
   "givesProperty": "background-color",
   "givesValue": true,
   "basket": [],
-  "solution": "background-color: #008000",
+  "solution": "background-color: green",
   "hints": [
     "colors.01.hint1",
     "colors.01.hint2",

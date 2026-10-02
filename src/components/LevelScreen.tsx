@@ -6,11 +6,22 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
 import { getWorld } from '@/lib/worlds';
 import { assemblePlayfield, assembleReference, loadTask, type LoadedTask } from '@/lib/taskLoader';
+import { check, type CheckOutcome } from '@/lib/checker';
+import { starsForAttempts, MAX_STARS } from '@/lib/stars';
+import { recordTaskSuccess } from '@/lib/progress';
 import { useProgress } from '@/lib/useProgress';
 import TaskZone from '@/components/TaskZone';
 import CssEditor from '@/components/CssEditor';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
+import CheckButton from '@/components/CheckButton';
 import Loading from '@/components/Loading';
+
+type Result = {
+  kind: CheckOutcome['kind'];
+  stars?: number;
+  expected?: string;
+  property?: string | null;
+};
 
 type Props = {
   worldId: string;
@@ -27,6 +38,8 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [retryKey, setRetryKey] = useState(0);
   const [childCss, setChildCss] = useState('');
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [result, setResult] = useState<Result | null>(null);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -45,6 +58,8 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       setChildCss(
         result.task.config.givesProperty ? `${result.task.config.givesProperty}: ` : ''
       );
+      setFailedAttempts(0);
+      setResult(null);
     });
 
     return () => {
@@ -90,6 +105,29 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   if (!task) return <Loading />;
 
   const taskKey = `tasks.${task.config.id}`;
+  const taskId = `${worldId}/${level.file}`;
+
+  const runCheck = () => {
+    const outcome = check(iframeRef.current, childCss, task.config);
+
+    if (outcome.kind === 'success') {
+      const stars = starsForAttempts(failedAttempts);
+      recordTaskSuccess(taskId, stars, failedAttempts);
+      setResult({ kind: 'success', stars });
+      return;
+    }
+
+    if (outcome.kind === 'rightLookWrongProperty') {
+      // No attempt is spent: the child found the look they wanted, which is
+      // real understanding. But the task is not completed — the property name
+      // is the lesson.
+      setResult({ kind: outcome.kind, expected: outcome.expected, property: outcome.property });
+      return;
+    }
+
+    setFailedAttempts((n) => n + 1);
+    setResult({ kind: outcome.kind, property: 'property' in outcome ? outcome.property : null });
+  };
 
   return (
     <main className="min-h-screen flex flex-col p-4 md:p-6 gap-4">
@@ -104,11 +142,21 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         <span className="font-display text-xl font-extrabold" style={{ color: world.color }}>
           {t(world.labelKey)}
         </span>
+        {result?.kind === 'success' && result.stars !== undefined ? (
+          <span className="ml-auto font-display text-3xl" aria-label={`${result.stars}/${MAX_STARS}`}>
+            {[0, 1, 2].map((i) => (
+              <span key={i} className={i < (result.stars ?? 0) ? '' : 'opacity-25 grayscale'}>
+                ★
+              </span>
+            ))}
+          </span>
+        ) : null}
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 flex-1 min-h-0">
         <section className="lg:col-span-2 flex flex-col gap-3 min-h-0">
           <CssEditor value={childCss} onChange={setChildCss} />
+          <CheckButton onCheck={runCheck} label={t('level.check')} />
         </section>
 
         <section className="lg:col-span-3 min-h-80 lg:min-h-0">
@@ -124,6 +172,8 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         </section>
       </div>
 
+      {result ? <ResultMessage result={result} /> : null}
+
       <TaskZone
         taskText={t(`${taskKey}.text`, { name: progress.playerName })}
         teachTitle={t(`${taskKey}.teachTitle`)}
@@ -132,5 +182,32 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         narratorLabel={progress.playerName || t('level.narrator')}
       />
     </main>
+  );
+}
+
+function ResultMessage({ result }: { result: Result }) {
+  const { t } = useTranslation();
+
+  const styles: Record<string, string> = {
+    success: 'bg-lime-400/20 border-lime-400 text-lime-100',
+    rightLookWrongProperty: 'bg-planet-yellow/20 border-planet-yellow text-yellow-50',
+    wrong: 'bg-space-800/80 border-space-600 text-white',
+    nothingTyped: 'bg-space-800/80 border-space-600 text-white',
+  };
+
+  const text: Record<string, string> = {
+    success: t('level.success'),
+    rightLookWrongProperty: t('level.wrongProperty', { property: result.expected ?? '' }),
+    wrong: t('level.wrongLook'),
+    nothingTyped: t('level.nothingTyped'),
+  };
+
+  return (
+    <div
+      role="status"
+      className={`rounded-2xl border-4 p-4 md:p-5 font-display text-xl md:text-2xl font-bold ${styles[result.kind]}`}
+    >
+      {text[result.kind]}
+    </div>
   );
 }
