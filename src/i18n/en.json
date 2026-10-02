@@ -38,5 +38,11 @@
     "loading": "Loading...",
     "error": "Something went wrong",
     "retry": "Try again"
+  },
+  "tasks": {
+    "colors/01-what-color": {
+      "text": "The seller mixed up the balls and gave Vasya a grey one. Make the name under the ball green.",
+      "intro": "The color property paints text. Put it in the editor and choose a green value."
+    }
   }
 }

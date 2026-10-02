@@ -19,7 +19,7 @@ Build mode: learn
   Learner check: Open the app, confirm the map looks like a space scene with two planets and a trail, click the language switch — does it feel right for a 7-year-old?
   Commit: `Scaffold project and MapScreen with two worlds`
 
-- [ ] **2. StoryScreen + LevelList — navigation from map to levels**
+- [x] **2. StoryScreen + LevelList — navigation from map to levels**
   Becomes usable: Clicking the book button opens the story screen with framing text. Clicking the Colors planet opens a level list with 5 rows showing level numbers and stars (first available, rest locked). Clicking a level navigates to the level screen (placeholder for now).
   Why now: Completes the map → level list → level navigation flow. LevelList reads progress for stars/locks.
   PRD ref: `prd.md > The Core Journey` (steps 2-3), `prd.md > Screens and Layout` #2-3
@@ -115,3 +115,7 @@ Activity mode: [live app and editor, explicit static fallback, focused alternati
 - The book button links to a real `/story` route added in slice 1 rather than a modal in slice 2 — a dead link on the first working screen is a broken project, and the spec already puts StoryScreen at its own route. The slice-2 StoryScreen work is now just text/asset refinement of what exists.
 - Stack pinned to Next 15.5 / React 19.3 / react-i18next 15 / Tailwind 4 rather than the exact versions the spec named — the spec flagged these as unverified, and react-i18next 14 is React-19-only while 13 breaks on React 19. Tailwind 4 also needs `@tailwindcss/postcss` as the PostCSS plugin, not `tailwindcss` + `autoprefixer` directly.
 - Level/task identity in `progress.ts` is keyed `world/NN` plus task id rather than the spec's `colors/01-what-color` for the `unlocked.levels` list, because level unlock is a list position and not a file name. Task ids in `tasks` stay full slugs.
+- The original `awardStars()` parsed the level number out of the task slug with a chain of `.replace()` calls — it broke on any new level name. Replaced with `recordTaskSuccess()` plus separate `unlockLevel()` / `unlockWorld()`, driven by the level list in `src/lib/worlds.ts`, which is now the single source of truth for world and level ids.
+- `MapScreen` and `LevelList` render progress from a default state during SSR instead of a "Loading…" placeholder — `localStorage` is unavailable on the server, and a blank screen on the core navigation path is worse than a brief default state. A returning player's real progress is applied in an effect immediately after hydration.
+- The first fix for the blank SSR screen caused a hydration mismatch: the initializer read `localStorage` on the client but the default on the server, so the two rendered differently. Both components now use `defaultProgress` as the initial value on server *and* client, and the stored progress is applied in `useEffect`. A returning player sees a brief default state rather than a mismatch.
+- Never run `npm run build` while `npm run dev` is running — both write to `.next`, and the dev bundler fails with `Could not find the module ... in the React Client Manifest`. If it happens, delete `.next` and restart the dev server. Production build was verified separately.
