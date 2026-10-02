@@ -25,7 +25,7 @@ export const WORLDS: WorldMeta[] = [
     color: '#ffd600',
     glow: '#ffaa00',
     levels: [
-      { id: '01', file: '01-what-color' },
+      { id: '01', file: '01-ball-color' },
       { id: '02', file: '02-color-too-dark' },
       { id: '03', file: '03-pick-background' },
       { id: '04', file: '04-pick-border' },

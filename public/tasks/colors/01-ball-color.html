@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #bfe9ff 0%, #7fd0f5 100%);
+    font-family: "Quicksand", system-ui, sans-serif;
+  }
+
+  .scene {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    background: #7ac74f;
+  }
+
+  /* The hero stands beside the scene, outside #target, so a task's selector
+     never targets him. */
+  .hero {
+    position: absolute;
+    left: 24px;
+    bottom: 70px;
+    width: 90px;
+    height: 135px;
+  }
+
+  #target {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin-bottom: 22px;
+    border-radius: 50%;
+    background-color: #b9b4ac;
+    box-shadow: inset -8px -10px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  /* The child's CSS is injected here, after the base styles. */
+  <!--CHILD_CSS-->
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="ground"></div>
+    <img class="hero" src="/assets/kid.svg" alt="">
+    <div id="target"></div>
+  </div>
+</body>
+</html>

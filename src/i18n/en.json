@@ -47,9 +47,9 @@
     "retry": "Try again"
   },
   "tasks": {
-    "colors/01-what-color": {
-      "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the name under the ball green.",
-      "intro": "The color property paints text. Put it in the editor and choose a green value."
+    "colors/01-ball-color": {
+      "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the ball green.",
+      "intro": "The background-color property paints the inside of a shape. Write it in the editor and pick a green value."
     }
   }
 }
