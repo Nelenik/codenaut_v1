@@ -58,3 +58,19 @@ export function taskId(world: string, levelFile: string): string {
 export function levelKey(world: string, levelId: string): string {
   return `${world}/${levelId}`;
 }
+
+export function nextLevel(worldId: string, levelId: string): LevelRef | null {
+  const world = getWorld(worldId);
+  if (!world) return null;
+  const index = world.levels.findIndex((l) => l.id === levelId);
+  if (index < 0) return null;
+  return world.levels[index + 1] ?? null;
+}
+
+/** Completing the last level of colors lights up the next planet. */
+export function worldAfter(worldId: string): WorldId | null {
+  const order: WorldId[] = ['colors', 'sizes'];
+  const index = order.indexOf(worldId as WorldId);
+  if (index < 0 || index === order.length - 1) return null;
+  return order[index + 1];
+}

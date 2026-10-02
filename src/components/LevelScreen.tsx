@@ -2,13 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
-import { getWorld } from '@/lib/worlds';
+import { getWorld, nextLevel, worldAfter, levelKey } from '@/lib/worlds';
 import { assemblePlayfield, assembleReference, loadTask, type LoadedTask } from '@/lib/taskLoader';
 import { check, type CheckOutcome } from '@/lib/checker';
 import { starsForAttempts, MAX_STARS } from '@/lib/stars';
-import { recordTaskSuccess } from '@/lib/progress';
+import { recordTaskSuccess, unlockLevel, unlockWorld } from '@/lib/progress';
 import { useProgress } from '@/lib/useProgress';
 import TaskZone from '@/components/TaskZone';
 import CssEditor from '@/components/CssEditor';
@@ -30,6 +31,7 @@ type Props = {
 
 export default function LevelScreen({ worldId, levelId }: Props) {
   const { t } = useTranslation();
+  const router = useRouter();
   const { progress, ready } = useProgress();
   const world = getWorld(worldId);
   const level = world?.levels.find((l) => l.id === levelId);
@@ -40,6 +42,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   const [childCss, setChildCss] = useState('');
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
+  const [celebrating, setCelebrating] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -60,6 +63,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       );
       setFailedAttempts(0);
       setResult(null);
+      setCelebrating(false);
     });
 
     return () => {
@@ -114,6 +118,19 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       const stars = starsForAttempts(failedAttempts);
       recordTaskSuccess(taskId, stars, failedAttempts);
       setResult({ kind: 'success', stars });
+
+      const upcoming = nextLevel(worldId, levelId);
+      if (upcoming) {
+        unlockLevel(levelKey(worldId, upcoming.id));
+      } else {
+        const upcomingWorld = worldAfter(worldId);
+        if (upcomingWorld) {
+          unlockWorld(upcomingWorld);
+          unlockLevel(levelKey(upcomingWorld, '01'));
+        }
+      }
+
+      setCelebrating(true);
       return;
     }
 
@@ -128,6 +145,17 @@ export default function LevelScreen({ worldId, levelId }: Props) {
     setFailedAttempts((n) => n + 1);
     setResult({ kind: outcome.kind, property: 'property' in outcome ? outcome.property : null });
   };
+
+  // The PRD wants no separate "next" click: a success goes straight on. The
+  // celebration stays up long enough to actually see the stars first.
+  useEffect(() => {
+    if (!celebrating) return;
+    const timer = setTimeout(() => {
+      const upcoming = nextLevel(worldId, levelId);
+      router.push(upcoming ? `/play/${worldId}/${upcoming.id}` : `/play/${worldId}`);
+    }, 2600);
+    return () => clearTimeout(timer);
+  }, [celebrating, worldId, levelId, router]);
 
   return (
     <main className="min-h-screen flex flex-col p-4 md:p-6 gap-4">
@@ -172,7 +200,27 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         </section>
       </div>
 
-      {result ? <ResultMessage result={result} /> : null}
+      {celebrating && result?.kind === 'success' && result.stars !== undefined ? (
+        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 bg-space-900/95">
+          <p className="font-display text-4xl md:text-6xl font-extrabold text-planet-lime text-balance text-center px-6">
+            {t('level.success')}
+          </p>
+          <div className="flex gap-4">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className={`text-6xl md:text-8xl ${i < (result.stars ?? 0) ? 'animate-bounce' : 'opacity-25 grayscale'}`}
+                style={{ animationDelay: `${i * 150}ms` }}
+              >
+                ★
+              </span>
+            ))}
+          </div>
+          <p className="font-display text-xl text-space-200">{t('level.nextComingUp')}</p>
+        </div>
+      ) : null}
+
+      {result && !celebrating ? <ResultMessage result={result} /> : null}
 
       <TaskZone
         taskText={t(`${taskKey}.text`, { name: progress.playerName })}

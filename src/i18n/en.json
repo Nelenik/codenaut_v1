@@ -35,6 +35,7 @@
     "yours": "yours",
     "target": "target",
     "success": "Great job! The ball is green.",
+    "nextComingUp": "Next task...",
     "nothingTyped": "Write something in the editor first.",
     "wrongProperty": "You got the look you wanted — well done! But the property to use here is {{property}}.",
     "wrongLook": "Not quite. {{hint}}",
