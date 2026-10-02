@@ -111,7 +111,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
           <CssEditor value={childCss} onChange={setChildCss} />
         </section>
 
-        <section className="lg:col-span-3 min-h-[320px] lg:min-h-0">
+        <section className="lg:col-span-3 min-h-80 lg:min-h-0">
           <PlayfieldPreview
             ref={iframeRef}
             srcDoc={srcDoc}

@@ -35,7 +35,7 @@ const PlayfieldPreview = forwardRef<HTMLIFrameElement, Props>(function Playfield
     if (rect.width === 0) return;
     const pct = Math.min(100, Math.max(0, ((e.clientX - rect.left) / rect.width) * 100));
 
-    if (wipeRef.current) wipeRef.current.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    if (wipeRef.current) wipeRef.current.style.clipPath = `inset(0 0 0 ${0 + pct}%)`;
     if (lineRef.current) {
       lineRef.current.style.opacity = '1';
       lineRef.current.style.left = `${pct}%`;
@@ -60,7 +60,7 @@ const PlayfieldPreview = forwardRef<HTMLIFrameElement, Props>(function Playfield
           ref={wipeRef}
           aria-hidden
           className="absolute inset-0 pointer-events-none"
-          style={{ clipPath: 'inset(0 100% 0 0)' }}
+          style={{ clipPath: 'inset(0 0 0 100%)' }}
         >
           <iframe
             title={`${title} — reference`}

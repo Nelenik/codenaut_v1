@@ -4,12 +4,16 @@
   "expect": {
     "property": "background-color",
     "mode": "rgb",
-    "value": [0, 200, 90]
+    "value": [
+      0,
+      128,
+      0
+    ]
   },
   "givesProperty": "background-color",
   "givesValue": true,
   "basket": [],
-  "solution": "background-color: #00c85a",
+  "solution": "background-color: #008000",
   "hints": [
     "colors.01.hint1",
     "colors.01.hint2",

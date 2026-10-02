@@ -44,7 +44,7 @@ export default function CssEditor({ value, onChange, highlight = true }: Props) 
   }, [value]);
 
   return (
-    <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border-4 border-space-600 bg-space-900 min-h-[260px]">
+    <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border-4 border-space-600 bg-space-900 min-h-65">
       <CodeMirror
         value={value}
         height="100%"
