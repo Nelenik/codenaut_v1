@@ -146,17 +146,6 @@ export default function LevelScreen({ worldId, levelId }: Props) {
     setResult({ kind: outcome.kind, property: 'property' in outcome ? outcome.property : null });
   };
 
-  // The PRD wants no separate "next" click: a success goes straight on. The
-  // celebration stays up long enough to actually see the stars first.
-  useEffect(() => {
-    if (!celebrating) return;
-    const timer = setTimeout(() => {
-      const upcoming = nextLevel(worldId, levelId);
-      router.push(upcoming ? `/play/${worldId}/${upcoming.id}` : `/play/${worldId}`);
-    }, 2600);
-    return () => clearTimeout(timer);
-  }, [celebrating, worldId, levelId, router]);
-
   return (
     <main className="min-h-screen flex flex-col p-4 md:p-6 gap-4">
       <header className="flex items-center gap-4">
@@ -201,10 +190,11 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       </div>
 
       {celebrating && result?.kind === 'success' && result.stars !== undefined ? (
-        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 bg-space-900/95">
-          <p className="font-display text-4xl md:text-6xl font-extrabold text-planet-lime text-balance text-center px-6">
+        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 p-6 bg-space-900/95">
+          <p className="font-display text-4xl md:text-6xl font-extrabold text-planet-lime text-balance text-center">
             {t('level.success')}
           </p>
+
           <div className="flex gap-4">
             {[0, 1, 2].map((i) => (
               <span
@@ -216,7 +206,23 @@ export default function LevelScreen({ worldId, levelId }: Props) {
               </span>
             ))}
           </div>
-          <p className="font-display text-xl text-space-200">{t('level.nextComingUp')}</p>
+
+          <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+            {nextLevel(worldId, levelId) ? (
+              <button
+                onClick={() => router.push(`/play/${worldId}/${nextLevel(worldId, levelId)!.id}`)}
+                className="flex-1 px-6 py-4 rounded-full bg-planet-yellow text-space-900 font-display font-extrabold text-xl hover:bg-yellow-300 transition-colors"
+              >
+                {t('level.next')}
+              </button>
+            ) : null}
+            <button
+              onClick={() => router.push(`/play/${worldId}`)}
+              className="flex-1 px-6 py-4 rounded-full bg-space-700 text-white font-display font-extrabold text-xl hover:bg-space-600 transition-colors"
+            >
+              {t('level.back')}
+            </button>
+          </div>
         </div>
       ) : null}
 

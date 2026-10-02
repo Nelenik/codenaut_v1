@@ -87,7 +87,7 @@ A language switch (EN/RU) sits in a corner and is present on every screen. A che
 - **Result judged in two parts:**
   - *Property* — checked against the meaning of the task. "Move the rock away from the tree" means `margin`; "free up space around the tree" means `padding`. The right look achieved by the wrong property does not pass.
   - *Value* — accepted in any unit or form that produces the required result. `1.25em` where `20px` was expected passes and is praised as a bonus.
-- **Success** → celebration and stars awarded, straight into the next task (no separate "next" click).
+- **Success** → celebration and stars awarded, then two buttons: on to the next task, or back to the level list.
 - **Right look, wrong property** → "you got the look you wanted — well done — but the property to use here is X". Encouraging, but no success and an attempt is spent.
 - **Wrong look** → a hint pointing at what to change. An attempt is spent.
 
@@ -153,6 +153,7 @@ Colors covers text color, background, and border, learned in that order and then
 - **An explicit Check button, with a live preview underneath.** Reason: with no button, a half-typed property can look finished, and the child has no way to say "I'm done". A live preview keeps the immediacy; the button makes attempts countable and the result unambiguous.
 - **Errors lower stars instead of blocking.** A level with 0 stars still counts as completed. Reason: a 7-year-old who can't get 3 stars should still be able to move forward.
 - **Getting the right look with the wrong property is free but doesn't complete the task.** No attempt is spent, and the child stays in the task. Reason: the result is genuinely worth praising, and charging for it would punish an attempt that shows real understanding — but accepting it as success would teach that any visual trick counts, which is exactly what the game is trying to prevent.
+- **After a success the child chooses what happens next.** Two buttons: on to the next task, or back to the level list. Reason: the child who finished the last task of a world has no next task to go to, so a single "next" button would be a lie on exactly the moment the game most wants to reward. Two buttons also let a child stop and admire the stars, or go back and look at what they have already unlocked.
 - **Replay replaces the previous result rather than keeping the best.** Reason: keeps the star display honest and simple; the child's instinct is to want more, not to bank an old score.
 - **The world is a map of planets with a rocket trail.** Reason: something worth clicking for a 7-year-old, and the trail makes progress legible without words.
 - **Bright colors, large playful but legible type.** Reason: the audience reads at 7 and the map has to compete with attention, not instruct it.
