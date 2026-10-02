@@ -1,5 +1,6 @@
 export type Progress = {
   lang: 'en' | 'ru';
+  playerName: string;
   tasks: Record<string, { stars: number; completed: boolean; attempts: number }>;
   unlocked: {
     worlds: string[];
@@ -9,6 +10,7 @@ export type Progress = {
 
 const DEFAULT_PROGRESS: Progress = {
   lang: 'en',
+  playerName: '',
   tasks: {},
   unlocked: {
     worlds: ['colors'],
@@ -21,9 +23,20 @@ const STORAGE_KEY = 'roundball.progress.v1';
 export function defaultProgress(): Progress {
   return {
     lang: DEFAULT_PROGRESS.lang,
+    playerName: '',
     tasks: {},
     unlocked: { worlds: [...DEFAULT_PROGRESS.unlocked.worlds], levels: [...DEFAULT_PROGRESS.unlocked.levels] },
   };
+}
+
+export function setPlayerName(name: string): void {
+  const progress = loadProgress();
+  progress.playerName = name.trim();
+  saveProgress(progress);
+}
+
+export function getPlayerName(): string {
+  return loadProgress().playerName;
 }
 
 export function loadProgress(): Progress {

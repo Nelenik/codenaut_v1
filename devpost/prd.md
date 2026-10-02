@@ -10,22 +10,26 @@ Source: `scope.md > Initial Idea`, `scope.md > The Unique Kernel`.
 
 ## The Core Journey
 
-1. The child opens the app and lands on a **map of planets in space**. Two worlds exist — Colors and Sizes. The first is open and lit; the second is dimmed and locked with a padlock. A rocket trail connects the planets.
-2. The child clicks the first planet. The map re-renders with the five levels of that world listed, each showing a number and its stars. The first level is available; the rest are locked.
-3. The child clicks an available level. Three zones appear side by side: the **task** (one short story sentence plus a small hint icon), the **editor**, and the **preview** with the reference target laid over it semi-transparently.
-4. The child types or drags CSS into the editor. The preview updates live with every keystroke — no confirmation needed to see the effect. The semi-transparent reference stays on top for comparison.
-5. The child presses **Check**.
+1. The child opens the app and is asked for their **name**. It is required — there is no skip and no default. The name is the character's name and is used in every task from then on.
+2. The child is taken to a **map of planets in space**. Two worlds exist — Colors and Sizes. The first is open and lit; the second is dimmed and locked with a padlock. A rocket trail connects the planets.
+3. The child clicks the first planet. The map re-renders with the five levels of that world listed, each showing a number and its stars. The first level is available; the rest are locked.
+4. The child clicks an available level. Three zones appear side by side: the **task** (one short story sentence plus a small hint icon), the **editor**, and the **preview** with the reference target laid over it semi-transparently. **The child character stands on the playfield in every task**, watching from the side of the scene.
+5. The child types or drags CSS into the editor. The preview updates live with every keystroke — no confirmation needed to see the effect. The semi-transparent reference stays on top for comparison.
+6. The child presses **Check**.
    - **Right property, right effect** → success, stars awarded, celebration, move to the next task.
    - **Right effect, wrong property** → encouragement first ("great, you got the look you wanted"), then the correct property is named. **No attempt is spent** and the task is **not** completed — the child stays in it and tries again.
    - **Wrong effect** → a hint pointing at what needs changing. An attempt is spent.
-6. After task five of a world, the next planet lights up and the rocket trail extends.
-7. The child returns to the map or re-enters a completed level to improve their stars.
+7. After task five of a world, the next planet lights up and the rocket trail extends.
+8. The child returns to the map or re-enters a completed level to improve their stars.
 
 Success in one line: a child who has never written CSS changes an object's appearance by typing a real property, and the game confirms *which* property was right.
 
 ## Screens and Layout
 
-**1. Map of planets (first screen).**
+**0. Name entry (first screen).**
+Opened on the very first visit. Asks for the child's name and nothing else. The name is required — there is no skip and no default name, because the name is the character's name and an empty one would break every task text. Saved with the rest of the progress, so it is asked once.
+
+**1. Map of planets (first screen after the name).**
 Space background. Planets in sequence, connected by a dashed rocket trail. Open planets are bright and clickable; locked ones are semi-transparent with a padlock. A **book button** opens a story/about screen.
 
 **2. Story / about.**
@@ -161,6 +165,7 @@ Colors covers text color, background, and border, learned in that order and then
 ## What We're Building
 
 - A map of planets, two of which light up in sequence, with a rocket trail and a book button.
+- A name entry screen, asked once at the start, mandatory.
 - A story/about screen.
 - Level lists of five per world, numbered, with stars and locks.
 - A level screen with three zones: task, editor with basket, live preview with a semi-transparent reference.
@@ -169,10 +174,12 @@ Colors covers text color, background, and border, learned in that order and then
 - A star table: 3 stars for success in 1–2 attempts, down to 0 after 6, with completion regardless.
 - Replay that resets a level's stars.
 - EN/RU localization with a global language switch.
+- The player as the main character, present on every playfield.
 - Progress in `localStorage`, surviving a browser restart.
 
 ## Deferred From the POC
 
+- **The player as the positioned element.** In the MVP the child stands at the side of the scene watching, because the two MVP topics are colors and sizes — neither one moves anything on the playfield. The moment `margin`/`padding` arrive, the child *becomes* the thing being positioned, which is the natural payoff of the rock-and-tree example and the strongest possible framing for a spacing world. The level structure supports this: a task only needs to swap which element carries the `selector`.
 - **A spacing world (margin/padding).** It's the most natural next world and everything about space rests on it, but it doesn't fit alongside two other topics in 2–4 hours.
 - **A text world** — font, size, text color, alignment.
 - **Age differentiation for 10–12.** Deferred by choice, but the level structure shouldn't hit a ceiling: it extends in layers rather than being rebuilt.
@@ -204,8 +211,8 @@ Colors covers text color, background, and border, learned in that order and then
 
 ## Open Questions
 
-- **The character cast** — who the planets and the objects (the rock, the tree, the ball) are, and whether she has her own ideas. *Can wait until the build; a placeholder is fine, and this is the most replaceable part.*
-- **The story text** — what the book screen actually says. *Can wait; the wording is a writing task, not a design blocker.*
+- ~~**The character cast**~~ — **decided.** The main character is the player: a child, and the name entered at the start of the game is used everywhere — in every task text, in the story, and as the character shown on the playfield. There is no separate cast with its own names. Reason: the tasks are addressed to the player, and a personalised name is what makes the game feel like it is about this child rather than about a generic subject.
+- **The story text** — what the book screen actually says. *Can wait; the wording is a writing task, not a design blocker.* The framing is now fixed in outline: the player is a child travelling between planets and fixing what went wrong, and the objects on each planet are the things they fix.
 - The exact hint wording for each failure type — the wording matters for age-appropriateness, but it can be written during the build alongside the tasks themselves.
 
 ## Open Issues Raised in `4-spec`

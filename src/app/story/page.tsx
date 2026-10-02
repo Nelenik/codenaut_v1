@@ -1,10 +1,17 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { defaultProgress, loadProgress, type Progress } from '@/lib/progress';
 
 export default function StoryPage() {
   const { t } = useTranslation();
+  const [progress, setProgress] = useState<Progress>(defaultProgress);
+
+  useEffect(() => {
+    setProgress(loadProgress());
+  }, []);
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-6">
@@ -13,7 +20,7 @@ export default function StoryPage() {
           {t('story.title')}
         </h1>
         <p className="text-lg md:text-xl leading-relaxed text-space-100 mb-8">
-          {t('story.text')}
+          {t('story.text', { name: progress.playerName })}
         </p>
         <Link
           href="/"

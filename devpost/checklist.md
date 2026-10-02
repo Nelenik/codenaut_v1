@@ -29,7 +29,7 @@ Build mode: learn
   Learner check: Walk the path: map → story → back → map → Colors → level list → level 1. Does the flow feel natural? Are hit targets large enough?
   Commit: `Add StoryScreen, LevelList, and ProgressStore`
 
-- [ ] **3. LevelScreen core — editor, live preview, reference overlay**
+- [x] **3. LevelScreen core — editor, live preview, reference overlay**
   Becomes usable: Level screen shows three zones side by side: TaskZone (story sentence), CssEditor (CodeMirror with CSS syntax highlighting), PlayfieldPreview (iframe srcdoc with task HTML + child's CSS + semi-transparent reference layer). Preview updates on every keystroke.
   Why now: This is the unique kernel — real CSS editing with live preview. The spec's core journey centers here. TaskLoader fetches task.html and task.json.
   PRD ref: `prd.md > The Core Journey` (steps 3-4), `prd.md > The editor`, `prd.md > Live preview and reference`
@@ -119,3 +119,5 @@ Activity mode: [live app and editor, explicit static fallback, focused alternati
 - `MapScreen` and `LevelList` render progress from a default state during SSR instead of a "Loading…" placeholder — `localStorage` is unavailable on the server, and a blank screen on the core navigation path is worse than a brief default state. A returning player's real progress is applied in an effect immediately after hydration.
 - The first fix for the blank SSR screen caused a hydration mismatch: the initializer read `localStorage` on the client but the default on the server, so the two rendered differently. Both components now use `defaultProgress` as the initial value on server *and* client, and the stored progress is applied in `useEffect`. A returning player sees a brief default state rather than a mismatch.
 - Never run `npm run build` while `npm run dev` is running — both write to `.next`, and the dev bundler fails with `Could not find the module ... in the React Client Manifest`. If it happens, delete `.next` and restart the dev server. Production build was verified separately.
+- The spec's playfield assembly (`task.html + child's CSS`) produces invalid CSS, because the child types declarations (`color: lime`), and a bare declaration outside a rule is dropped by the browser — the preview would silently never change. Added a `selector` field to `task.json`; `wrapDeclarations()` wraps bare declarations in that selector and passes anything already containing a block through untouched. Verified against 6 cases including `$&` sequences, which `String.replace` would otherwise treat as substitution patterns.
+- The reference target is a second iframe stacked on top of the live one at 40% opacity rather than an element inside the playfield — it reuses the same task html with the solution CSS applied, so it needs no per-task authoring and can never drift from the live preview.

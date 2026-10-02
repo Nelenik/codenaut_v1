@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" role="img" aria-label="A child standing next to the scene">
+  <!-- legs -->
+  <rect x="27" y="86" width="10" height="22" rx="4" fill="#3b6fd4"/>
+  <rect x="43" y="86" width="10" height="22" rx="4" fill="#2f5cb8"/>
+  <rect x="24" y="104" width="16" height="8" rx="4" fill="#ffd600"/>
+  <rect x="40" y="104" width="16" height="8" rx="4" fill="#ffca00"/>
+
+  <!-- body -->
+  <path d="M22 60 Q22 54 30 52 L50 52 Q58 54 58 60 L58 90 L22 90 Z" fill="#00e5ff"/>
+  <path d="M22 60 Q22 54 30 52 L40 52 L40 90 L22 90 Z" fill="#22d0f0"/>
+  <circle cx="40" cy="72" r="5" fill="#fde047"/>
+
+  <!-- arms -->
+  <rect x="12" y="60" width="10" height="30" rx="5" fill="#ffd6a8" transform="rotate(12 17 75)"/>
+  <rect x="58" y="60" width="10" height="30" rx="5" fill="#ffd6a8" transform="rotate(-12 63 75)"/>
+
+  <!-- head -->
+  <circle cx="40" cy="34" r="20" fill="#ffd6a8"/>
+  <path d="M20 30 Q20 12 40 12 Q60 12 60 30 Q60 24 52 22 Q40 18 28 24 Q20 27 20 30 Z" fill="#6b4226"/>
+
+  <!-- eyes -->
+  <circle cx="33" cy="35" r="3" fill="#2b2118"/>
+  <circle cx="47" cy="35" r="3" fill="#2b2118"/>
+  <circle cx="34" cy="34" r="1" fill="#fff"/>
+  <circle cx="48" cy="34" r="1" fill="#fff"/>
+
+  <!-- smile -->
+  <path d="M33 43 Q40 50 47 43" stroke="#2b2118" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- cheeks -->
+  <circle cx="27" cy="41" r="4" fill="#ff9a8b" opacity="0.55"/>
+  <circle cx="53" cy="41" r="4" fill="#ff9a8b" opacity="0.55"/>
+
+  <!-- helmet ring -->
+  <path d="M18 32 Q18 10 40 10 Q62 10 62 32" stroke="#b2ff00" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="40" cy="10" r="4" fill="#b2ff00"/>
+</svg>

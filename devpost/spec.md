@@ -104,6 +104,9 @@ Tailwind can express this in the wrapper. Inside a playfield, the same values ar
 
 ## Components
 
+### NameEntry
+The first screen (`prd.md > Screens and Layout` #0). Asks for the player's name once, in the current language, and saves it with the rest of the progress. No skip and no default: the name is the character's name, so an empty one would leave every task text nameless. `src/app/page.tsx` gates on it — with no saved name it renders this instead of `MapScreen`, so the gate needs no extra route and no redirect flash.
+
 ### MapScreen
 The first screen (`prd.md > Screens and Layout` #1). Renders planets in sequence with a dashed rocket trail, an open/locked state per planet from progress, and a book button. The language switch is mounted here and in the layout so it is present on every screen.
 
@@ -156,6 +159,7 @@ public/tasks/colors/01-what-color.json     the check + the translations
 ```json
 {
   "id": "colors/01-what-color",
+  "selector": "#target",
   "expect": { "property": "color", "mode": "rgb", "value": [0, 255, 0] },
   "givesProperty": null,
   "givesValue": true,
@@ -164,6 +168,7 @@ public/tasks/colors/01-what-color.json     the check + the translations
   "hints": ["hint-step-one", "hint-step-two"]
 }
 ```
+- `selector` — the element the child's CSS is applied to. **Required.** The child types declarations (`color: lime`), and a bare declaration outside a rule is invalid CSS that the browser drops silently, so declarations are wrapped in this selector by `wrapDeclarations()`. Anything the child writes that already contains a `{` is passed through untouched, so full-rule answers keep working.
 - `expect` — the check, from `prd.md > Open Issues Raised in 4-spec`. `property` is checked against what the child applied.
 - `expect.mode` — **how** the value is compared, because colors and lengths don't compare the same way:
   - `"px"` — a length or number. Compare against `getComputedStyle(el)[prop]` as a number, with a small tolerance. This is what makes `1.25em` and `20px` both pass.
@@ -177,13 +182,15 @@ public/tasks/colors/01-what-color.json     the check + the translations
 ```json
 {
   "lang": "en",
+  "playerName": "",
   "tasks": {
     "colors/01-what-color": { "stars": 3, "completed": true, "attempts": 1 }
   },
-  "unlocked": { "worlds": ["colors"], "levels": ["colors/01", "colors/02"] }
+  "unlocked": { "worlds": ["colors"], "levels": ["colors/01"] }
 }
 ```
-- Written on task completion, on level completion, and on language change.
+- `playerName` — empty until the name screen is completed; `NameEntry` is shown while it is empty. The name is the character's name, so every task text interpolates it.
+- Written on task completion, on level completion, on language change, and when the name is entered.
 - Read on app start. No migration path yet — `v1` is the only version.
 - `attempts` is what the star table reads.
 - Mid-task input is **not** saved (`prd.md > States and Boundaries`): closing the tab restarts that task, keeping the tasks before it.

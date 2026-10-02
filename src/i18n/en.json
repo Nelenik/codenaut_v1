@@ -8,9 +8,16 @@
     "bookButton": "Story",
     "language": "Language"
   },
+  "nameEntry": {
+    "title": "What is your name?",
+    "hint": "This is the name of the hero of the game. It will be used in every task.",
+    "label": "Your name",
+    "placeholder": "Type your name",
+    "start": "Let's fly!"
+  },
   "story": {
     "title": "The Round Ball",
-    "text": "In a far corner of the cosmos, a little ball lost its shape. It traveled from planet to planet, learning the magic of CSS to become round again. Each world holds a secret — colors, sizes, and the space between things. Your code is the spell that brings the ball back to life.",
+    "text": "{{name}} set off across space with a little ball that had lost its shape. On every planet something was wrong: colors washed out, sizes all mixed up. The planets can only be fixed with code — real code, written by hand. Write a property, and the planet answers at once.",
     "close": "Back to Map"
   },
   "levelList": {
@@ -41,7 +48,7 @@
   },
   "tasks": {
     "colors/01-what-color": {
-      "text": "The seller mixed up the balls and gave Vasya a grey one. Make the name under the ball green.",
+      "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the name under the ball green.",
       "intro": "The color property paints text. Put it in the editor and choose a green value."
     }
   }

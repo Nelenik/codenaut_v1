@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
 import { getWorld } from '@/lib/worlds';
 import { assemblePlayfield, assembleReference, loadTask, type LoadedTask } from '@/lib/taskLoader';
+import { defaultProgress, loadProgress, type Progress } from '@/lib/progress';
 import TaskZone from '@/components/TaskZone';
 import CssEditor from '@/components/CssEditor';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
@@ -24,8 +25,13 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [retryKey, setRetryKey] = useState(0);
   const [childCss, setChildCss] = useState('');
+  const [progress, setProgress] = useState<Progress>(defaultProgress);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    setProgress(loadProgress());
+  }, []);
 
   useEffect(() => {
     if (!world || !level) return;
@@ -109,7 +115,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 min-h-0">
         <section className="lg:col-span-1">
-          <TaskZone taskText={t(`tasks.${task.config.id}.text`)} />
+          <TaskZone taskText={t(`tasks.${task.config.id}.text`, { name: progress.playerName })} />
         </section>
 
         <section className="lg:col-span-1 flex flex-col gap-3">

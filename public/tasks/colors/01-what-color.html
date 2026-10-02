@@ -15,7 +15,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 32px;
+    gap: 48px;
+    padding: 0 24px;
+  }
+
+  /* The hero stands beside the scene, outside .card, so a task's selector
+     never targets him. */
+  .hero {
+    width: 90px;
+    height: 135px;
+    flex: none;
+    margin-bottom: 24px;
   }
 
   .card {
@@ -41,15 +51,6 @@
     color: #3a3226;
   }
 
-  .ground {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: #9ad06a;
-  }
-
   /* The child's CSS is injected here, after the base styles. */
   <!--CHILD_CSS-->
 </style>
@@ -60,7 +61,7 @@
       <img src="/assets/ball.svg" alt="">
       <span id="target">Round Ball</span>
     </div>
+    <img class="hero" src="/assets/kid.svg" alt="">
   </div>
-  <div class="ground"></div>
 </body>
 </html>
