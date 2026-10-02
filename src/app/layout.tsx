@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import I18nProvider from '@/components/I18nProvider';
+import AppHeader from '@/components/AppHeader';
 
 export const metadata: Metadata = {
   title: 'Round Ball — Learn CSS',
@@ -23,7 +24,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen space-bg font-body">
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider>
+          <AppHeader />
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );

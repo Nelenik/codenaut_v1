@@ -43,7 +43,7 @@ export default function LevelList({ worldId }: { worldId: string }) {
 
   return (
     <main className="min-h-screen flex flex-col p-6 max-w-3xl mx-auto">
-      <header className="flex items-center gap-4 mb-8">
+      <header className="flex items-center gap-4 mb-8 pr-40">
         <Link
           href="/"
           className="flex items-center gap-2 px-4 py-2 rounded-full bg-space-800/80 hover:bg-space-700 transition-colors border border-space-600 text-white font-display font-semibold"

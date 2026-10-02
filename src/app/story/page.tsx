@@ -14,7 +14,7 @@ export default function StoryPage() {
   }, []);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6">
+    <main className="min-h-screen flex flex-col items-center justify-center p-6 pt-24">
       <article className="w-full max-w-2xl bg-space-800/80 border border-space-600 rounded-3xl p-8 md:p-10">
         <h1 className="font-display text-3xl md:text-4xl font-extrabold text-planet-yellow mb-6">
           {t('story.title')}

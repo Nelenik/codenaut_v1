@@ -17,7 +17,7 @@ export default function NameEntry({ onDone }: { onDone: () => void }) {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-6">
+    <main className="min-h-screen flex items-center justify-center p-6 pt-24">
       <form
         onSubmit={submit}
         className="w-full max-w-lg bg-space-800/80 border-2 border-space-600 rounded-3xl p-8 md:p-10 flex flex-col items-center gap-6"
