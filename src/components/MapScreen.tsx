@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BookOpen } from 'lucide-react';
 import Link from 'next/link';
-import { loadProgress, isWorldUnlocked, setLanguage, defaultProgress, type Progress } from '@/lib/progress';
+import { setLanguage } from '@/lib/progress';
+import { useProgress } from '@/lib/useProgress';
 
 type World = {
   id: string;
@@ -21,16 +22,12 @@ const WORLDS: World[] = [
 
 export default function MapScreen() {
   const { t, i18n } = useTranslation();
-  const [progress, setProgress] = useState<Progress>(defaultProgress);
-
-  useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
+  const { progress, refresh } = useProgress();
 
   const switchLang = (lang: 'en' | 'ru') => {
     i18n.changeLanguage(lang);
     setLanguage(lang);
-    setProgress(loadProgress());
+    refresh();
   };
 
   return (

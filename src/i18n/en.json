@@ -30,6 +30,7 @@
     "check": "Check",
     "back": "Back to Levels",
     "compareHint": "Move the mouse across the picture to compare with the target",
+    "narrator": "your helper",
     "yours": "yours",
     "target": "target",
     "success": "Great job!",
@@ -52,7 +53,9 @@
   "tasks": {
     "colors/01-ball-color": {
       "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the ball green.",
-      "intro": "The background-color property paints the inside of a shape. Write it in the editor and pick a green value."
+      "teachTitle": "How to do it",
+      "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\".",
+      "example": "background-color: blue"
     }
   }
 }

@@ -1,20 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import MapScreen from '@/components/MapScreen';
 import NameEntry from '@/components/NameEntry';
-import { defaultProgress, loadProgress, type Progress } from '@/lib/progress';
+import Loading from '@/components/Loading';
+import { useProgress } from '@/lib/useProgress';
 
 export default function HomePage() {
-  const [progress, setProgress] = useState<Progress>(defaultProgress);
+  const { progress, ready, refresh } = useProgress();
 
-  useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
-
-  if (!progress.playerName) {
-    return <NameEntry onDone={() => setProgress(loadProgress())} />;
-  }
-
+  if (!ready) return <Loading />;
+  if (!progress.playerName) return <NameEntry onDone={refresh} />;
   return <MapScreen />;
 }

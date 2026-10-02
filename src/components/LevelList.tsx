@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { getWorld, WORLDS, taskId } from '@/lib/worlds';
-import { loadProgress, isLevelUnlocked, defaultProgress, type Progress } from '@/lib/progress';
+import { isLevelUnlocked } from '@/lib/progress';
+import { useProgress } from '@/lib/useProgress';
+import Loading from '@/components/Loading';
 
 function StarRow({ count }: { count: number }) {
   return (
@@ -21,13 +22,11 @@ function StarRow({ count }: { count: number }) {
 
 export default function LevelList({ worldId }: { worldId: string }) {
   const { t } = useTranslation();
-  const [progress, setProgress] = useState<Progress>(defaultProgress);
+  const { progress, ready } = useProgress();
 
   const world = getWorld(worldId);
 
-  useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
+  if (!ready) return <Loading />;
 
   if (!world) {
     return (

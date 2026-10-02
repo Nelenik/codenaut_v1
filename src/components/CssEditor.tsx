@@ -5,6 +5,21 @@ import CodeMirror from '@uiw/react-codemirror';
 import { css } from '@codemirror/lang-css';
 import { EditorView } from '@codemirror/view';
 
+/**
+ * The audience reads at 7 and types with a keyboard aimed at a screen, so the
+ * editor is set noticeably larger than a developer default.
+ */
+const largeFontTheme = EditorView.theme({
+  '&': { fontSize: '1.35rem' },
+  '.cm-content': {
+    fontSize: '1.35rem',
+    lineHeight: '1.7',
+    padding: '1rem',
+  },
+  '.cm-scroller': { fontFamily: 'var(--font-mono)', overflow: 'auto' },
+  '.cm-gutters': { display: 'none' },
+});
+
 type Props = {
   value: string;
   onChange: (next: string) => void;
@@ -29,12 +44,12 @@ export default function CssEditor({ value, onChange, highlight = true }: Props) 
   }, [value]);
 
   return (
-    <div className="rounded-2xl overflow-hidden border-4 border-space-600 bg-space-900">
+    <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border-4 border-space-600 bg-space-900 min-h-[260px]">
       <CodeMirror
         value={value}
-        height="260px"
+        height="100%"
         theme="dark"
-        extensions={highlight ? [css()] : []}
+        extensions={highlight ? [css(), largeFontTheme] : [largeFontTheme]}
         onChange={onChange}
         onCreateEditor={(view) => {
           viewRef.current = view;
