@@ -3,7 +3,7 @@ doc: prd
 status: approved
 ---
 
-# Round Ball — Product Requirements
+# Codenaut — Product Requirements
 
 A browser game that teaches CSS to children aged 7–9 by having them write real properties in a code editor and see the result immediately. Two worlds, five tasks each.
 Source: `scope.md > Initial Idea`, `scope.md > The Unique Kernel`.

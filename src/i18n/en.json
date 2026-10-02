@@ -1,6 +1,6 @@
 {
   "map": {
-    "title": "Round Ball",
+    "title": "Codenaut",
     "worlds": {
       "colors": "Colors",
       "sizes": "Sizes"
@@ -16,8 +16,9 @@
     "start": "Let's fly!"
   },
   "story": {
-    "title": "The Round Ball",
-    "text": "{{name}} set off across space with a little ball that had lost its shape. On every planet something was wrong: colors washed out, sizes all mixed up. The planets can only be fixed with code — real code, written by hand. Write a property, and the planet answers at once.",
+    "title": "Codenaut",
+    "greeting": "Welcome aboard, {{name}}!",
+    "text": "You are a Codenaut — a navigator of code. Your ship can only land on a planet when that planet's code is in order. Right now the colours have washed out and the sizes are all mixed up.\n\nOn every planet something is broken, and only code can fix it. Open the editor, write a real CSS property, and the planet answers at once. Collect the stars, and the next planet lights up.",
     "close": "Back to Map"
   },
   "levelList": {

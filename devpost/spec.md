@@ -3,7 +3,7 @@ doc: spec
 status: approved
 ---
 
-# Round Ball — Technical Spec
+# Codenaut — Technical Spec
 
 ## How This Works, In Plain Language
 
@@ -178,7 +178,7 @@ public/tasks/colors/01-what-color.json     the check + the translations
 - `solution` — the ready-made answer, used by the third hint step.
 - `hints` — keys into the i18n dictionaries, one per hint stage. The child-facing text is **not** in this file; only keys are.
 
-**2. Progress — `localStorage`, one key, `roundball.progress.v1`.**
+**2. Progress — `localStorage`, one key, `codenaut.progress.v1`.**
 ```json
 {
   "lang": "en",
@@ -201,7 +201,7 @@ The current task id, the child's CSS string, which hint step is showing, whether
 ## File Structure
 
 ```
-round-ball/
+codenaut/
 ├── public/
 │   ├── assets/                   # one SVG file per object
 │   │   ├── ball.svg

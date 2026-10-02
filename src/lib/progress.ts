@@ -18,7 +18,7 @@ const DEFAULT_PROGRESS: Progress = {
   },
 };
 
-const STORAGE_KEY = 'roundball.progress.v1';
+const STORAGE_KEY = 'codenaut.progress.v1';
 
 export function defaultProgress(): Progress {
   return {

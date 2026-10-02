@@ -4,7 +4,7 @@ import I18nProvider from '@/components/I18nProvider';
 import AppHeader from '@/components/AppHeader';
 
 export const metadata: Metadata = {
-  title: 'Round Ball — Learn CSS',
+  title: 'Codenaut — Learn CSS',
   description: 'A CSS practice game for children aged 7-9',
 };
 

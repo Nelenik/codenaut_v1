@@ -3,7 +3,7 @@ doc: scope
 status: approved
 ---
 
-# Round Ball — a CSS practice game for 7–9 year olds
+# Codenaut — a CSS practice game for 7–9 year olds
 
 A web game where a 7–9 year old learns CSS by editing real properties in a code editor and seeing the result immediately.
 
