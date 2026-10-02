@@ -29,6 +29,9 @@
   "level": {
     "check": "Check",
     "back": "Back to Levels",
+    "compareHint": "Move the mouse across the picture to compare with the target",
+    "yours": "yours",
+    "target": "target",
     "success": "Great job!",
     "wrongProperty": "You got the look you wanted — well done! But the property to use here is {{property}}.",
     "wrongLook": "Not quite. {{hint}}",

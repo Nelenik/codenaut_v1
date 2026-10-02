@@ -128,6 +128,9 @@ export default function LevelScreen({ worldId, levelId }: Props) {
             srcDoc={srcDoc}
             referenceSrcDoc={referenceSrcDoc}
             title={t('map.title')}
+            compareHint={t('level.compareHint')}
+            childLabel={t('level.yours')}
+            referenceLabel={t('level.target')}
           />
         </section>
       </div>
