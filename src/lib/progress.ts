@@ -97,6 +97,19 @@ export function recordTaskSuccess(taskId: string, stars: number, attempts: numbe
   saveProgress(progress);
 }
 
+/**
+ * Re-entering a completed level starts a fresh run: the previous star count is
+ * replaced rather than kept as a best. The PRD chose this so the star display
+ * stays honest — a child who wants more stars has to earn them again.
+ * The level stays unlocked; only its own result is cleared.
+ */
+export function resetTaskForReplay(taskId: string): void {
+  const progress = loadProgress();
+  if (!progress.tasks[taskId]?.completed) return;
+  progress.tasks[taskId] = { stars: 0, completed: false, attempts: 0 };
+  saveProgress(progress);
+}
+
 export function unlockLevel(levelKey: string): void {
   const progress = loadProgress();
   if (!progress.unlocked.levels.includes(levelKey)) {

@@ -42,7 +42,9 @@
     "hint1": "Hint: {{hint}}",
     "hint2": "The answer shape is hidden. Click to reveal.",
     "hint3": "Here's the answer: {{solution}}",
-    "reveal": "Reveal",
+    "reveal": "Show me",
+    "useSolution": "Use the ready-made answer",
+    "solutionCosts": "The ready-made answer completes the level, but with 0 stars.",
     "useSolution": "Use this solution",
     "starsAwarded": "You earned {{stars}} stars!",
     "levelComplete": "Level complete!",
@@ -58,7 +60,12 @@
       "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the ball green.",
       "teachTitle": "How to do it",
       "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\". The colour you need here is called green.",
-      "example": "background-color: blue"
+      "example": "background-color: blue",
+      "hints": [
+        "You need to paint the shape, not the text. Remember which property paints the inside of a shape — its name is already written in the editor.",
+        "The colour you need here is called green.",
+        "Ready-made solution: background-color: green"
+      ]
     }
   }
 }

@@ -9,12 +9,13 @@ import { getWorld, nextLevel, worldAfter, levelKey } from '@/lib/worlds';
 import { assemblePlayfield, assembleReference, loadTask, type LoadedTask } from '@/lib/taskLoader';
 import { check, type CheckOutcome } from '@/lib/checker';
 import { starsForAttempts, MAX_STARS } from '@/lib/stars';
-import { recordTaskSuccess, unlockLevel, unlockWorld } from '@/lib/progress';
+import { recordTaskSuccess, resetTaskForReplay, unlockLevel, unlockWorld } from '@/lib/progress';
 import { useProgress } from '@/lib/useProgress';
 import TaskZone from '@/components/TaskZone';
 import CssEditor from '@/components/CssEditor';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
 import CheckButton from '@/components/CheckButton';
+import HintLadder from '@/components/HintLadder';
 import Loading from '@/components/Loading';
 
 type Result = {
@@ -43,6 +44,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
   const [celebrating, setCelebrating] = useState(false);
+  const [showingHints, setShowingHints] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -57,6 +59,9 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         setLoadError(result.error);
         return;
       }
+      // A replay replaces the previous result instead of keeping it as a best.
+      resetTaskForReplay(`${world.id}/${level.file}`);
+
       setTask(result.task);
       setChildCss(
         result.task.config.givesProperty ? `${result.task.config.givesProperty}: ` : ''
@@ -64,6 +69,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       setFailedAttempts(0);
       setResult(null);
       setCelebrating(false);
+      setShowingHints(false);
     });
 
     return () => {
@@ -119,17 +125,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       recordTaskSuccess(taskId, stars, failedAttempts);
       setResult({ kind: 'success', stars });
 
-      const upcoming = nextLevel(worldId, levelId);
-      if (upcoming) {
-        unlockLevel(levelKey(worldId, upcoming.id));
-      } else {
-        const upcomingWorld = worldAfter(worldId);
-        if (upcomingWorld) {
-          unlockWorld(upcomingWorld);
-          unlockLevel(levelKey(upcomingWorld, '01'));
-        }
-      }
-
+      unlockNext();
       setCelebrating(true);
       return;
     }
@@ -144,6 +140,32 @@ export default function LevelScreen({ worldId, levelId }: Props) {
 
     setFailedAttempts((n) => n + 1);
     setResult({ kind: outcome.kind, property: 'property' in outcome ? outcome.property : null });
+    setShowingHints(true);
+  };
+
+  const unlockNext = () => {
+    const upcoming = nextLevel(worldId, levelId);
+    if (upcoming) {
+      unlockLevel(levelKey(worldId, upcoming.id));
+    } else {
+      const upcomingWorld = worldAfter(worldId);
+      if (upcomingWorld) {
+        unlockWorld(upcomingWorld);
+        unlockLevel(levelKey(upcomingWorld, '01'));
+      }
+    }
+  };
+
+  const useSolution = () => {
+    if (!task) return;
+    setChildCss(task.config.solution);
+    // The ready-made solution completes the level with 0 stars. A child stuck
+    // mid-level must always have a way forward.
+    recordTaskSuccess(taskId, 0, 999);
+    setResult({ kind: 'success', stars: 0 });
+    setShowingHints(false);
+    setCelebrating(true);
+    unlockNext();
   };
 
   return (
@@ -227,6 +249,19 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       ) : null}
 
       {result && !celebrating ? <ResultMessage result={result} /> : null}
+
+      {showingHints && !celebrating ? (
+        <HintLadder
+          guidingHint={t(`${taskKey}.hints.0`)}
+          solution={task.config.solution}
+          labels={{
+            reveal: t('level.reveal'),
+            useSolution: t('level.useSolution'),
+            solutionCosts: t('level.solutionCosts'),
+          }}
+          onUseSolution={useSolution}
+        />
+      ) : null}
 
       <TaskZone
         taskText={t(`${taskKey}.text`, { name: progress.playerName })}
