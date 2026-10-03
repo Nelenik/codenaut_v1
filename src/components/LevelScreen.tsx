@@ -16,6 +16,7 @@ import CssEditor from '@/components/CssEditor';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
 import CheckButton from '@/components/CheckButton';
 import HintLadder from '@/components/HintLadder';
+import ResultToast from '@/components/ResultToast';
 import Loading from '@/components/Loading';
 
 type Result = {
@@ -253,11 +254,29 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         </div>
       ) : null}
 
-      {result && !celebrating ? <ResultMessage result={result} /> : null}
+      {result && !celebrating ? (
+        <ResultToast
+          kind={result.kind === 'rightLookWrongProperty' ? 'praise' : result.kind === 'nothingTyped' ? 'empty' : 'hint'}
+          title={
+            result.kind === 'rightLookWrongProperty'
+              ? t('toast.praiseTitle')
+              : result.kind === 'nothingTyped'
+                ? t('toast.hintTitle')
+                : t('toast.hintTitle')
+          }
+          text={
+            result.kind === 'rightLookWrongProperty'
+              ? t('level.wrongProperty', { property: result.expected ?? '' })
+              : result.kind === 'nothingTyped'
+                ? t('level.nothingTyped')
+                : (t(`${taskKey}.hints.0`) || t('level.nothingTyped'))
+          }
+          onDismiss={() => setResult(null)}
+        />
+      ) : null}
 
       {showingHints && !celebrating ? (
         <HintLadder
-          guidingHint={t(`${taskKey}.hints.0`)}
           solution={task.config.solution}
           labels={{
             reveal: t('level.reveal'),
@@ -276,32 +295,5 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         narratorLabel={progress.playerName || t('level.narrator')}
       />
     </main>
-  );
-}
-
-function ResultMessage({ result }: { result: Result }) {
-  const { t } = useTranslation();
-
-  const styles: Record<string, string> = {
-    success: 'bg-lime-400/20 border-lime-400 text-lime-100',
-    rightLookWrongProperty: 'bg-planet-yellow/20 border-planet-yellow text-yellow-50',
-    wrong: 'bg-space-800/80 border-space-600 text-white',
-    nothingTyped: 'bg-space-800/80 border-space-600 text-white',
-  };
-
-  const text: Record<string, string> = {
-    success: t('level.success'),
-    rightLookWrongProperty: t('level.wrongProperty', { property: result.expected ?? '' }),
-    wrong: t('level.wrongLook'),
-    nothingTyped: t('level.nothingTyped'),
-  };
-
-  return (
-    <div
-      role="status"
-      className={`rounded-2xl border-4 p-4 md:p-5 font-display text-xl md:text-2xl font-bold ${styles[result.kind]}`}
-    >
-      {text[result.kind]}
-    </div>
   );
 }

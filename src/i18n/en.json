@@ -5,8 +5,7 @@
       "colors": "Colors",
       "sizes": "Sizes"
     },
-    "bookButton": "Story",
-    "language": "Language"
+    "bookButton": "Story"
   },
   "nameEntry": {
     "title": "What is your name?",
@@ -22,9 +21,6 @@
     "close": "Back to Map"
   },
   "levelList": {
-    "title": "Levels",
-    "stars": "Stars",
-    "locked": "Locked",
     "back": "Back"
   },
   "level": {
@@ -38,17 +34,13 @@
     "next": "Next task",
     "nothingTyped": "Write something in the editor first.",
     "wrongProperty": "You got the look you wanted — well done! But the property to use here is {{property}}.",
-    "wrongLook": "Not quite. {{hint}}",
-    "hint1": "Hint: {{hint}}",
-    "hint2": "The answer shape is hidden. Click to reveal.",
-    "hint3": "Here's the answer: {{solution}}",
     "reveal": "Show me",
     "useSolution": "Use the ready-made answer",
-    "solutionCosts": "The ready-made answer completes the level, but with 0 stars.",
-    "useSolution": "Use this solution",
-    "starsAwarded": "You earned {{stars}} stars!",
-    "levelComplete": "Level complete!",
-    "nextLevel": "Next level"
+    "solutionCosts": "The ready-made answer completes the level, but with 0 stars."
+  },
+  "toast": {
+    "hintTitle": "Here's a hint",
+    "praiseTitle": "Almost!"
   },
   "common": {
     "loading": "Loading...",
@@ -62,9 +54,7 @@
       "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\". The colour you need here is called green.",
       "example": "background-color: blue",
       "hints": [
-        "You need to paint the shape, not the text. Remember which property paints the inside of a shape — its name is already written in the editor.",
-        "The colour you need here is called green.",
-        "Ready-made solution: background-color: green"
+        "You need to paint the shape, not the text. Remember which property paints the inside of a shape — its name is already written in the editor."
       ]
     }
   }
