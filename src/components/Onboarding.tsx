@@ -117,29 +117,39 @@ function Welcome() {
   );
 }
 
-/** Step 2 — the same square, then the same square with CSS applied. */
+/** Step 2 — HTML builds the parts, CSS repaints them. */
 function TwoHelpers() {
   const { t } = useTranslation();
   return (
     <div className="grid grid-cols-2 gap-4 mt-2">
       <div className="rounded-2xl bg-space-900/60 border-2 border-space-600 p-5 flex flex-col items-center gap-3">
-        <span className="font-display font-extrabold text-lg text-space-200">
+        <img src="/assets/builder.svg" alt="" className="w-20 h-24" />
+        <span className="font-display font-extrabold text-lg text-planet-orange">
           {t('onboarding.html')}
         </span>
-        <div className="w-14 h-14 bg-space-600" />
-        <span className="text-sm text-space-300 font-display text-center">
+        <span className="text-sm text-space-100 font-display text-center leading-snug">
           {t('onboarding.htmlHint')}
         </span>
+        <div className="flex gap-1.5" aria-hidden>
+          <span className="w-6 h-6 bg-space-500 rounded" />
+          <span className="w-6 h-6 bg-space-600 rounded" />
+          <span className="w-6 h-6 bg-space-500 rounded" />
+        </div>
       </div>
 
       <div className="rounded-2xl bg-space-900/60 border-2 border-planet-yellow p-5 flex flex-col items-center gap-3">
-        <span className="font-display font-extrabold text-lg text-planet-yellow">
+        <img src="/assets/artist.svg" alt="" className="w-20 h-24" />
+        <span className="font-display font-extrabold text-lg text-planet-magenta">
           {t('onboarding.css')}
         </span>
-        <div className="w-24 h-24 bg-planet-cyan border-4 border-planet-magenta rounded-3xl" />
-        <span className="text-sm text-space-200 font-display text-center">
+        <span className="text-sm text-space-100 font-display text-center leading-snug">
           {t('onboarding.cssHint')}
         </span>
+        <div className="flex gap-1.5" aria-hidden>
+          <span className="w-6 h-6 bg-planet-cyan rounded" />
+          <span className="w-6 h-6 bg-planet-magenta rounded" />
+          <span className="w-6 h-6 bg-planet-lime rounded" />
+        </div>
       </div>
     </div>
   );

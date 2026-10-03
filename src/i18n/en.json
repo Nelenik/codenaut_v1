@@ -17,9 +17,10 @@
   "story": {
     "title": "Codenaut",
     "greeting": "Welcome aboard, {{name}}!",
-    "text": "You are a Codenaut — a navigator of code. Your ship can only land on a planet when that planet's code is in order. Right now the colours have washed out and the sizes are all mixed up.\n\nOn every planet something is broken, and only code can fix it. Open the editor, write a real CSS property, and the planet answers at once. Collect the stars, and the next planet lights up.",
+    "text": "You are a Codenaut — a navigator of code. Your ship can land on a planet only when that planet's code is in order. But the code is broken: colours washed out, sizes mixed up.\n\nEvery planet needs one small command from you. Write it, and the planet answers at once.",
     "close": "Back to Map",
-    "replayOnboarding": "Show me how it works again"
+    "bookHint": "You can go through the welcome again here and refresh how it all works.",
+    "replayOnboarding": "Start the welcome"
   },
   "levelList": {
     "back": "Back"
@@ -45,9 +46,9 @@
     "next": "Next",
     "start": "Start the journey",
     "html": "HTML",
-    "htmlHint": "makes the parts",
+    "htmlHint": "the builder — puts the blocks in place",
     "css": "CSS",
-    "cssHint": "changes how they look",
+    "cssHint": "the artist — repaints them",
     "color": "color",
     "colorHint": "the name of the ability",
     "blueHint": "the value — what we make it",
@@ -55,10 +56,11 @@
     "semicolonHint": "means the command is finished",
     "moreWorlds": "and more",
     "step2": {
-      "title": "Two helpers build the web",
+      "title": "Two helpers",
       "body": [
-        "HTML and CSS work together.",
-        "HTML makes the parts. CSS changes how they look."
+        "You have two helpers. Their names are HTML and CSS.",
+        "HTML is the builder: it puts the blocks in place.",
+        "CSS is the artist: it repaints them."
       ]
     },
     "step3": {
