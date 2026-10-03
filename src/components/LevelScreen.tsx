@@ -15,7 +15,6 @@ import TaskZone from '@/components/TaskZone';
 import CssEditor from '@/components/CssEditor';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
 import CheckButton from '@/components/CheckButton';
-import HintLadder from '@/components/HintLadder';
 import ResultToast from '@/components/ResultToast';
 import Loading from '@/components/Loading';
 
@@ -45,7 +44,6 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
   const [celebrating, setCelebrating] = useState(false);
-  const [showingHints, setShowingHints] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -67,7 +65,6 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       setFailedAttempts(0);
       setResult(null);
       setCelebrating(false);
-      setShowingHints(false);
     });
 
     return () => {
@@ -146,7 +143,6 @@ export default function LevelScreen({ worldId, levelId }: Props) {
 
     setFailedAttempts((n) => n + 1);
     setResult({ kind: outcome.kind, property: 'property' in outcome ? outcome.property : null });
-    setShowingHints(true);
   };
 
   const unlockNext = () => {
@@ -169,7 +165,6 @@ export default function LevelScreen({ worldId, levelId }: Props) {
     // mid-level must always have a way forward.
     recordTaskSuccess(taskId, 0, 999);
     setResult({ kind: 'success', stars: 0 });
-    setShowingHints(false);
     setCelebrating(true);
     unlockNext();
   };
@@ -256,34 +251,31 @@ export default function LevelScreen({ worldId, levelId }: Props) {
 
       {result && !celebrating ? (
         <ResultToast
-          kind={result.kind === 'rightLookWrongProperty' ? 'praise' : result.kind === 'nothingTyped' ? 'empty' : 'hint'}
-          title={
+          kind={
             result.kind === 'rightLookWrongProperty'
-              ? t('toast.praiseTitle')
+              ? 'praise'
               : result.kind === 'nothingTyped'
-                ? t('toast.hintTitle')
-                : t('toast.hintTitle')
+                ? 'empty'
+                : 'hint'
+          }
+          title={
+            result.kind === 'rightLookWrongProperty' ? t('toast.praiseTitle') : t('toast.hintTitle')
           }
           text={
             result.kind === 'rightLookWrongProperty'
               ? t('level.wrongProperty', { property: result.expected ?? '' })
               : result.kind === 'nothingTyped'
                 ? t('level.nothingTyped')
-                : (t(`${taskKey}.hints.0`) || t('level.nothingTyped'))
+                : t(`${taskKey}.hints.0`)
           }
-          onDismiss={() => setResult(null)}
-        />
-      ) : null}
-
-      {showingHints && !celebrating ? (
-        <HintLadder
-          solution={task.config.solution}
+          solution={result.kind === 'nothingTyped' ? undefined : task.config.solution}
           labels={{
             reveal: t('level.reveal'),
             useSolution: t('level.useSolution'),
             solutionCosts: t('level.solutionCosts'),
           }}
           onUseSolution={useSolution}
+          onDismiss={() => setResult(null)}
         />
       ) : null}
 
