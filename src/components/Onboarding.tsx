@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { markOnboardingDone } from '@/lib/progress';
+import { useProgress } from '@/lib/useProgress';
 
 const TOTAL_STEPS = 4;
 
@@ -70,6 +71,9 @@ export default function Onboarding({ onFinish }: Props) {
 
 function Step({ step }: { step: number }) {
   const { t } = useTranslation();
+
+  if (step === 0) return <Welcome />;
+
   const key = `onboarding.step${step + 1}` as const;
 
   return (
@@ -87,6 +91,28 @@ function Step({ step }: { step: number }) {
       {step === 1 ? <TwoHelpers /> : null}
       {step === 2 ? <CommandExample /> : null}
       {step === 3 ? <PlanetRow /> : null}
+    </div>
+  );
+}
+
+/**
+ * The opening screen is the story text itself — the same string the book shows.
+ * Writing it once means the greeting a child reads on their first minute cannot
+ * drift away from the story they are told later.
+ */
+function Welcome() {
+  const { t } = useTranslation();
+  const { progress } = useProgress();
+
+  return (
+    <div className="flex flex-col gap-5">
+      <h1 className="font-display text-3xl md:text-4xl font-extrabold text-planet-yellow text-balance">
+        {t('story.greeting', { name: progress.playerName })}
+      </h1>
+
+      <div className="text-lg md:text-xl leading-relaxed text-space-100 whitespace-pre-line">
+        {t('story.text')}
+      </div>
     </div>
   );
 }

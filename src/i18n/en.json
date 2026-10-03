@@ -54,14 +54,6 @@
     "colonHint": "separates the name and the value",
     "semicolonHint": "means the command is finished",
     "moreWorlds": "and more",
-    "step1": {
-      "title": "Welcome to Codenaut!",
-      "body": [
-        "In front of you is a whole universe of code.",
-        "Every planet will teach you a new ability.",
-        "But first, one secret: how is a web page even made?"
-      ]
-    },
     "step2": {
       "title": "Two helpers build the web",
       "body": [
