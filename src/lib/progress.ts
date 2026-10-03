@@ -98,10 +98,11 @@ export function recordTaskSuccess(taskId: string, stars: number, attempts: numbe
 }
 
 /**
- * Re-entering a completed level starts a fresh run: the previous star count is
- * replaced rather than kept as a best. The PRD chose this so the star display
- * stays honest — a child who wants more stars has to earn them again.
- * The level stays unlocked; only its own result is cleared.
+ * Drops a completed level's star count when the child actually starts a replay.
+ * Called only once they have written something and pressed Check: opening a
+ * level, or pressing Check with nothing written, leaves the earlier result
+ * intact. The PRD wants replay to replace the old score rather than bank it, so
+ * the stars stay honest — but a score must not disappear just for being looked at.
  */
 export function resetTaskForReplay(taskId: string): void {
   const progress = loadProgress();

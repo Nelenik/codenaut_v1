@@ -66,7 +66,7 @@ A language switch (EN/RU) sits in a corner and is present on every screen. A che
 
 - Five levels per world, each showing a number and 0–3 stars.
 - The next available level is highlighted; the rest are locked with a padlock.
-- Completed levels can be re-entered to improve stars. Re-entering a completed level **resets the previous run's star count** — the new run replaces it.
+- Completed levels can be re-entered to improve stars. A replay **replaces** the previous run's star count rather than keeping the best — but the replacement happens when the child writes something and presses **Check**, not when they merely open the level. Opening a completed level, or pressing Check with nothing written, leaves the previous result untouched, so a score never disappears just for being looked at.
 
 ### The editor
 
@@ -154,7 +154,7 @@ Colors covers text color, background, and border, learned in that order and then
 - **Errors lower stars instead of blocking.** A level with 0 stars still counts as completed. Reason: a 7-year-old who can't get 3 stars should still be able to move forward.
 - **Getting the right look with the wrong property is free but doesn't complete the task.** No attempt is spent, and the child stays in the task. Reason: the result is genuinely worth praising, and charging for it would punish an attempt that shows real understanding — but accepting it as success would teach that any visual trick counts, which is exactly what the game is trying to prevent.
 - **After a success the child chooses what happens next.** Two buttons: on to the next task, or back to the level list. Reason: the child who finished the last task of a world has no next task to go to, so a single "next" button would be a lie on exactly the moment the game most wants to reward. Two buttons also let a child stop and admire the stars, or go back and look at what they have already unlocked.
-- **Replay replaces the previous result rather than keeping the best.** Reason: keeps the star display honest and simple; the child's instinct is to want more, not to bank an old score.
+- **Replay replaces the previous result rather than keeping the best.** Reason: keeps the star display honest and simple; the child's instinct is to want more, not to bank an old score. Timing matters more than the rule itself — see `prd.md > Level list`.
 - **The world is a map of planets with a rocket trail.** Reason: something worth clicking for a 7-year-old, and the trail makes progress legible without words.
 - **Bright colors, large playful but legible type.** Reason: the audience reads at 7 and the map has to compete with attention, not instruct it.
 - **A story, reachable from the map.** Reason: gives the world a reason to exist without putting text in front of the child at every step.

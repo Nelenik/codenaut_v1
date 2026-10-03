@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
 import { getWorld, nextLevel, worldAfter, levelKey } from '@/lib/worlds';
 import { assemblePlayfield, assembleReference, loadTask, type LoadedTask } from '@/lib/taskLoader';
-import { check, type CheckOutcome } from '@/lib/checker';
+import { check, parseDeclarations, type CheckOutcome } from '@/lib/checker';
 import { starsForAttempts, MAX_STARS } from '@/lib/stars';
 import { recordTaskSuccess, resetTaskForReplay, unlockLevel, unlockWorld } from '@/lib/progress';
 import { useProgress } from '@/lib/useProgress';
@@ -59,9 +59,6 @@ export default function LevelScreen({ worldId, levelId }: Props) {
         setLoadError(result.error);
         return;
       }
-      // A replay replaces the previous result instead of keeping it as a best.
-      resetTaskForReplay(`${world.id}/${level.file}`);
-
       setTask(result.task);
       setChildCss(
         result.task.config.givesProperty ? `${result.task.config.givesProperty}: ` : ''
@@ -119,6 +116,14 @@ export default function LevelScreen({ worldId, levelId }: Props) {
 
   const runCheck = () => {
     const outcome = check(iframeRef.current, childCss, task.config);
+
+    // The previous run's stars are dropped the moment the child actually tries
+    // a replay: they wrote something and asked for it to be checked. Merely
+    // opening a completed level, or pressing Check with nothing written, leaves
+    // the earlier result alone — a score should not evaporate for looking at it.
+    if (parseDeclarations(childCss).length > 0) {
+      resetTaskForReplay(taskId);
+    }
 
     if (outcome.kind === 'success') {
       const stars = starsForAttempts(failedAttempts);
