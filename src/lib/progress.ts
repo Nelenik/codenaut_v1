@@ -1,6 +1,7 @@
 export type Progress = {
   lang: 'en' | 'ru';
   playerName: string;
+  onboardingDone: boolean;
   tasks: Record<string, { stars: number; completed: boolean; attempts: number }>;
   unlocked: {
     worlds: string[];
@@ -11,6 +12,7 @@ export type Progress = {
 const DEFAULT_PROGRESS: Progress = {
   lang: 'en',
   playerName: '',
+  onboardingDone: false,
   tasks: {},
   unlocked: {
     worlds: ['colors'],
@@ -24,9 +26,16 @@ export function defaultProgress(): Progress {
   return {
     lang: DEFAULT_PROGRESS.lang,
     playerName: '',
+    onboardingDone: false,
     tasks: {},
     unlocked: { worlds: [...DEFAULT_PROGRESS.unlocked.worlds], levels: [...DEFAULT_PROGRESS.unlocked.levels] },
   };
+}
+
+export function markOnboardingDone(): void {
+  const progress = loadProgress();
+  progress.onboardingDone = true;
+  saveProgress(progress);
 }
 
 export function setPlayerName(name: string): void {

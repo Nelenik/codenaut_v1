@@ -1,17 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { defaultProgress, loadProgress, type Progress } from '@/lib/progress';
+import { useProgress } from '@/lib/useProgress';
 
 export default function StoryPage() {
   const { t } = useTranslation();
-  const [progress, setProgress] = useState<Progress>(defaultProgress);
+  const { progress, ready } = useProgress();
 
-  useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
+  if (!ready) return null;
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-6 pt-24">
@@ -24,15 +21,26 @@ export default function StoryPage() {
             {t('story.greeting', { name: progress.playerName })}
           </p>
         ) : null}
-        <p className="text-lg md:text-xl leading-relaxed text-space-100 mb-8">
-          {t('story.text', { name: progress.playerName })}
+
+        <p className="text-lg md:text-xl leading-relaxed text-space-100 mb-6 whitespace-pre-line">
+          {t('story.text')}
         </p>
+
         <Link
-          href="/"
-          className="inline-block px-8 py-3 rounded-full bg-planet-yellow text-space-900 font-display font-extrabold text-lg hover:bg-yellow-300 transition-colors"
+          href="/welcome"
+          className="inline-block mb-8 px-6 py-3 rounded-full bg-space-700 text-white font-display font-extrabold text-lg hover:bg-space-600 transition-colors"
         >
-          {t('story.close')}
+          {t('story.replayOnboarding')}
         </Link>
+
+        <div>
+          <Link
+            href="/"
+            className="inline-block px-8 py-3 rounded-full bg-planet-yellow text-space-900 font-display font-extrabold text-lg hover:bg-yellow-300 transition-colors"
+          >
+            {t('story.close')}
+          </Link>
+        </div>
       </article>
     </main>
   );

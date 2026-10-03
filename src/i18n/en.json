@@ -18,7 +18,8 @@
     "title": "Codenaut",
     "greeting": "Welcome aboard, {{name}}!",
     "text": "You are a Codenaut — a navigator of code. Your ship can only land on a planet when that planet's code is in order. Right now the colours have washed out and the sizes are all mixed up.\n\nOn every planet something is broken, and only code can fix it. Open the editor, write a real CSS property, and the planet answers at once. Collect the stars, and the next planet lights up.",
-    "close": "Back to Map"
+    "close": "Back to Map",
+    "replayOnboarding": "Show me how it works again"
   },
   "levelList": {
     "back": "Back"
@@ -37,6 +38,52 @@
     "reveal": "Show me",
     "useSolution": "Use the ready-made answer",
     "solutionCosts": "The ready-made answer completes the level, but with 0 stars."
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "back": "Back",
+    "next": "Next",
+    "start": "Start the journey",
+    "html": "HTML",
+    "htmlHint": "makes the parts",
+    "css": "CSS",
+    "cssHint": "changes how they look",
+    "color": "color",
+    "colorHint": "the name of the ability",
+    "blueHint": "the value — what we make it",
+    "colonHint": "separates the name and the value",
+    "semicolonHint": "means the command is finished",
+    "moreWorlds": "and more",
+    "step1": {
+      "title": "Welcome to Codenaut!",
+      "body": [
+        "In front of you is a whole universe of code.",
+        "Every planet will teach you a new ability.",
+        "But first, one secret: how is a web page even made?"
+      ]
+    },
+    "step2": {
+      "title": "Two helpers build the web",
+      "body": [
+        "HTML and CSS work together.",
+        "HTML makes the parts. CSS changes how they look."
+      ]
+    },
+    "step3": {
+      "title": "CSS can change anything",
+      "body": [
+        "CSS has many abilities: colour, size, background, borders.",
+        "To use one, you give CSS a command."
+      ]
+    },
+    "step4": {
+      "title": "Ready to explore?",
+      "body": [
+        "Every planet waits with a new CSS ability.",
+        "First you learn colour, then size, background and borders.",
+        "Your first planet is waiting now!"
+      ]
+    }
   },
   "toast": {
     "hintTitle": "Here's a hint",
