@@ -1,0 +1,24 @@
+{
+  "id": "sizes/05-size-combo",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "width",
+      "mode": "px",
+      "value": 140
+    },
+    {
+      "property": "height",
+      "mode": "px",
+      "value": 140
+    },
+    {
+      "property": "border-radius",
+      "mode": "px",
+      "value": 70
+    }
+  ],
+  "givesProperty": null,
+  "basket": [],
+  "solution": "width: 140px;\nheight: 140px;\nborder-radius: 70px"
+}

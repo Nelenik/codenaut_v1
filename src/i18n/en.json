@@ -25,20 +25,23 @@
   "levelList": {
     "back": "Back"
   },
-  "level": {
+"level": {
     "check": "Check",
     "back": "Back to Levels",
     "compareHint": "Move the mouse across the picture to compare with the target",
     "narrator": "your helper",
     "yours": "yours",
     "target": "target",
-    "success": "Great job! The ball is green.",
     "next": "Next task",
     "nothingTyped": "Write something in the editor first.",
     "wrongProperty": "You got the look you wanted — well done! But the property to use here is {{property}}.",
     "reveal": "Show me",
     "useSolution": "Use the ready-made answer",
     "solutionCosts": "The ready-made answer completes the level, but with 0 stars."
+  },
+  "basket": {
+    "label": "Drag the right property into the editor",
+    "hint": "Drag a name across and drop it in the editor below."
   },
   "onboarding": {
     "skip": "Skip",
@@ -96,7 +99,98 @@
       "example": "background-color: blue",
       "hints": [
         "You need to paint the shape, not the text. Remember which property paints the inside of a shape — its name is already written in the editor."
-      ]
+      ],
+      "success": "Great job! The ball is green."
+    },
+    "colors/02-color-too-dark": {
+      "text": "{{name}} found an old sign on the Colors planet. The letters are almost black, so you can hardly read them. Make the letters white.",
+      "teachTitle": "How to do it",
+      "teachBody": "color paints the letters. Its name is already written in the editor. After the colon write the colour the letters need — here they have to be white.",
+      "example": "color: black",
+      "hints": [
+        "The letters are too dark to read. They need to be light instead — the colour for that is called white."
+      ],
+      "success": "Great job! Now the sign can be read."
+    },
+    "colors/03-pick-background": {
+      "text": "{{name}} landed at night, but the sky is still grey and bright. Make the sky dark blue.",
+      "teachTitle": "How to do it",
+      "teachBody": "The sky is a shape too — a very big one. Drag the name of the property that paints the inside of a shape into the editor, then write the colour. Night blue is called darkblue.",
+      "example": "color: darkblue",
+      "hints": [
+        "The sky is a shape, and you need the property that paints the inside of a shape. Its name is in the basket."
+      ],
+      "success": "Great job! It is night on this planet."
+    },
+    "colors/04-pick-border": {
+      "text": "{{name}} found the school sign, but its frame is dark grey and easy to miss. Make the frame yellow.",
+      "teachTitle": "How to do it",
+      "teachBody": "The frame around a shape is called its border. There is a property that paints only the border. Drag its name from the basket into the editor, then write yellow after the colon.",
+      "example": "background-color: yellow",
+      "hints": [
+        "You are not painting the inside this time, and not the letters — the frame around the sign. The property with border in its name does that."
+      ],
+      "success": "Great job! That sign is impossible to miss now."
+    },
+    "colors/05-color-combo": {
+      "text": "{{name}} wants a real Codenaut badge: the inside blue, the frame yellow, the letters white. Three commands!",
+      "teachTitle": "How to do it",
+      "teachBody": "You already know all three. One command paints the inside, one paints the frame, one paints the letters. Write each on its own line, and end every command with a semicolon.",
+      "example": "background-color: green;\nborder-color: green;\ncolor: green;",
+      "hints": [
+        "Check the badge part by part: the inside, the frame, the letters. Two of them may already be right — look at the third."
+      ],
+      "success": "Great job! That is a real Codenaut badge."
+    },
+    "sizes/01-how-wide": {
+      "text": "{{name}} found a door on the Sizes planet, but it is too narrow to walk through. Make the door 160 pixels wide.",
+      "teachTitle": "How to do it",
+      "teachBody": "width says how wide a shape is. Its name is already written in the editor. After the colon write the width in pixels: a number, then px.",
+      "example": "width: 100px",
+      "hints": [
+        "You want the door to be wide, not tall. Write the number you want and add px after it."
+      ],
+      "success": "Great job! The door is wide enough now."
+    },
+    "sizes/02-how-tall": {
+      "text": "{{name}} found a rocket, but it is squashed and almost flat. Make the rocket 180 pixels tall.",
+      "teachTitle": "How to do it",
+      "teachBody": "height says how tall a shape is. Its name is already written in the editor. Heights are written in pixels too: a number, then px.",
+      "example": "height: 90px",
+      "hints": [
+        "The rocket has to be tall, not wide. You want the command whose name means height."
+      ],
+      "success": "Great job! That rocket is ready to fly."
+    },
+    "sizes/03-pick-height": {
+      "text": "{{name}} is at the base of the Sizes planet, but the window is squashed. Make the window 160 pixels tall.",
+      "teachTitle": "How to do it",
+      "teachBody": "One name in the basket is the command for width and one is the command for height. Drag the one you need into the editor, then write 160px after the colon.",
+      "example": "width: 160px",
+      "hints": [
+        "Read the task: the window has to be tall, not wide. Pick the name that means tall."
+      ],
+      "success": "Great job! You can see out of that window."
+    },
+    "sizes/04-make-round": {
+      "text": "{{name}} found a planet that is square. Real planets are round. Round its corners by 60 pixels to make it a circle.",
+      "teachTitle": "How to do it",
+      "teachBody": "border-radius says how much the corners of a shape are rounded. This planet is 120 pixels wide and 120 pixels tall, so 60 pixels rounds it all the way into a circle. The name is in the basket — drag it in.",
+      "example": "width: 60px",
+      "hints": [
+        "The corners need rounding, not a new size. One of the names in the basket is the one about rounding."
+      ],
+      "success": "Great job! That is a round planet."
+    },
+    "sizes/05-size-combo": {
+      "text": "{{name}} wants a round portal: 140 pixels wide, 140 pixels tall, and rounded into a circle. Three commands at once!",
+      "teachTitle": "How to do it",
+      "teachBody": "You know width and height from the first tasks, and the rounding from the planet. Three commands, one per line, each ending with a semicolon. A circle needs the same width and height.",
+      "example": "width: 100px;\nheight: 100px;\nborder-radius: 50px;",
+      "hints": [
+        "Take it part by part: first the width, then the height, then the rounding. Half of the width is how much a circle needs."
+      ],
+      "success": "Great job! The portal is open."
     }
   }
 }

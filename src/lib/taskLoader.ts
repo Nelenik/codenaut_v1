@@ -9,12 +9,16 @@ export type TaskExpect = {
 export type TaskConfig = {
   id: string;
   selector: string;
-  expect: TaskExpect;
+  /**
+   * Every entry must hold for the task to pass. A single-property task has one
+   * entry; a combination task lists every property the scene needs, which is why
+   * this is a list and not a single object.
+   */
+  expects: TaskExpect[];
   givesProperty: string | null;
   givesValue: boolean;
   basket: string[];
   solution: string;
-  hints: string[];
 };
 
 export type LoadedTask = {
@@ -27,12 +31,13 @@ export type TaskLoadOk = { ok: true; task: LoadedTask };
 export type TaskLoadResult = TaskLoadOk | TaskLoadError;
 
 /**
- * A task html file must contain exactly one `<!--CHILD_CSS-->` marker.
- * The child's CSS is injected there, so it lands after the base styles and
- * can override them. Nothing is concatenated blindly, so a file without the
- * marker is an authoring mistake we can report instead of a blank playfield.
+ * A task html file must contain exactly one CSS comment marker, `CHILD_CSS`,
+ * inside its `<style>` block. The child's CSS is injected where the marker is,
+ * so it lands after the base styles and can override them. Nothing is
+ * concatenated blindly, so a file without the marker is an authoring mistake we
+ * can report instead of a blank playfield.
  */
-export const CHILD_CSS_MARKER = '<!--CHILD_CSS-->';
+export const CHILD_CSS_MARKER = '/* CHILD_CSS */';
 
 /**
  * The child types declarations, not full rules — `color: lime`, not

@@ -1,0 +1,21 @@
+{
+  "id": "sizes/04-make-round",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "border-radius",
+      "mode": "px",
+      "value": 60
+    }
+  ],
+  "givesProperty": null,
+  "basket": [
+    "width",
+    "height",
+    "border-radius",
+    "background-color",
+    "border-color",
+    "font-size"
+  ],
+  "solution": "border-radius: 60px"
+}

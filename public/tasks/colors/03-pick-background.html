@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Preview</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      font-family: system-ui, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* The sky is the thing being painted here, so it fills the whole scene. */
+    #target {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 90px;
+      background-color: #cfd8e3;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      background: #7ac74f;
+    }
+
+    .hero {
+      position: absolute;
+      left: 24px;
+      bottom: 70px;
+      width: 90px;
+      height: 135px;
+    }
+
+    .tree {
+      position: absolute;
+      right: 40px;
+      bottom: 80px;
+      width: 96px;
+      height: 120px;
+    }
+
+    /* The child's CSS is injected here, after the base styles. */
+    /* CHILD_CSS */
+  </style>
+</head>
+
+<body>
+  <div class="scene">
+    <div id="target"></div>
+    <div class="ground"></div>
+    <img class="hero" src="/assets/kid.svg" alt="">
+    <img class="tree" src="/assets/tree.svg" alt="">
+  </div>
+</body>
+
+</html>

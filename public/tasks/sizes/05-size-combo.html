@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Preview</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, #ffe9c2 0%, #ffbf7a 100%);
+      font-family: system-ui, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      background: #c98a4b;
+    }
+
+    .hero {
+      position: absolute;
+      left: 24px;
+      bottom: 70px;
+      width: 90px;
+      height: 135px;
+    }
+
+    /* All three commands land on the same element, and all three numbers have
+       to agree: a circle is 140 wide, 140 tall, and rounded by 70. */
+    #target {
+      width: 100px;
+      height: 100px;
+      flex: none;
+      border-radius: 0;
+      background: #b2ff00;
+      box-shadow: inset -12px -12px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    /* The child's CSS is injected here, after the base styles. */
+    /* CHILD_CSS */
+  </style>
+</head>
+
+<body>
+  <div class="scene">
+    <div class="ground"></div>
+    <img class="hero" src="/assets/kid.svg" alt="">
+    <div id="target"></div>
+  </div>
+</body>
+
+</html>

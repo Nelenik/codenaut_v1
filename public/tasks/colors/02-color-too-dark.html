@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Preview</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, #bfe9ff 0%, #7fd0f5 100%);
+      font-family: system-ui, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      background: #7ac74f;
+    }
+
+    /* The hero stands beside the scene, outside #target, so a task's selector
+     never targets him. */
+    .hero {
+      position: absolute;
+      left: 24px;
+      bottom: 70px;
+      width: 90px;
+      height: 135px;
+    }
+
+    .sign {
+      position: relative;
+      margin-bottom: 30px;
+      padding: 14px 26px;
+      border-radius: 10px;
+      background: #2b2b3a;
+      box-shadow: inset 0 0 0 6px #4a4a5e;
+    }
+
+    /* The letters are almost the same dark as the board — that is the problem
+       this task is about. */
+    #target {
+      font-family: "Trebuchet MS", system-ui, sans-serif;
+      font-size: 34px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #191922;
+    }
+
+    /* The child's CSS is injected here, after the base styles. */
+    /* CHILD_CSS */
+  </style>
+</head>
+
+<body>
+  <div class="scene">
+    <div class="ground"></div>
+    <img class="hero" src="/assets/kid.svg" alt="">
+    <div class="sign">
+      <div id="target">MOON BASE</div>
+    </div>
+  </div>
+</body>
+
+</html>

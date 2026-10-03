@@ -1,0 +1,21 @@
+{
+  "id": "colors/03-pick-background",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "background-color",
+      "mode": "rgb",
+      "value": [0, 0, 139]
+    }
+  ],
+  "givesProperty": null,
+  "basket": [
+    "color",
+    "background-color",
+    "border-color",
+    "width",
+    "height",
+    "font-size"
+  ],
+  "solution": "background-color: darkblue"
+}

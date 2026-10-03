@@ -33,6 +33,7 @@ type Props = {
  */
 export default function CssEditor({ value, onChange, highlight = true }: Props) {
   const viewRef = useRef<EditorView | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!viewRef.current) return;
@@ -43,8 +44,59 @@ export default function CssEditor({ value, onChange, highlight = true }: Props) 
     });
   }, [value]);
 
+  /**
+   * A property dragged in from the basket lands as `property: ` at the spot the
+   * child dropped it on, with a line break when it follows something else, so
+   * the second property never gets typed onto the end of the first.
+   *
+   * CodeMirror 6 registers no `dragover` handler of its own, so without
+   * `preventDefault` the browser never allows a drop here at all. It does
+   * handle `drop` on the content element, which is why this listener is
+   * registered in the capture phase and stops propagation: the drop has to be
+   * handled exactly once, and the insert shape is decided here.
+   */
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+
+    const onDragOver = (event: DragEvent) => {
+      if (!event.dataTransfer) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    };
+
+    const onDrop = (event: DragEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const view = viewRef.current;
+      const property = event.dataTransfer?.getData('text/plain')?.trim() ?? '';
+      if (!view || !property) return;
+
+      const at = view.posAtCoords({ x: event.clientX, y: event.clientY }) ?? view.state.doc.length;
+      const insert =
+        at > 0 && view.state.doc.sliceString(at - 1, at) !== '\n' ? `\n${property}: ` : `${property}: `;
+
+      view.dispatch({
+        changes: { from: at, insert },
+        selection: { anchor: at + insert.length },
+      });
+      view.focus();
+    };
+
+    el.addEventListener('dragover', onDragOver);
+    el.addEventListener('drop', onDrop, true);
+    return () => {
+      el.removeEventListener('dragover', onDragOver);
+      el.removeEventListener('drop', onDrop, true);
+    };
+  }, []);
+
   return (
-    <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border-4 border-space-600 bg-space-900 min-h-65">
+    <div
+      ref={wrapRef}
+      className="flex-1 flex flex-col rounded-2xl overflow-hidden border-4 border-space-600 bg-space-900 min-h-65"
+    >
       <CodeMirror
         value={value}
         height="100%"

@@ -1,0 +1,21 @@
+{
+  "id": "colors/04-pick-border",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "border-color",
+      "mode": "rgb",
+      "value": [255, 255, 0]
+    }
+  ],
+  "givesProperty": null,
+  "basket": [
+    "background-color",
+    "border-color",
+    "color",
+    "border-radius",
+    "width",
+    "font-size"
+  ],
+  "solution": "border-color: yellow"
+}

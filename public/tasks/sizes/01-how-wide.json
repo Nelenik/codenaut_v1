@@ -1,0 +1,14 @@
+{
+  "id": "sizes/01-how-wide",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "width",
+      "mode": "px",
+      "value": 160
+    }
+  ],
+  "givesProperty": "width",
+  "basket": [],
+  "solution": "width: 160px"
+}

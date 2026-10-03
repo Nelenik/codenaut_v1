@@ -134,8 +134,8 @@ The right zone (`prd.md > Live preview and reference`). An `<iframe srcdoc>` fed
 ### CheckButton
 Runs the check. Triggers the three outcomes in `prd.md > Check and result` and the star table in `prd.md > Stars`.
 
-### HintLadder
-The staged hints (`prd.md > Hints, in stages`): guiding words → blurred answer → ready-made solution. Its steps are authored per task in the task config, not generated. The ready-made solution sets stars to 0 and marks the level completed.
+### ResultToast
+The staged hints (`prd.md > Hints, in stages`): guiding words → blurred answer → ready-made solution, all in one non-blocking toast. The words are authored per task in the dictionaries, not generated; the two mechanisms (reveal, ready-made answer) come from the task's `solution`. The ready-made solution sets stars to 0 and marks the level completed.
 
 ### ProgressStore
 Reads and writes `localStorage` (`prd.md > Progress`). The only persistence. Exposed through a small module, not a library.
@@ -152,31 +152,32 @@ Three separate kinds of data, deliberately not mixed.
 
 **1. Task content — files on disk, read-only at runtime.**
 ```
-public/tasks/colors/01-what-color.html     the playfield: markup + untouchable CSS
-public/tasks/colors/01-what-color.json     the check + the translations
+public/tasks/colors/01-ball-color.html     the playfield: markup + untouchable CSS
+public/tasks/colors/01-ball-color.json     the check + which part is given
 ```
 `task.json`:
 ```json
 {
-  "id": "colors/01-what-color",
+  "id": "colors/01-ball-color",
   "selector": "#target",
-  "expect": { "property": "color", "mode": "rgb", "value": [0, 255, 0] },
-  "givesProperty": null,
-  "givesValue": true,
-  "basket": ["color", "background-color", "border-color", "font-size", "width"],
-  "solution": "color: #00ff00",
-  "hints": ["hint-step-one", "hint-step-two"]
+  "expects": [
+    { "property": "background-color", "mode": "rgb", "value": [0, 128, 0] }
+  ],
+  "givesProperty": "background-color",
+  "givesValue": false,
+  "basket": [],
+  "solution": "background-color: green"
 }
 ```
-- `selector` — the element the child's CSS is applied to. **Required.** The child types declarations (`color: lime`), and a bare declaration outside a rule is invalid CSS that the browser drops silently, so declarations are wrapped in this selector by `wrapDeclarations()`. Anything the child writes that already contains a `{` is passed through untouched, so full-rule answers keep working.
-- `expect` — the check, from `prd.md > Open Issues Raised in 4-spec`. `property` is checked against what the child applied.
-- `expect.mode` — **how** the value is compared, because colors and lengths don't compare the same way:
+- `selector` — the element the child's CSS is applied to. **Required.** The child types declarations (`background-color: green`), and a bare declaration outside a rule is invalid CSS that the browser drops silently, so declarations are wrapped in this selector by `wrapDeclarations()`. Anything the child writes that already contains a `{` is passed through untouched, so full-rule answers keep working.
+- `expects` — **a list, and every entry must hold.** A single-property task has one entry; a combination task (`prd.md > Task progression within a world`, task 5) lists every property the scene needs, and the task passes only when the child's CSS satisfies all of them. The list exists because one property per task could not hold a combination task; `check()` already iterated over every declaration the child wrote, so only the config shape changed.
+- `expects[].property` is compared against the property the child actually applied, and `expects[].value` against what that property computed to.
+- `expects[].mode` — **how** the value is compared, because colors and lengths don't compare the same way:
   - `"px"` — a length or number. Compare against `getComputedStyle(el)[prop]` as a number, with a small tolerance. This is what makes `1.25em` and `20px` both pass.
   - `"rgb"` — a color. Browsers return colors as a normalized `rgb(r, g, b)` string, so compare the three numbers, allowing a tolerance (children typing `#0f0` vs `#00ff00` must not differ by more than rounding). This is what makes `#0f0`, `lime`, and `rgb(0,255,0)` all pass.
-- `givesProperty` / `givesValue` — which part of the task is given, encoding the three stages of `prd.md > Task progression within a world`.
-- `basket` — the jumbled property names shown in `PropertyBasket`.
-- `solution` — the ready-made answer, used by the third hint step.
-- `hints` — keys into the i18n dictionaries, one per hint stage. The child-facing text is **not** in this file; only keys are.
+- `givesProperty` / `givesValue` — which part of the task is given, encoding the three stages of `prd.md > Task progression within a world`. `givesProperty` pre-fills the editor with `property: `; `basket` is the list of jumbled names the child drags from when nothing is given.
+- `solution` — the ready-made answer: the shape of every expected declaration in one string, used by the third hint step and by the reference target.
+- **Hint text is not in this file.** It lives in the dictionaries under `tasks.<id>.hints`, so the EN and RU wording stay together with every other child-facing string, and CSS stays out of the task files.
 
 **2. Progress — `localStorage`, one key, `codenaut.progress.v1`.**
 ```json
@@ -184,7 +185,7 @@ public/tasks/colors/01-what-color.json     the check + the translations
   "lang": "en",
   "playerName": "",
   "tasks": {
-    "colors/01-what-color": { "stars": 3, "completed": true, "attempts": 1 }
+    "colors/01-ball-color": { "stars": 3, "completed": true, "attempts": 1 }
   },
   "unlocked": { "worlds": ["colors"], "levels": ["colors/01"] }
 }
@@ -211,13 +212,19 @@ codenaut/
 │   │   └── planets/
 │   └── tasks/                     # every playfield, a real editable HTML file
 │       ├── colors/
-│       │   ├── 01-what-color.html
-│       │   ├── 01-what-color.json
-│       │   └── ...                # 5 tasks
+│       │   ├── 01-ball-color.html     # background-color, property given
+│       │   ├── 01-ball-color.json
+│       │   ├── 02-color-too-dark.html # color, property given
+│       │   ├── 03-pick-background.html # background-color, from the basket
+│       │   ├── 04-pick-border.html     # border-color, from the basket
+│       │   └── 05-color-combo.html    # all three at once
 │       └── sizes/
-│           ├── 01-how-tall.html
-│           ├── 01-how-tall.json
-│           └── ...                # 5 tasks
+│           ├── 01-how-wide.html       # width, property given
+│           ├── 02-how-tall.html       # height, property given
+│           ├── 03-pick-height.html    # height, from the basket
+│           ├── 04-make-round.html     # border-radius, from the basket
+│           └── 05-size-combo.html     # all three at once
+│           # each with its .json beside it; the slugs are the list in src/lib/worlds.ts
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx             # language switch lives here — every screen

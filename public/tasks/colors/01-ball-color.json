@@ -1,22 +1,14 @@
 {
   "id": "colors/01-ball-color",
   "selector": "#target",
-  "expect": {
-    "property": "background-color",
-    "mode": "rgb",
-    "value": [
-      0,
-      128,
-      0
-    ]
-  },
+  "expects": [
+    {
+      "property": "background-color",
+      "mode": "rgb",
+      "value": [0, 128, 0]
+    }
+  ],
   "givesProperty": "background-color",
-  "givesValue": true,
   "basket": [],
-  "solution": "background-color: green",
-  "hints": [
-    "colors.01.hint1",
-    "colors.01.hint2",
-    "colors.01.hint3"
-  ]
+  "solution": "background-color: green"
 }

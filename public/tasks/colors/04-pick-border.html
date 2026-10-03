@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Preview</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, #dff3ff 0%, #a8dcf5 100%);
+      font-family: system-ui, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      background: #7ac74f;
+    }
+
+    .hero {
+      position: absolute;
+      left: 24px;
+      bottom: 70px;
+      width: 90px;
+      height: 135px;
+    }
+
+    #target {
+      margin-bottom: 40px;
+      padding: 16px 24px;
+      border: 8px solid #3a3a3a;
+      border-radius: 12px;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    #target .big {
+      font-size: 30px;
+      font-weight: bold;
+      color: #2f2f3d;
+    }
+
+    #target .small {
+      margin-top: 4px;
+      font-size: 16px;
+      color: #6b6b7d;
+    }
+
+    /* The child's CSS is injected here, after the base styles. */
+    /* CHILD_CSS */
+  </style>
+</head>
+
+<body>
+  <div class="scene">
+    <div class="ground"></div>
+    <img class="hero" src="/assets/kid.svg" alt="">
+    <div id="target">
+      <div class="big">FIRST STEP</div>
+      <div class="small">Codenaut school</div>
+    </div>
+  </div>
+</body>
+
+</html>

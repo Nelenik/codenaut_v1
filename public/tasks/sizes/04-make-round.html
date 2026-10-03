@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Preview</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, #2a1a52 0%, #4a2a7a 100%);
+      font-family: system-ui, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      background: #6b4aa0;
+    }
+
+    .hero {
+      position: absolute;
+      left: 24px;
+      bottom: 70px;
+      width: 90px;
+      height: 135px;
+    }
+
+    /* Exactly 120 by 120: that is why the answer is 60, and why 50% works
+       too — both are the same corner size. */
+    #target {
+      width: 120px;
+      height: 120px;
+      flex: none;
+      border-radius: 0;
+      background: #9ad3f0;
+      box-shadow: inset -12px -12px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    /* The child's CSS is injected here, after the base styles. */
+    /* CHILD_CSS */
+  </style>
+</head>
+
+<body>
+  <div class="scene">
+    <div class="ground"></div>
+    <img class="hero" src="/assets/kid.svg" alt="">
+    <div id="target"></div>
+  </div>
+</body>
+
+</html>

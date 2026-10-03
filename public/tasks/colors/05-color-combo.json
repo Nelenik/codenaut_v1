@@ -1,0 +1,24 @@
+{
+  "id": "colors/05-color-combo",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "background-color",
+      "mode": "rgb",
+      "value": [0, 0, 255]
+    },
+    {
+      "property": "border-color",
+      "mode": "rgb",
+      "value": [255, 255, 0]
+    },
+    {
+      "property": "color",
+      "mode": "rgb",
+      "value": [255, 255, 255]
+    }
+  ],
+  "givesProperty": null,
+  "basket": [],
+  "solution": "background-color: blue;\nborder-color: yellow;\ncolor: white"
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Preview</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, #cfe9ff 0%, #9ad0f2 100%);
+      font-family: system-ui, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      background: #7ac74f;
+    }
+
+    .hero {
+      position: absolute;
+      left: 24px;
+      bottom: 70px;
+      width: 90px;
+      height: 135px;
+    }
+
+    .wall {
+      position: relative;
+      margin-bottom: 26px;
+      padding: 20px 26px;
+      border-radius: 8px;
+      background: #b0a99c;
+      box-shadow: inset 0 0 0 8px #918a7d;
+    }
+
+    /* The hatch is squashed flat — the task is to make it tall. No padding and
+       no border, so getComputedStyle reports the height the child asked for. */
+    #target {
+      width: 130px;
+      height: 60px;
+      flex: none;
+      border-radius: 8px;
+      background: #7fd0f5;
+      box-shadow: inset 0 0 0 6px #4f8fb0;
+    }
+
+    /* The child's CSS is injected here, after the base styles. */
+    /* CHILD_CSS */
+  </style>
+</head>
+
+<body>
+  <div class="scene">
+    <div class="ground"></div>
+    <img class="hero" src="/assets/kid.svg" alt="">
+    <div class="wall">
+      <div id="target"></div>
+    </div>
+  </div>
+</body>
+
+</html>

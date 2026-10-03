@@ -13,6 +13,7 @@ import { recordTaskSuccess, resetTaskForReplay, unlockLevel, unlockWorld } from 
 import { useProgress } from '@/lib/useProgress';
 import TaskZone from '@/components/TaskZone';
 import CssEditor from '@/components/CssEditor';
+import PropertyBasket from '@/components/PropertyBasket';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
 import CheckButton from '@/components/CheckButton';
 import ResultToast from '@/components/ResultToast';
@@ -195,6 +196,11 @@ export default function LevelScreen({ worldId, levelId }: Props) {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 flex-1 min-h-0">
         <section className="lg:col-span-2 flex flex-col gap-3 min-h-0">
+          <PropertyBasket
+            properties={task.config.basket}
+            label={t('basket.label')}
+            hint={t('basket.hint')}
+          />
           <CssEditor value={childCss} onChange={setChildCss} />
           <CheckButton onCheck={runCheck} label={t('level.check')} />
         </section>
@@ -215,7 +221,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       {celebrating && result?.kind === 'success' && result.stars !== undefined ? (
         <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 p-6 bg-space-900/95">
           <p className="font-display text-4xl md:text-6xl font-extrabold text-planet-lime text-balance text-center">
-            {t('level.success')}
+            {t(`${taskKey}.success`)}
           </p>
 
           <div className="flex gap-4">

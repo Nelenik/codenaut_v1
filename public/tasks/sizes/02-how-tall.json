@@ -1,0 +1,14 @@
+{
+  "id": "sizes/02-how-tall",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "height",
+      "mode": "px",
+      "value": 180
+    }
+  ],
+  "givesProperty": "height",
+  "basket": [],
+  "solution": "height: 180px"
+}

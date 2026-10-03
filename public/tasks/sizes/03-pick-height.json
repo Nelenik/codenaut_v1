@@ -1,0 +1,21 @@
+{
+  "id": "sizes/03-pick-height",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "height",
+      "mode": "px",
+      "value": 160
+    }
+  ],
+  "givesProperty": null,
+  "basket": [
+    "width",
+    "height",
+    "background-color",
+    "border-radius",
+    "color",
+    "font-size"
+  ],
+  "solution": "height: 160px"
+}

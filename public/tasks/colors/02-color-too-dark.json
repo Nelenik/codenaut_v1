@@ -1,0 +1,14 @@
+{
+  "id": "colors/02-color-too-dark",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "color",
+      "mode": "rgb",
+      "value": [255, 255, 255]
+    }
+  ],
+  "givesProperty": "color",
+  "basket": [],
+  "solution": "color: white"
+}

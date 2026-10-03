@@ -1,4 +1,4 @@
-import type { TaskConfig, ExpectMode } from './taskLoader';
+import type { TaskConfig, TaskExpect, ExpectMode } from './taskLoader';
 
 export type Declaration = {
   property: string;
@@ -46,7 +46,7 @@ function parseRgb(computed: string): [number, number, number] | null {
   return [Number(match[0]), Number(match[1]), Number(match[2])];
 }
 
-export function valueMatches(mode: ExpectMode, computed: string | null, expected: TaskConfig['expect']['value']): boolean {
+export function valueMatches(mode: ExpectMode, computed: string | null, expected: TaskExpect['value']): boolean {
   if (computed === null) return false;
 
   if (mode === 'rgb') {
@@ -68,6 +68,39 @@ export type CheckOutcome =
   | { kind: 'wrong'; property: string | null }
   | { kind: 'nothingTyped' };
 
+/** True when the child's own declaration of this very property computed to the value the task wants. */
+function satisfiedBy(
+  expect: TaskExpect,
+  declarations: Declaration[],
+  iframe: HTMLIFrameElement | null,
+  selector: string
+): boolean {
+  return declarations.some((declaration) => {
+    if (declaration.property !== expect.property) return false;
+    const computed = readComputed(iframe, selector, declaration.property);
+    return valueMatches(expect.mode, computed, expect.value);
+  });
+}
+
+/**
+ * True when some *other* property the child wrote produced the same visible
+ * result — `background-color` where `color` was wanted, or `height: 160px`
+ * where `width: 160px` was wanted. That is real understanding of the look and
+ * not of the property, so it is called out by name rather than failed.
+ */
+function producedByAnotherProperty(
+  expect: TaskExpect,
+  declarations: Declaration[],
+  iframe: HTMLIFrameElement | null,
+  selector: string
+): boolean {
+  return declarations.some((declaration) => {
+    if (declaration.property === expect.property) return false;
+    const computed = readComputed(iframe, selector, declaration.property);
+    return valueMatches(expect.mode, computed, expect.value);
+  });
+}
+
 /**
  * The check is two-part and answers a different question for each half:
  *
@@ -77,6 +110,10 @@ export type CheckOutcome =
  *  - *the value* — never compared as a typed string. The browser is asked what
  *    the property actually computed to and that number is compared in pixels,
  *    so `1.25em` passes where `20px` was expected.
+ *
+ * `config.expects` holds one entry for a single-property task and several for a
+ * combination task; all of them must hold, because the combination task is the
+ * same rule applied more than once, not a weaker rule.
  */
 export function check(
   iframe: HTMLIFrameElement | null,
@@ -86,32 +123,29 @@ export function check(
   const declarations = parseDeclarations(childCss);
   if (declarations.length === 0) return { kind: 'nothingTyped' };
 
-  const expectedProperty = config.expect.property;
+  const unmet = config.expects.filter(
+    (expect) => !satisfiedBy(expect, declarations, iframe, config.selector)
+  );
 
-  let producedTheRightLook = false;
-  let rightLookProperty: string | null = null;
-
-  for (const declaration of declarations) {
-    const computed = readComputed(iframe, config.selector, declaration.property);
-    if (valueMatches(config.expect.mode, computed, config.expect.value)) {
-      producedTheRightLook = true;
-      rightLookProperty = declaration.property;
-      break;
-    }
+  if (unmet.length === 0) {
+    return { kind: 'success', property: config.expects[0].property };
   }
 
-  if (!producedTheRightLook) {
-    const first = declarations[0];
-    return { kind: 'wrong', property: first?.property ?? null };
+  const wrongName = unmet.find((expect) =>
+    producedByAnotherProperty(expect, declarations, iframe, config.selector)
+  );
+  if (wrongName) {
+    const usedProperty = declarations.find((declaration) => {
+      if (declaration.property === wrongName.property) return false;
+      const computed = readComputed(iframe, config.selector, declaration.property);
+      return valueMatches(wrongName.mode, computed, wrongName.value);
+    });
+    return {
+      kind: 'rightLookWrongProperty',
+      property: usedProperty?.property ?? '',
+      expected: wrongName.property,
+    };
   }
 
-  if (rightLookProperty === expectedProperty) {
-    return { kind: 'success', property: expectedProperty };
-  }
-
-  return {
-    kind: 'rightLookWrongProperty',
-    property: rightLookProperty ?? '',
-    expected: expectedProperty,
-  };
+  return { kind: 'wrong', property: declarations[0]?.property ?? null };
 }
