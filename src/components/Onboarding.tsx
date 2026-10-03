@@ -91,7 +91,7 @@ function Step({ step }: { step: number }) {
   );
 }
 
-/** Step 2 — the same rocket, then the same rocket with CSS applied. */
+/** Step 2 — the same square, then the same square with CSS applied. */
 function TwoHelpers() {
   const { t } = useTranslation();
   return (
@@ -100,7 +100,7 @@ function TwoHelpers() {
         <span className="font-display font-extrabold text-lg text-space-200">
           {t('onboarding.html')}
         </span>
-        <div className="w-12 h-24 rounded-t-full bg-space-600" />
+        <div className="w-14 h-14 bg-space-600" />
         <span className="text-sm text-space-300 font-display text-center">
           {t('onboarding.htmlHint')}
         </span>
@@ -110,7 +110,7 @@ function TwoHelpers() {
         <span className="font-display font-extrabold text-lg text-planet-yellow">
           {t('onboarding.css')}
         </span>
-        <div className="w-24 h-40 rounded-t-full bg-planet-cyan border-4 border-planet-magenta" />
+        <div className="w-24 h-24 bg-planet-cyan border-4 border-planet-magenta rounded-3xl" />
         <span className="text-sm text-space-200 font-display text-center">
           {t('onboarding.cssHint')}
         </span>

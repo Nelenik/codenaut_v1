@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Kind = 'hint' | 'praise' | 'empty';
 
@@ -27,6 +27,8 @@ type Props = {
  *
  * Warm amber rather than red, floating rather than inline so it never covers the
  * editor, and it stays until acted on: a hint that times out unread is not a hint.
+ * Esc or a click outside closes it. That click is deliberately *not* blocked —
+ * dismissing the toast and typing in the editor must be possible in one motion.
  */
 export default function ResultToast({
   kind,
@@ -38,12 +40,30 @@ export default function ResultToast({
   onDismiss,
 }: Props) {
   const [revealed, setRevealed] = useState(false);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const accent = kind === 'praise' ? 'border-planet-yellow' : 'border-planet-orange/70';
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onDismiss();
+    };
+    const onPointerDown = (e: MouseEvent) => {
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) onDismiss();
+    };
+
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onPointerDown);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onPointerDown);
+    };
+  }, [onDismiss]);
 
   return (
     <div
       role="status"
       aria-live="polite"
+      ref={panelRef}
       className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[min(92vw,44rem)] rounded-3xl border-4 ${accent} bg-space-800/95 shadow-2xl px-5 py-4 md:px-7 md:py-5 flex gap-4 items-start`}
     >
       <img src="/assets/kid.svg" alt="" className="w-10 h-16 shrink-0" />
