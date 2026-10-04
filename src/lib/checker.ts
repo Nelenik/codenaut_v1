@@ -147,9 +147,15 @@ function satisfiedBy(
 
 /**
  * True when some *other* property the child wrote produced the same visible
- * result — `background-color` where `color` was wanted, or `height: 160px`
- * where `width: 160px` was wanted. That is real understanding of the look and
- * not of the property, so it is called out by name rather than failed.
+ * result — `background-color: green` where `color: green` was wanted. That is
+ * real understanding of the look and not of the property, so it is called out
+ * by name rather than failed.
+ *
+ * Only a colour can do this. `width: 160px` and `height: 160px` are the same
+ * *number* and nothing like the same picture, so a length is never celebrated
+ * as the right look — it is a miss, and the child gets the hint instead. This
+ * matters more since the basket now hands out the value: `width: 160px` sitting
+ * next to a task that wants `height: 160px` is a trap the child can fall into.
  */
 function producedByAnotherProperty(
   expect: TaskExpect,
@@ -157,7 +163,7 @@ function producedByAnotherProperty(
   iframe: HTMLIFrameElement | null,
   selector: string
 ): boolean {
-  if (expect.mode === 'round' || expect.value === undefined) return false;
+  if (expect.mode !== 'rgb' || expect.value === undefined) return false;
   return declarations.some((declaration) => {
     if (declaration.property === expect.property) return false;
     const computed = readComputed(iframe, selector, declaration.property);
@@ -203,8 +209,7 @@ export function check(
       if (declaration.property === wrongName.property) return false;
       const computed = readComputed(iframe, config.selector, declaration.property);
       return valueMatches(wrongName.mode, computed, wrongName.value);
-    });
-    return {
+    });    return {
       kind: 'rightLookWrongProperty',
       property: usedProperty?.property ?? '',
       expected: wrongName.property,

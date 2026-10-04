@@ -45,9 +45,10 @@ export default function CssEditor({ value, onChange, highlight = true }: Props) 
   }, [value]);
 
   /**
-   * A property dragged in from the basket lands as `property: ` at the spot the
-   * child dropped it on, with a line break when it follows something else, so
-   * the second property never gets typed onto the end of the first.
+   * A command dragged in from the basket lands whole — property and value — at
+   * the spot the child dropped it on, with a line break when it follows
+   * something else, so the second property never gets typed onto the end of the
+   * first.
    *
    * CodeMirror 6 registers no `dragover` handler of its own, so without
    * `preventDefault` the browser never allows a drop here at all. It does
@@ -70,12 +71,12 @@ export default function CssEditor({ value, onChange, highlight = true }: Props) 
       event.stopPropagation();
 
       const view = viewRef.current;
-      const property = event.dataTransfer?.getData('text/plain')?.trim() ?? '';
-      if (!view || !property) return;
+      const command = event.dataTransfer?.getData('text/plain')?.trim() ?? '';
+      if (!view || !command) return;
 
       const at = view.posAtCoords({ x: event.clientX, y: event.clientY }) ?? view.state.doc.length;
       const insert =
-        at > 0 && view.state.doc.sliceString(at - 1, at) !== '\n' ? `\n${property}: ` : `${property}: `;
+        at > 0 && view.state.doc.sliceString(at - 1, at) !== '\n' ? `\n${command}` : command;
 
       view.dispatch({
         changes: { from: at, insert },

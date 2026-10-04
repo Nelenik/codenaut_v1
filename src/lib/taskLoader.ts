@@ -12,6 +12,16 @@ export type TaskExpect = {
   value?: number | [number, number, number];
 };
 
+/**
+ * A basket entry carries a property *and* its value: the child picks the right
+ * name and the command is complete. The value is what the task expects, so the
+ * chip that holds the answer is the answer.
+ */
+export type BasketItem = {
+  property: string;
+  value: string;
+};
+
 export type TaskConfig = {
   id: string;
   selector: string;
@@ -22,8 +32,7 @@ export type TaskConfig = {
    */
   expects: TaskExpect[];
   givesProperty: string | null;
-  givesValue: boolean;
-  basket: string[];
+  basket: BasketItem[];
   solution: string;
 };
 

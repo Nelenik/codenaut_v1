@@ -122,7 +122,7 @@ A child must never be stuck with no way forward.
 The scaffolding builds within the level, and the topic is recombined at the end:
 
 - **Tasks 1–2** — the property name is given; the child types only the value.
-- **Tasks 3–4** — the property is chosen from the basket (5–6 jumbled properties) and its value completed.
+- **Tasks 3–4** — the property is chosen from the basket (5–6 jumbled properties), each carrying its value: the only question left is *which* property does this job. A property that is already in the editor is not offered again and comes back when it is taken out.
 - **Task 5** — a combination: several properties at once, using what was learned in tasks 1–4. The task names what the scene needs, so the child uses the properties they have already met rather than searching for new ones. All of the required properties must be correct for the task to pass — a combination task is not a free choice, it is the same rule applied twice.
 
 Colors covers background, text color, and border, learned in that order and then combined — background first, because a painted shape is the easiest thing in CSS to point at and to see change. Sizes covers width, height, and `border-radius`.

@@ -10,12 +10,12 @@
   ],
   "givesProperty": null,
   "basket": [
-    "background-color",
-    "border-color",
-    "color",
-    "border-radius",
-    "width",
-    "font-size"
+    { "property": "border-color", "value": "yellow" },
+    { "property": "background-color", "value": "yellow" },
+    { "property": "color", "value": "yellow" },
+    { "property": "border-radius", "value": "20px" },
+    { "property": "width", "value": "240px" },
+    { "property": "font-size", "value": "24px" }
   ],
   "solution": "border-color: yellow"
 }

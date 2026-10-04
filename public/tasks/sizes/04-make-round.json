@@ -9,12 +9,12 @@
   ],
   "givesProperty": null,
   "basket": [
-    "width",
-    "height",
-    "border-radius",
-    "background-color",
-    "border-color",
-    "font-size"
+    { "property": "border-radius", "value": "60px" },
+    { "property": "width", "value": "60px" },
+    { "property": "height", "value": "60px" },
+    { "property": "background-color", "value": "orange" },
+    { "property": "border-color", "value": "orange" },
+    { "property": "font-size", "value": "20px" }
   ],
   "solution": "border-radius: 60px"
 }

@@ -170,6 +170,27 @@ export default function LevelScreen({ worldId, levelId }: Props) {
     unlockNext();
   };
 
+  /**
+   * What the basket offers is derived from the editor text rather than kept in
+   * its own state, so a property that is written is not offered, and it comes
+   * back the moment it leaves the editor — whether the child pressed × or just
+   * deleted the text.
+   */
+  const written = new Set(parseDeclarations(childCss).map((declaration) => declaration.property));
+  const basket = task.config.basket;
+  const availableBasket = basket.filter((item) => !written.has(item.property));
+  const placedBasket = basket.filter((item) => written.has(item.property));
+
+  const removeProperty = (property: string) => {
+    const pattern = new RegExp(`^\\s*${property}\\s*:`, 'i');
+    setChildCss(
+      childCss
+        .split('\n')
+        .filter((line) => !pattern.test(line))
+        .join('\n')
+    );
+  };
+
   return (
     <main className="min-h-screen flex flex-col p-4 md:p-6 gap-4">
       <header className="flex items-center gap-4">
@@ -205,8 +226,12 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 flex-1 min-h-0">
         <section className="lg:col-span-2 flex flex-col gap-3 min-h-0">
           <PropertyBasket
-            properties={task.config.basket}
+            available={availableBasket}
+            inserted={placedBasket.map((item) => item.property)}
+            onRemove={removeProperty}
             label={t('basket.label')}
+            placedLabel={t('basket.placed')}
+            removeLabel={t('basket.remove')}
             hint={t('basket.hint')}
           />
           <CssEditor value={childCss} onChange={setChildCss} />

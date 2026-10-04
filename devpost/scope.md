@@ -9,7 +9,7 @@ A web game where a 7–9 year old learns CSS by editing real properties in a cod
 
 ## The Unique Kernel
 
-In front of the child is **real CSS** — not blocks, not a visual constructor. Understanding comes not from explanation but from three levels of scaffolding inside each task: first the property name is given and only the value must be typed (`20px`); then from a "basket" of jumbled CSS properties the right one must be selected and its value completed; then both the property and the value must be typed independently. The scaffolding accumulates across the topic, and within a level the learned things get combined into combinations (text color + background + border).
+In front of the child is **real CSS** — not blocks, not a visual constructor. Understanding comes not from explanation but from three levels of scaffolding inside each task: first the property name is given and only the value must be typed (`20px`); then from a "basket" of jumbled CSS properties the right one must be selected, and it arrives with its value already written; then both the property and the value must be typed independently. The scaffolding accumulates across the topic, and within a level the learned things get combined into combinations (text color + background + border).
 
 The second distinction: **the property is checked against the meaning of the task, the value is accepted in any form that produces the same result.** The task "move the rock away from the tree" is `margin`; "free up space around the tree" is `padding`. Writing `1.25em` instead of `20px` is scored and praised. This way the game teaches *application*, not answer-matching.
 
@@ -61,7 +61,7 @@ They press "check" — stars are awarded, progress is saved, and on return they 
 
 **A starting task structure (a guideline, not a commitment):**
 - Tasks 1–2: property given, type the value.
-- Tasks 3–4: pick the property from the basket (5–6 jumbled properties), complete the value.
+- Tasks 3–4: pick the property from the basket (5–6 jumbled properties, each already carrying its value).
 - Task 5: a combination — several properties at once, using skills from tasks 1–4. The task names what the scene needs; all of them have to be right.
 
 ## Later

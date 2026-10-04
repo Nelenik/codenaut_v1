@@ -10,12 +10,12 @@
   ],
   "givesProperty": null,
   "basket": [
-    "width",
-    "height",
-    "background-color",
-    "border-radius",
-    "color",
-    "font-size"
+    { "property": "height", "value": "160px" },
+    { "property": "width", "value": "160px" },
+    { "property": "background-color", "value": "orange" },
+    { "property": "border-radius", "value": "20px" },
+    { "property": "color", "value": "orange" },
+    { "property": "font-size", "value": "20px" }
   ],
   "solution": "height: 160px"
 }

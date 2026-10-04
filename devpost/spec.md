@@ -126,7 +126,7 @@ The left zone (`prd.md > Screens and Layout` #4). Renders the short story senten
 The center zone. A **CodeMirror 6** instance holding CSS (`prd.md > The editor`). The property name may arrive pre-filled, from a drag, or typed; the value is typed. Emits the current CSS on every keystroke, driving the live preview. Configured not to throw on invalid CSS; if highlighting misbehaves on a task, the extension is turned off for that editor and the library stays in place for the future HTML tasks.
 
 ### PropertyBasket
-Next to the editor (`prd.md > The editor`). Draggable CSS property names. Dragging fills the property field; the value is typed. Visual "text characters" stand in for real icons (`prd.md > Deferred From the POC`).
+Next to the editor (`prd.md > The editor`). Draggable CSS property names, each holding its value: dragging fills the editor with a complete command. A property already in the editor is not offered again and is listed as placed, with a button that takes it back out. Visual "text characters" stand in for real icons (`prd.md > Deferred From the POC`).
 
 ### PlayfieldPreview
 The right zone (`prd.md > Live preview and reference`). An `<iframe srcdoc>` fed the task HTML plus the child's CSS. Needs no state of its own beyond the srcDoc string. A reference target is rendered in a second, semi-transparent layer on top.
@@ -164,7 +164,6 @@ public/tasks/colors/01-ball-color.json     the check + which part is given
     { "property": "background-color", "mode": "rgb", "value": [0, 128, 0] }
   ],
   "givesProperty": "background-color",
-  "givesValue": false,
   "basket": [],
   "solution": "background-color: green"
 }
@@ -176,7 +175,7 @@ public/tasks/colors/01-ball-color.json     the check + which part is given
   - `"px"` — a length or number. Compare against `getComputedStyle(el)[prop]` as a number, with a small tolerance. This is what makes `1.25em` and `20px` both pass.
   - `"rgb"` — a color. Browsers return colors as a normalized `rgb(r, g, b)` string, so compare the three numbers, allowing a tolerance (children typing `#0f0` vs `#00ff00` must not differ by more than rounding). This is what makes `#0f0`, `lime`, and `rgb(0,255,0)` all pass.
   - `"round"` — a shape, not a number, and it carries no `value`. `getComputedStyle` returns `border-radius` exactly as written, so `50%` stays `50%` and can never be compared to pixels; a corner radius also resolves against the box, so `60px`, `50%` and `100%` are the same circle on a 120-pixel square. The check resolves each of the one-to-four corners (and the `/` vertical pair) against `getBoundingClientRect()` and asks whether every corner reached the middle — which is what "make it round" actually means.
-- `givesProperty` / `givesValue` — which part of the task is given, encoding the three stages of `prd.md > Task progression within a world`. `givesProperty` pre-fills the editor with `property: `; `basket` is the list of jumbled names the child drags from when nothing is given.
+- `givesProperty` / `basket` — which part of the task is given, encoding the three stages of `prd.md > Task progression within a world`. `givesProperty` pre-fills the editor with `property: `; otherwise the child drags from the basket. A basket entry is `{ property, value }` and is dropped in whole, because at that stage the only open question is *which* property does this job. What the basket offers is derived from the editor text (`parseDeclarations`), so a property already written is not offered again and returns when it leaves the editor — by the × button or by deleting the text.
 - `solution` — the ready-made answer: the shape of every expected declaration in one string, used by the third hint step and by the reference target.
 - **Hint text is not in this file.** It lives in the dictionaries under `tasks.<id>.hints`, so the EN and RU wording stay together with every other child-facing string, and CSS stays out of the task files.
 
