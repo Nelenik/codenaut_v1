@@ -6,6 +6,8 @@ type Props = {
   srcDoc: string;
   referenceSrcDoc: string;
   title: string;
+  /** Screen-reader name for the target frame, so it is not "frame 2 of 2". */
+  referenceTitle: string;
   compareHint: string;
   childLabel: string;
   referenceLabel: string;
@@ -19,7 +21,7 @@ type Props = {
  * state would re-render the level screen on every mouse move.
  */
 const PlayfieldPreview = forwardRef<HTMLIFrameElement, Props>(function PlayfieldPreview(
-  { srcDoc, referenceSrcDoc, title, compareHint, childLabel, referenceLabel },
+  { srcDoc, referenceSrcDoc, title, referenceTitle, compareHint, childLabel, referenceLabel },
   ref
 ) {
   const wipeRef = useRef<HTMLDivElement | null>(null);
@@ -63,7 +65,7 @@ const PlayfieldPreview = forwardRef<HTMLIFrameElement, Props>(function Playfield
           style={{ clipPath: 'inset(0 0 0 100%)' }}
         >
           <iframe
-            title={`${title} — reference`}
+            title={referenceTitle}
             srcDoc={referenceSrcDoc}
             tabIndex={-1}
             className="w-full h-full"

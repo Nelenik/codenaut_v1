@@ -25,10 +25,11 @@
   "levelList": {
     "back": "Back"
   },
-"level": {
+  "level": {
     "check": "Check",
     "back": "Back to Levels",
     "compareHint": "Move the mouse across the picture to compare with the target",
+    "referenceFrame": "target picture",
     "narrator": "your helper",
     "yours": "yours",
     "target": "target",
@@ -86,7 +87,8 @@
   },
   "toast": {
     "hintTitle": "Here's a hint",
-    "praiseTitle": "Almost!"
+    "praiseTitle": "Almost!",
+    "close": "Close the hint"
   },
   "common": {
     "loading": "Loading...",

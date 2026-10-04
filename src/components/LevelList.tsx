@@ -31,7 +31,7 @@ export default function LevelList({ worldId }: { worldId: string }) {
   if (!world) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-space-300 font-display">{t('common.loading')}</p>
+        <p className="text-xl text-space-300 font-display">{t('common.error')}</p>
       </main>
     );
   }

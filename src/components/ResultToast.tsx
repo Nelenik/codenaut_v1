@@ -8,6 +8,7 @@ type Props = {
   kind: Kind;
   title: string;
   text: string;
+  closeLabel: string;
   /** Omitted when there is nothing to give away yet (nothing was typed). */
   solution?: string;
   labels?: {
@@ -34,6 +35,7 @@ export default function ResultToast({
   kind,
   title,
   text,
+  closeLabel,
   solution,
   labels,
   onUseSolution,
@@ -108,7 +110,7 @@ export default function ResultToast({
 
       <button
         onClick={onDismiss}
-        aria-label="close"
+        aria-label={closeLabel}
         className="p-2 rounded-full text-space-300 hover:text-white hover:bg-space-700 transition-colors text-xl leading-none shrink-0"
       >
         ✕

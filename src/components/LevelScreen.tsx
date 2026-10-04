@@ -246,6 +246,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
             srcDoc={srcDoc}
             referenceSrcDoc={referenceSrcDoc}
             title={t('map.title')}
+            referenceTitle={t('level.referenceFrame')}
             compareHint={t('level.compareHint')}
             childLabel={t('level.yours')}
             referenceLabel={t('level.target')}
@@ -309,6 +310,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
                 ? t('level.nothingTyped')
                 : t(`${taskKey}.hints.0`)
           }
+          closeLabel={t('toast.close')}
           solution={result.kind === 'nothingTyped' ? undefined : task.config.solution}
           labels={{
             reveal: t('level.reveal'),
