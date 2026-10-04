@@ -5,6 +5,10 @@
   <meta charset="utf-8">
   <title>Preview</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html,
     body {
       margin: 0;
@@ -47,8 +51,8 @@
       background: #b9b3a8;
     }
 
-    /* No padding and no border on #target: getComputedStyle would then report
-       the content box, and the check compares the number the child asked for. */
+    /* The check measures the border box, so the number the child writes is the
+       size of the whole door — padding and border are inside it. */
     #target {
       position: relative;
       width: 90px;

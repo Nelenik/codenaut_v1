@@ -178,7 +178,9 @@ export default function LevelScreen({ worldId, levelId }: Props) {
    */
   const written = new Set(parseDeclarations(childCss).map((declaration) => declaration.property));
   const basket = task.config.basket;
-  const availableBasket = basket.filter((item) => !written.has(item.property));
+  const availableBasket = basket
+    .map((item, pile) => ({ ...item, pile }))
+    .filter((item) => !written.has(item.property));
   const placedBasket = basket.filter((item) => written.has(item.property));
 
   const removeProperty = (property: string) => {

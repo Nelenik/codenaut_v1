@@ -218,5 +218,5 @@ Colors covers background, text color, and border, learned in that order and then
 
 ## Open Issues Raised in `4-spec`
 
-- **How the correct value is verified.** Agreed: the system asks the browser what the property actually computed to, and compares that in pixels. It does not compare typed strings, so `1.25em` and `20px` are both accepted. Consequence: expected values are always authored in pixels, since that's the only unit both notations converge on.
+- **How the correct value is verified.** Agreed: the system asks the browser what the property actually computed to, and compares that in pixels. It does not compare typed strings, so `1.25em` and `20px` are both accepted. Consequence: expected values are always authored in pixels, since that's the only unit both notations converge on. Decided by the learner at slice 6 with the same reasoning applied to width: every playfield is `box-sizing: border-box`, so a size a child writes is the whole shape, padding and border included — and `getComputedStyle` reports that same outer number, so no special measuring is needed.
 - **Where task knowledge lives.** Two separate things, and they must not be mixed: the child-facing story text goes in the EN/RU dictionaries, and the machine-facing check (which property, how many pixels) sits in a short config per task and is never shown to the child.

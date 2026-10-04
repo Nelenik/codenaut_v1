@@ -40,10 +40,10 @@
     "solutionCosts": "The ready-made answer completes the level, but with 0 stars."
   },
   "basket": {
-    "label": "Drag the right property into the editor",
+    "label": "Drag the right command out of the pile into the editor",
     "placed": "In the editor",
     "remove": "Take it back out",
-    "hint": "Drag a name across and drop it in the editor below."
+    "hint": "Every command in the heap does something. Only one of them is right for this picture."
   },
   "onboarding": {
     "skip": "Skip",
@@ -118,7 +118,7 @@
       "text": "{{name}} landed at night, but the sky is still grey and bright. Make the sky dark blue.",
       "teachTitle": "How to do it",
       "teachBody": "The sky is a shape too — a very big one. Drag the property that paints the inside of a shape into the editor: it comes with its colour already written, and that colour is called darkblue.",
-      "example": "text-align: center",
+      "example": "background-color: blue",
       "hints": [
         "The sky is a shape, and you need the property that paints the inside of a shape. Its name is in the basket."
       ],
@@ -128,7 +128,7 @@
       "text": "{{name}} found the school sign, but its frame is dark grey and easy to miss. Make the frame yellow.",
       "teachTitle": "How to do it",
       "teachBody": "The frame around a shape is called its border, and there is a property that paints only that frame. Drag its name from the basket into the editor — it brings the yellow with it.",
-      "example": "font-style: italic",
+      "example": "border-color: red",
       "hints": [
         "You are not painting the inside this time, and not the letters — the frame around the sign. The property with border in its name does that."
       ],
@@ -168,7 +168,7 @@
       "text": "{{name}} is at the base of the Sizes planet, but the window is squashed. Make the window 160 pixels tall.",
       "teachTitle": "How to do it",
       "teachBody": "One name in the basket makes a shape wide and one makes it tall. Drag the one that makes the window 160 pixels tall — the number comes with it.",
-      "example": "text-align: center",
+      "example": "height: 90px",
       "hints": [
         "Read the task: the window has to be tall, not wide. Pick the name that means tall."
       ],
@@ -178,7 +178,7 @@
       "text": "{{name}} found a planet that is square. Real planets are round. Round its corners by 60 pixels to make it a circle.",
       "teachTitle": "How to do it",
       "teachBody": "border-radius says how much the corners of a shape are rounded. Half of the size is enough to make a circle, and on this 120-pixel planet the command brings 60px. Drag it in — and if you like, change the 60px to 50%, it means the same half.",
-      "example": "font-style: italic",
+      "example": "border-radius: 50%",
       "hints": [
         "The corners need rounding, not a new size. One of the names in the basket is the one about rounding."
       ],

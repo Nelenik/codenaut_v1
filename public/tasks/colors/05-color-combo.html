@@ -5,6 +5,10 @@
   <meta charset="utf-8">
   <title>Preview</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html,
     body {
       margin: 0;
@@ -42,6 +46,8 @@
     /* One badge, three jobs: paint the inside, paint the frame, paint the
        letters. Every one of them is a property from the earlier tasks. */
     #target {
+      position: relative;
+      z-index: 1;
       margin-bottom: 40px;
       padding: 18px 30px;
       border: 8px solid #2f2f3f;
