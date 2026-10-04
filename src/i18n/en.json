@@ -116,7 +116,7 @@
       "text": "{{name}} landed at night, but the sky is still grey and bright. Make the sky dark blue.",
       "teachTitle": "How to do it",
       "teachBody": "The sky is a shape too — a very big one. Drag the name of the property that paints the inside of a shape into the editor, then write the colour. Night blue is called darkblue.",
-      "example": "color: darkblue",
+      "example": "text-align: center",
       "hints": [
         "The sky is a shape, and you need the property that paints the inside of a shape. Its name is in the basket."
       ],
@@ -126,7 +126,7 @@
       "text": "{{name}} found the school sign, but its frame is dark grey and easy to miss. Make the frame yellow.",
       "teachTitle": "How to do it",
       "teachBody": "The frame around a shape is called its border. There is a property that paints only the border. Drag its name from the basket into the editor, then write yellow after the colon.",
-      "example": "background-color: yellow",
+      "example": "font-style: italic",
       "hints": [
         "You are not painting the inside this time, and not the letters — the frame around the sign. The property with border in its name does that."
       ],
@@ -166,7 +166,7 @@
       "text": "{{name}} is at the base of the Sizes planet, but the window is squashed. Make the window 160 pixels tall.",
       "teachTitle": "How to do it",
       "teachBody": "One name in the basket is the command for width and one is the command for height. Drag the one you need into the editor, then write 160px after the colon.",
-      "example": "width: 160px",
+      "example": "text-align: center",
       "hints": [
         "Read the task: the window has to be tall, not wide. Pick the name that means tall."
       ],
@@ -175,8 +175,8 @@
     "sizes/04-make-round": {
       "text": "{{name}} found a planet that is square. Real planets are round. Round its corners by 60 pixels to make it a circle.",
       "teachTitle": "How to do it",
-      "teachBody": "border-radius says how much the corners of a shape are rounded. This planet is 120 pixels wide and 120 pixels tall, so 60 pixels rounds it all the way into a circle. The name is in the basket — drag it in.",
-      "example": "width: 60px",
+      "teachBody": "border-radius says how much the corners of a shape are rounded. Half of the size is enough to make a circle: on this 120-pixel planet that is 60px — and 50% works too, because it means the same half. The name is in the basket — drag it in.",
+      "example": "font-style: italic",
       "hints": [
         "The corners need rounding, not a new size. One of the names in the basket is the one about rounding."
       ],

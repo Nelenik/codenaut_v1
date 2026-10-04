@@ -62,6 +62,68 @@ export function valueMatches(mode: ExpectMode, computed: string | null, expected
   return Math.abs(actual - want) <= LENGTH_TOLERANCE;
 }
 
+/**
+ * A corner radius resolves against the box it rounds: `50%` and `60px` are the
+ * same corner size on a 120-pixel square, and `100%` is the same circle drawn
+ * with a longer line. So the task cannot ask for one number — the check asks
+ * whether every corner actually reached the middle of the shape.
+ *
+ * The shorthand may carry one to four horizontal radii and, after a `/`, one to
+ * four vertical ones; both are expanded to all four corners.
+ */
+function resolveCorners(raw: string, width: number, height: number): Array<[number, number]> {
+  const [horizontal = '', vertical = ''] = raw.split('/');
+  const readOne = (value: string, size: number): number => {
+    const trimmed = value.trim();
+    const endsWithPercent = trimmed.endsWith('%');
+    const number = parseFloat(trimmed);
+    if (Number.isNaN(number)) return 0;
+    return endsWithPercent ? (number / 100) * size : number;
+  };
+
+  // `999px / 999px` leaves an empty piece after the slash, so empty parts go.
+  const parts = (value: string): string[] => value.split(/\s+/).filter(Boolean);
+
+  const spread = (values: string[], resolve: (value: string) => number): number[] => {
+    const list = values.map(resolve);
+    switch (list.length) {
+      case 0:
+        return [0, 0, 0, 0];
+      case 1:
+        return [list[0], list[0], list[0], list[0]];
+      case 2:
+        return [list[0], list[1], list[1], list[0]];
+      case 3:
+        return [list[0], list[1], list[2], list[1]];
+      default:
+        return [list[0], list[1], list[2], list[3]];
+    }
+  };
+
+  const horizontalCorners = spread(parts(horizontal), (v) => readOne(v, width));
+  const verticalCorners = vertical.trim()
+    ? spread(parts(vertical), (v) => readOne(v, height))
+    : horizontalCorners.slice();
+
+  return horizontalCorners.map((x, i) => [x, verticalCorners[i]]);
+}
+
+export function isFullyRound(iframe: HTMLIFrameElement | null, selector: string): boolean {
+  const doc = iframe?.contentDocument;
+  const el = doc?.querySelector(selector);
+  if (!el || !doc?.defaultView) return false;
+
+  const computed = doc.defaultView.getComputedStyle(el).getPropertyValue('border-radius').trim();
+  if (!computed || computed === '0px') return false;
+
+  const { width, height } = el.getBoundingClientRect();
+  if (width <= 0 || height <= 0) return false;
+
+  return resolveCorners(computed, width, height).every(
+    ([x, y]) => x >= width / 2 - LENGTH_TOLERANCE && y >= height / 2 - LENGTH_TOLERANCE
+  );
+}
+
 export type CheckOutcome =
   | { kind: 'success'; property: string }
   | { kind: 'rightLookWrongProperty'; property: string; expected: string }
@@ -77,6 +139,7 @@ function satisfiedBy(
 ): boolean {
   return declarations.some((declaration) => {
     if (declaration.property !== expect.property) return false;
+    if (expect.mode === 'round') return isFullyRound(iframe, selector);
     const computed = readComputed(iframe, selector, declaration.property);
     return valueMatches(expect.mode, computed, expect.value);
   });
@@ -94,6 +157,7 @@ function producedByAnotherProperty(
   iframe: HTMLIFrameElement | null,
   selector: string
 ): boolean {
+  if (expect.mode === 'round' || expect.value === undefined) return false;
   return declarations.some((declaration) => {
     if (declaration.property === expect.property) return false;
     const computed = readComputed(iframe, selector, declaration.property);

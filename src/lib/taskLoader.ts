@@ -1,9 +1,15 @@
-export type ExpectMode = 'px' | 'rgb';
+/**
+ * `px` and `rgb` compare a number the browser computed. `round` has no number
+ * to compare: `getComputedStyle` hands back `border-radius` exactly as it was
+ * written, so `50%` stays `50%` and can never be compared against pixels — the
+ * task asks for a shape, so the check asks the shape.
+ */
+export type ExpectMode = 'px' | 'rgb' | 'round';
 
 export type TaskExpect = {
   property: string;
   mode: ExpectMode;
-  value: number | [number, number, number];
+  value?: number | [number, number, number];
 };
 
 export type TaskConfig = {

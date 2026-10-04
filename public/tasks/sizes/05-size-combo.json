@@ -14,8 +14,7 @@
     },
     {
       "property": "border-radius",
-      "mode": "px",
-      "value": 70
+      "mode": "round"
     }
   ],
   "givesProperty": null,

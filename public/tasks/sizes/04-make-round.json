@@ -4,8 +4,7 @@
   "expects": [
     {
       "property": "border-radius",
-      "mode": "px",
-      "value": 60
+      "mode": "round"
     }
   ],
   "givesProperty": null,
