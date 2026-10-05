@@ -54,10 +54,6 @@ h1, h2, h3, h4, h5, h6, button, .font-display {
     var(--color-space-900);
 }
 
-.planet-glow {
-  filter: drop-shadow(0 0 20px currentColor);
-}
-
 .rocket-trail {
   stroke-dasharray: 10, 10;
   animation: trail-flow 3s linear infinite;
@@ -69,9 +65,12 @@ h1, h2, h3, h4, h5, h6, button, .font-display {
   transition: width 800ms ease;
 }
 
+/* The game's motion, all of it: the flowing trail, the trail's growth, and the
+   bouncing rocket and stars. Tailwind emits `animate-bounce` inside a layer, and
+   unlayered CSS wins the cascade — so this really does switch it off. */
 @media (prefers-reduced-motion: reduce) {
   .rocket-trail,
-  .celebrate {
+  .animate-bounce {
     animation: none;
   }
   .trail-reveal {
