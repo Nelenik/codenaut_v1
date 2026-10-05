@@ -310,7 +310,10 @@ export default function LevelScreen({ worldId, levelId }: Props) {
           }
           text={
             result.kind === 'rightLookWrongProperty'
-              ? t('level.wrongProperty', { property: result.expected ?? '' })
+              ? // The property name arrives from the checker, not the dictionary,
+                // so it is marked here — the toast renders it as a pill, the same
+                // one the child has been reading all task.
+                t('level.wrongProperty', { property: result.expected ? `[[${result.expected}]]` : '' })
               : result.kind === 'nothingTyped'
                 ? t('level.nothingTyped')
                 : t(`${taskKey}.hints.0`)

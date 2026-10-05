@@ -51,6 +51,18 @@ const SCATTER = [
   { dx: 16, dy: 5, rotate: 1 },
 ];
 
+/**
+ * A chip is a whole command, and a command in CSS ends with a semicolon — so the
+ * chip carries one. Raised by the learner: the combination tasks already teach
+ * "end every command with a semicolon", and a chip that arrived without one put
+ * the child in the position of writing CSS the game itself had just told them is
+ * incomplete. What the child sees on the chip is exactly what lands in the
+ * editor.
+ */
+function command(item: BasketItem): string {
+  return `${item.property}: ${item.value};`;
+}
+
 export default function PropertyBasket({
   available,
   inserted,
@@ -75,7 +87,7 @@ export default function PropertyBasket({
                 key={item.property}
                 draggable
                 onDragStart={(event) => {
-                  event.dataTransfer.setData('text/plain', `${item.property}: ${item.value}`);
+                  event.dataTransfer.setData('text/plain', command(item));
                   event.dataTransfer.effectAllowed = 'copy';
                 }}
                 style={{
@@ -88,6 +100,7 @@ export default function PropertyBasket({
                 <span className="text-planet-cyan">{item.property}</span>
                 <span className="text-space-300">: </span>
                 {item.value}
+                <span className="text-planet-orange">;</span>
               </span>
             );
           })}

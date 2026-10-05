@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import MarkedText from '@/components/MarkedText';
+
 type Kind = 'hint' | 'praise' | 'empty';
 
 type Props = {
@@ -74,7 +76,9 @@ export default function ResultToast({
         <p className="font-display text-lg md:text-xl font-extrabold text-planet-yellow mb-1">
           {title}
         </p>
-        <p className="text-lg md:text-xl text-space-50 leading-relaxed">{text}</p>
+        <p className="text-lg md:text-xl text-space-50 leading-relaxed">
+          <MarkedText text={text} />
+        </p>
 
         {solution && labels && onUseSolution ? (
           <>

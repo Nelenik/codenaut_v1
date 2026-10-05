@@ -104,7 +104,7 @@
     "colors/01-ball-color": {
       "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the ball [[green]].",
       "teachTitle": "How to do it",
-      "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\". The colour you need here is called [[green]].",
+      "teachBody": "[[background-color]] paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\". The colour you need here is called [[green]].",
       "example": "background-color: blue",
       "hints": [
         "You need to paint the shape, not the text. Remember which property paints the inside of a shape — its name is already written in the editor."
@@ -114,10 +114,10 @@
     "colors/02-color-too-dark": {
       "text": "{{name}} found an old sign on the Colors planet. The letters are almost black, so you can hardly read them. Make the letters [[white]].",
       "teachTitle": "How to do it",
-      "teachBody": "color paints the letters. Its name is already written in the editor. After the colon write the colour the letters need — here they have to be [[white]].",
+      "teachBody": "[[color]] paints the letters. Its name is already written in the editor. After the colon write the colour the letters need — here they have to be [[white]].",
       "example": "color: black",
       "hints": [
-        "The letters are too dark to read. They need to be light instead — the colour for that is called white."
+        "The letters are too dark to read. They need to be light instead — the colour for that is called [[white]]."
       ],
       "success": "Great job! Now the sign can be read."
     },
@@ -154,7 +154,7 @@
     "sizes/01-how-wide": {
       "text": "{{name}} found a door on the Sizes planet, but it is too narrow to walk through. Make the door 160 pixels wide.",
       "teachTitle": "How to do it",
-      "teachBody": "width says how wide a shape is. Its name is already written in the editor. After the colon write the width in pixels: a number, then px.",
+      "teachBody": "[[width]] says how wide a shape is. Its name is already written in the editor. After the colon write how many pixels wide it should be: a number, then px.",
       "example": "width: 100px",
       "hints": [
         "You want the door to be wide, not tall. Write the number you want and add px after it."
@@ -164,10 +164,10 @@
     "sizes/02-how-tall": {
       "text": "{{name}} found a rocket, but it is squashed and almost flat. Make the rocket 180 pixels tall.",
       "teachTitle": "How to do it",
-      "teachBody": "height says how tall a shape is. Its name is already written in the editor. Heights are written in pixels too: a number, then px.",
+      "teachBody": "[[height]] says how tall a shape is. Its name is already written in the editor. Heights are written in pixels too: a number, then px.",
       "example": "height: 90px",
       "hints": [
-        "The rocket has to be tall, not wide. You want the command whose name means height."
+        "The rocket has to be tall, not wide. You want the command whose name means [[height]]."
       ],
       "success": "Great job! That rocket is ready to fly."
     },
@@ -184,7 +184,7 @@
     "sizes/04-make-round": {
       "text": "{{name}} found a planet that is square. Real planets are round. Round its corners by 60 pixels to make it a circle.",
       "teachTitle": "How to do it",
-      "teachBody": "border-radius says how much the corners of a shape are rounded. Half of the size is enough to make a circle, and on this 120-pixel planet the command brings 60px. Drag it in — and if you like, change the 60px to 50%, it means the same half.",
+      "teachBody": "[[border-radius]] says how much the corners of a shape are rounded. Half of the size is enough to make a circle, and on this 120-pixel planet the command brings 60px. Drag it in — and if you like, change the 60px to 50%, it means the same half.",
       "example": "border-radius: 50%",
       "hints": [
         "The corners need rounding. One of the names in the basket is the one about rounding."
@@ -194,10 +194,10 @@
     "sizes/05-size-combo": {
       "text": "{{name}} wants a round portal: 140 pixels wide, 140 pixels tall. Three commands at once!",
       "teachTitle": "How to do it",
-      "teachBody": "You know width and height from the first tasks, and the rounding from the planet. Three commands, one per line, each ending with a semicolon. A circle needs the same width and height.",
+      "teachBody": "You know them from the first tasks. Their names are [[width]], [[height]] and [[border-radius]]. Three commands, one per line, each ending with a semicolon. A circle needs as many pixels across as it is tall.",
       "example": "width: 100px;\nheight: 100px;\nborder-radius: 50px;",
       "hints": [
-        "Take it part by part: first the width, then the height, then the rounding. Half of the width is how much a circle needs."
+        "Take it part by part: first the [[width]], then the [[height]], then the [[border-radius]]. Half of the [[width]] is how much a circle needs."
       ],
       "success": "Great job! The portal is open."
     }
