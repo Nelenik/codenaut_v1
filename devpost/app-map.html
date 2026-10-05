@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Codenaut — app map</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #141a2c;
+    --ink: #e8ecf4;
+    --dim: #9ca9c1;
+    --cyan: #20e7ff;
+    --lime: #c7f464;
+    --yellow: #ffd600;
+    --border: #2b3651;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 22px 28px; }
+  main { max-width: 920px; margin: 0 auto; padding: 24px 20px 80px; }
+  h1 { margin: 0 0 6px; font-size: 26px; }
+  h2 { margin: 0 0 10px; font-size: 18px; color: var(--yellow); }
+  p.lead { margin: 0 0 10px; color: var(--dim); }
+  code {
+    font: 600 14px/ui-monaco, Menlo, Consolas, monospace;
+    background: #0f1528;
+    color: var(--lime);
+    padding: 2px 6px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+  }
+  pre {
+    background: #0b101f;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    overflow: auto;
+  }
+  pre code { background: none; color: var(--cyan); padding: 0; border: none; font-size: 13px; }
+  .diagram { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 12px 0; }
+  .stop { border-left: 3px solid var(--cyan); padding: 3px 0 3px 16px; margin: 18px 0; }
+  .stop-num { display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: var(--cyan); color: #06141e; font: 700 13px/24px monospace; text-align: center; margin-right: 8px; vertical-align: middle; }
+  details { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; margin: 12px 0; }
+  summary { cursor: pointer; padding: 12px 16px; font-weight: 600; outline: 2px solid transparent; outline-offset: -2px; }
+  summary:focus-visible { outline-offset: 2px; outline-color: var(--yellow); }
+  .body { padding: 0 16px 14px 16px; }
+  a { color: var(--cyan); }
+  .tag { color: var(--yellow); }
+  .muted { color: var(--dim); }
+  svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Codenaut — what it is, in one move</h1>
+  <p class="lead">A Next.js game that teaches CSS by typing one declaration at a time and watching it change a real playfield live in an iframe.</p>
+  <p class="lead">This page is a take-home map, not a checklist. It is a snapshot — generated at commit <a href="https://github.com/codenaut-dev/codenaut/commit/a516c92c1d4e1a9a3d9f7c2b6e8f0a1d2b3c4e5f"><code>a516c92</code></a> — and can drift.</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>One action, end to end</h2>
+    <p>The path a child walks on every task: pick a property from the basket, drop it into the editor, press Check, read the result.</p>
+
+    <div class="diagram" role="img" aria-label="Flow: Basket chip dragged into the editor, Check reads the iframe and writes stars">
+      <svg viewBox="0 0 820 180" role="img" aria-label="Basket to editor to preview to check to stars">
+        <text x="410" y="22" text-anchor="middle" font-size="15" fill="#9ca9c1">Action: drag a basket chip, drop it in the editor, press Check</text>
+        <rect x="40" y="40" width="120" height="56" rx="10" fill="#141a2c" stroke="#20e7ff" stroke-width="2"/>
+        <text x="100" y="62" text-anchor="middle" font-size="14" fill="#20e7ff">1. Basket</text>
+        <text x="100" y="80" text-anchor="middle" font-size="12" fill="#9ca9c1">PropertyBasket.tsx</text>
+        <rect x="220" y="40" width="120" height="56" rx="10" fill="#141a2c" stroke="#20e7ff" stroke-width="2"/>
+        <text x="280" y="62" text-anchor="middle" font-size="14" fill="#20e7ff">2. Editor</text>
+        <text x="280" y="80" text-anchor="middle" font-size="12" fill="#9ca9c1">CssEditor.tsx</text>
+        <rect x="400" y="40" width="120" height="56" rx="10" fill="#141a2c" stroke="#20e7ff" stroke-width="2"/>
+        <text x="460" y="62" text-anchor="middle" font-size="14" fill="#20e7ff">3. Preview</text>
+        <text x="460" y="80" text-anchor="middle" font-size="12" fill="#9ca9c1">PlayfieldPreview + taskLoader.ts</text>
+        <rect x="580" y="40" width="120" height="56" rx="10" fill="#141a2c" stroke="#20e7ff" stroke-width="2"/>
+        <text x="640" y="62" text-anchor="middle" font-size="14" fill="#20e7ff">4. Check</text>
+        <text x="640" y="80" text-anchor="middle" font-size="12" fill="#9ca9c1">checker.ts + stars.ts</text>
+        <rect x="740" y="40" width="60" height="56" rx="10" fill="#141a2c" stroke="#ffd600" stroke-width="2"/>
+        <text x="770" y="62" text-anchor="middle" font-size="14" fill="#ffd600">Stars</text>
+        <text x="770" y="80" text-anchor="middle" font-size="12" fill="#9ca9c1">progress.ts</text>
+        <path d="M160 68 L210 68" stroke="#20e7ff" stroke-width="2" marker-end="url(#arrow)"/>
+        <path d="M340 68 L390 68" stroke="#20e7ff" stroke-width="2" marker-end="url(#arrow)"/>
+        <path d="M520 68 L570 68" stroke="#20e7ff" stroke-width="2" marker-end="url(#arrow)"/>
+        <path d="M700 68 L730 68" stroke="#ffd600" stroke-width="2" marker-end="url(#arrow)"/>
+        <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 9 5 L 0 10 z" fill="#20e7ff"/></defs>
+      </svg>
+    </div>
+
+    <div class="stop"><span class="stop-num">1</span><b>Drop zone. The chip is a whole command.</b> In <code>PropertyBasket.tsx</code> the <code>command()</code> helper builds <code>background-color: darkblue;</code> — with the semicolon — and that exact string is both what the child reads on the chip and what <code>ondragstart</code> puts on the clipboard (<code>command(item)</code>). Nothing else: the property/value split lives in <code>task.json</code>’s <code>basket</code>, not in here.</div>
+
+    <div class="stop"><span class="stop-num">2</span><b>Editor. One source of truth for the CSS.</b> <code>LevelScreen.tsx</code> holds <code>childCss</code> in state and hands it to <code>&lt;CssEditor value={childCss} onChange={setChildCss} /&gt;</code>. A drop inserts at the cursor, so the chip above becomes a real declaration in the child’s input.</div>
+
+    <div class="stop"><span class="stop-num">3</span><b>Preview. The browser, not the code, judges.</b> <code>PlayfieldPreview</code> keeps an <code>&lt;iframe&gt;</code> whose <code>srcdoc</code> is built by <code>assemblePlayfield(html, childCss, selector)</code> in <code>src/lib/taskLoader.ts</code>. That function wraps the child’s bare declarations in the task’s selector with <code>wrapDeclarations()</code> (and leaves already-braced CSS untouched), so <code>color: lime</code> becomes valid inside <code>#target { color: lime; }</code> and the playfield repains on every keystroke.</div>
+
+    <div class="stop"><span class="stop-num">4</span><b>Check. Computed values, never the characters the child typed.</b> <code>CheckButton → check(iframe, childCss, config)</code> in <code>src/lib/checker.ts</code>. It reads <code>readComputed()</code> <em>from the iframe’s content document</em> (line 30), then asks <code>valueMatches()</code> whether the computed value matches — pixel tolerance for <code>px</code>, RGB tolerance for colours, geometry for <code>border-radius: round</code>. A pass calls <code>recordTaskSuccess()</code> (<code>src/lib/progress.ts</code>) → stars via <code>starsForAttempts()</code> (<code>src/lib/stars.ts</code>) → a <code>ResultToast</code>.</div>
+  </section>
+
+  <section>
+    <h2>To change this, start here</h2>
+    <details>
+      <summary>Add a level</summary>
+      <div class="body">
+        Make <code>public/tasks/&lt;world&gt;/NN-name.html</code> + <code>.json</code> (see an existing one for shape: <code>selector</code>, <code>basket</code>, <code>expects</code>, <code>solution</code>, <code>hints</code>), register it in <code>src/lib/worlds.ts</code> <code>LEVELS</code>, and add the <code>tasks.&lt;id&gt;</code> block to <code>src/i18n/en.json</code> + <code>ru.json</code> (text, teachBody, hints, success). The dictionary check (<code>check-dictionaries.js</code>) refuses a level that names a value or property the code can’t paint.</div>
+    </details>
+    <details>
+      <summary>Change star scoring / hint ladder</summary>
+      <div class="body">Scoring is a small function: <code>stars.ts → starsForAttempts()</code>. The hint ladder is not a ladder anymore — <code>ResultToast.tsx</code> carries the words, the blurred answer and the ready-made solution together. A wrong check routes through <code>checker.ts</code> outcome <code>rightLookWrongProperty</code> vs <code>nothingTyped</code> vs the hint.</div>
+    </details>
+    <details>
+      <summary>Change how a value is tested</summary>
+      <div class="body"><code>checker.ts:49 valueMatches()</code> is the only place “did the child get it right” is decided. Add an <code>ExpectMode</code> there if a task needs a different comparison (e.g. a percentage that should resolve to a specific px range). The mode rides along in <code>task.json</code> <code>expects[].mode</code>.</div>
+    </details>
+    <details>
+      <summary>Change wording or add a language</summary>
+      <div class="body">All child-facing text is in <code>src/i18n/en.json</code> and <code>ru.json</code>. CSS property names and colour words can be marked with <code>[[token]]</code> in <code>text</code>, <code>teachBody</code>, <code>hints</code>; the shared renderer <code>src/components/MarkedText.tsx</code> paints colours and turns property names into cyan pills. The dictionary check validates that every token means something the app can actually draw.</div>
+    </details>
+    <details>
+      <summary>Change how CSS is wrapped into a playfield</summary>
+      <div class="body"><code>src/lib/taskLoader.ts → wrapDeclarations()</code> (line 64) and <code>assemblePlayfield()</code> (line 71). Keep the child’s already-braced rules untouched; only bare <code>property: value</code> lines get wrapped in the task selector.</div>
+    </details>
+  </section>
+
+    <details>
+    <summary>Run it again and verify</summary>
+    <div class="body">
+      <pre><code>npm install &amp;&amp; npm run dev</code></pre>
+      <p class="muted">Then open <code>http://127.0.0.1:3000</code>. The app reads its state from <code>localStorage</code> under <code>codenaut.progress.v1</code> (deleting that key or opening an incognito window resets to a fresh game).</p>
+      <p class="muted">The project ships no <code>npm test</code>. The verification scripts live outside the repository alongside this map
+        (<code>check-dictionaries.js</code>, <code>check-learner-requests.js</code>, <code>check-edge-cases.js</code>,
+        <code>check-language-browser.js</code>, <code>check-playfields.js</code>, <code>check-trail.js</code>) and assume the dev
+        server above is running. Run the dictionary check first — it guards the <code>[[token]]</code> markup in the dictionaries.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>A practice to reuse</summary>
+    <div class="body">
+      <p><b>Test the behaviour, not the spelling.</b> The acceptance rule for <code>border-radius</code> used to compare the characters the child typed against <code>50%</code>; the learner tried percentages and they never passed, because a string match is the wrong test for an equivalence class. The fixed check resolves the value in the live DOM and asks “did every corner reach the middle” (geometry), so <code>50%</code>, <code>60px</code> and <code>100%</code> are treated as the same circle (<code>checker.ts:111 isFullyRound</code>). On any project where an input has more than one equivalent form, compute the observable effect and compare <em>that</em>, not the text — it is the difference between a test that fails on a correct answer and one that survives refactoring.</p>
+    </div>
+  </details>
+
+  <p class="muted">Map generated from commit <code>a516c92</code>. Paths and symbols are real, but this is a snapshot: if a file moves, the route is the thing that still holds — re-anchor it from the component that owns the behaviour you need to change.</p>
+</main>
+
+</body>
+</html>

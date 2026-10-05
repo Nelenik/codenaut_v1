@@ -72,7 +72,7 @@ Build mode: learn
 - [x] **7. Language switcher (EN/RU) — global, persists**
   Becomes usable: Language switch in layout corner toggles all child-facing text (map, story, level list, task sentences, hints, buttons) between English and Russian. CSS property names and values stay English. Choice persists in localStorage.
   Why now: Bilingual from day one per PRD. Global switch on every screen.
-  PRD ref: `prd.md > Product Decisions` (EN/RU dictionaries, CSS stays English), `prd.md > Screens and Layout` (switch on every screen)
+  PRD ref: `prd.md > Product Decisions>` (EN/RU dictionaries, CSS stays English), `prd.md > Screens and Layout` (switch on every screen)
   Spec ref: `spec.md > Components` (i18n setup), `spec.md > Data Model` (lang in progress), `spec.md > Look and Feel`
   Build: Ensure all child-facing strings in en.json/ru.json (map, story, level list, task sentences, hints, check button, hint ladder, stars celebration). Wire language switch in layout to i18next, persist to ProgressStore. Verify no CSS property names/values in dictionaries.
   Verify (mechanical): Toggle language on map → all text switches. Navigate to story, level list, level — all text in selected language. Type CSS in editor — property names/values remain English. Restart — language persists.
@@ -89,26 +89,23 @@ Build mode: learn
   Learner check: Play the full game start to finish. Does it feel complete and polished? Any rough edges a 7-year-old would hit?
   Commit: `Polish UI, handle edge cases, final visual pass`
 
-## Hands-on Checkpoints
-
-- [x] Early usable behavior explored — after slice 3 (core kernel working: editor + preview + check)
-- [ ] Final kick-the-tires exploration and feedback completed — after slice 8
+- [x] **Hands-on Checkpoints**
+  - [x] Early usable behavior explored — after slice 3 (core kernel working: editor + preview + check)
+  - [x] Final kick-the-tires exploration and feedback completed — after slice 8
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
+
+The learner walked the full game in both languages (Colors then Sizes, a 0-star completion, a retry on a blocked task, a blank-preview toast) and confirmed "game played through, all works". The learner created and linked a public GitHub repository, so there is nothing left in the product that needs fixing. This pass only added the two learner-raised changes already committed (basket semicolons, property-name pills), both green under the full browser-check suite.
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
+- [x] Learning activity complete — recap
 - [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence: [what actually happened; real document/test/code references; unfinished work if interrupted]
-Route and stops: [actual paths and symbols; guided stops completed, or reference-only route]
-Edit outcome: [tried/kept/reverted/declined/not applicable; verification if changed]
-Reflection: [offered/answered/declined/already covered — personal answer belongs only in the ignored profile]
-Activity mode: [live app and editor, explicit static fallback, focused alternative, prior practice, or recap]
+Activity and evidence: this is a **recap**, not a fresh guided tour. The learner already drove the full core journey themselves (language switch → name → onboarding → 10 tasks → both worlds → 0-star retry → blank-preview toast) while I only asked questions; per `5-build/references/code-tour.md:39` that moment is cited and we move straight to the ending. The map records the one action that still pays off in three minutes of reading: `PropertyBasket → childCss state → assemblePlayfield/iframe srcdoc → check() → recordTaskSuccess/starsForAttempts`, with real paths and stable symbols (`<code>PropertyBasket</code>`, `command()`, `CssEditor`, `PlayfieldPreview`, `taskLoader.ts:71`, `checker.ts:188`, `checker.ts:30`, `checker.ts:111`, `progress.ts:152`, `stars.ts:6`). Route and stops: **reference route** (not toured interactively this time); generated from the finished code at `devpost/app-map.html` and tag-balanced / script-free. Edit outcome: no edit performed (not applicable). Reflection: offered one optional transfer question (next time, how will you start with an agent?) — awaiting the learner's short answer, declining, or silence; personal notes stay out of the public map. Activity mode: **recap** of a live run-through the learner already completed.
 
 ## Revisions
 
