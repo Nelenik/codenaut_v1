@@ -182,12 +182,12 @@
       "teachBody": "border-radius says how much the corners of a shape are rounded. Half of the size is enough to make a circle, and on this 120-pixel planet the command brings 60px. Drag it in — and if you like, change the 60px to 50%, it means the same half.",
       "example": "border-radius: 50%",
       "hints": [
-        "The corners need rounding, not a new size. One of the names in the basket is the one about rounding."
+        "The corners need rounding. One of the names in the basket is the one about rounding."
       ],
       "success": "Great job! That is a round planet."
     },
     "sizes/05-size-combo": {
-      "text": "{{name}} wants a round portal: 140 pixels wide, 140 pixels tall, and rounded into a circle. Three commands at once!",
+      "text": "{{name}} wants a round portal: 140 pixels wide, 140 pixels tall. Three commands at once!",
       "teachTitle": "How to do it",
       "teachBody": "You know width and height from the first tasks, and the rounding from the planet. Three commands, one per line, each ending with a semicolon. A circle needs the same width and height.",
       "example": "width: 100px;\nheight: 100px;\nborder-radius: 50px;",
