@@ -22,13 +22,72 @@ const DEFAULT_PROGRESS: Progress = {
 
 const STORAGE_KEY = 'codenaut.progress.v1';
 
+/**
+ * A fresh state, built fresh every time.
+ *
+ * Nothing may hand out `DEFAULT_PROGRESS` itself. Every write in this file goes
+ * through `loadProgress` and then mutates what it got back, so a shared default
+ * would be mutated by the first thing that unlocks a level — and the next reader
+ * would inherit an unlock nobody played for.
+ */
 export function defaultProgress(): Progress {
   return {
     lang: DEFAULT_PROGRESS.lang,
     playerName: '',
     onboardingDone: false,
     tasks: {},
-    unlocked: { worlds: [...DEFAULT_PROGRESS.unlocked.worlds], levels: [...DEFAULT_PROGRESS.unlocked.levels] },
+    unlocked: {
+      worlds: [...DEFAULT_PROGRESS.unlocked.worlds],
+      levels: [...DEFAULT_PROGRESS.unlocked.levels],
+    },
+  };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function stringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
+}
+
+/**
+ * A stored value can be anything — half-written, hand-edited in devtools, or
+ * left by an older version of the game. Only the parts that are the right shape
+ * are believed and the rest falls back, so a corrupt store reads as a fresh game
+ * rather than as a broken one.
+ *
+ * `lang` is checked against the two languages the game actually ships: an
+ * unrecognised value falls back to English, because i18next would happily switch
+ * to a language with no dictionaries and leave the player reading blank screens.
+ */
+function sanitise(parsed: unknown): Progress {
+  const base = defaultProgress();
+  if (!isRecord(parsed)) return base;
+
+  const tasks: Progress['tasks'] = {};
+  if (isRecord(parsed.tasks)) {
+    for (const [id, entry] of Object.entries(parsed.tasks)) {
+      if (!isRecord(entry) || typeof entry.stars !== 'number') continue;
+      tasks[id] = {
+        stars: entry.stars,
+        completed: entry.completed === true,
+        attempts: typeof entry.attempts === 'number' ? entry.attempts : 0,
+      };
+    }
+  }
+
+  const unlocked = isRecord(parsed.unlocked) ? parsed.unlocked : {};
+
+  return {
+    lang: parsed.lang === 'ru' || parsed.lang === 'en' ? parsed.lang : base.lang,
+    playerName: typeof parsed.playerName === 'string' ? parsed.playerName : base.playerName,
+    onboardingDone: parsed.onboardingDone === true,
+    tasks,
+    unlocked: {
+      worlds: [...new Set([...base.unlocked.worlds, ...stringList(unlocked.worlds)])],
+      levels: [...new Set([...base.unlocked.levels, ...stringList(unlocked.levels)])],
+    },
   };
 }
 
@@ -49,24 +108,14 @@ export function getPlayerName(): string {
 }
 
 export function loadProgress(): Progress {
-  if (typeof window === 'undefined') return DEFAULT_PROGRESS;
-  
+  if (typeof window === 'undefined') return defaultProgress();
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return DEFAULT_PROGRESS;
-    
-    const parsed = JSON.parse(stored);
-    return {
-      ...DEFAULT_PROGRESS,
-      ...parsed,
-      tasks: { ...DEFAULT_PROGRESS.tasks, ...parsed.tasks },
-      unlocked: {
-        worlds: [...new Set([...DEFAULT_PROGRESS.unlocked.worlds, ...(parsed.unlocked?.worlds || [])])],
-        levels: [...new Set([...DEFAULT_PROGRESS.unlocked.levels, ...(parsed.unlocked?.levels || [])])],
-      },
-    };
+    if (!stored) return defaultProgress();
+    return sanitise(JSON.parse(stored));
   } catch {
-    return DEFAULT_PROGRESS;
+    return defaultProgress();
   }
 }
 

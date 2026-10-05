@@ -23,7 +23,8 @@
     "replayOnboarding": "Start the welcome"
   },
   "levelList": {
-    "back": "Back"
+    "back": "Back",
+    "doneNoStars": "Finished without stars"
   },
   "level": {
     "check": "Check",
@@ -35,6 +36,7 @@
     "target": "target",
     "next": "Next task",
     "nothingTyped": "Write something in the editor first.",
+    "previewBlank": "The picture went blank — something you wrote is hiding it. Take back the last command.",
     "wrongProperty": "You got the look you wanted — well done! But the property to use here is {{property}}.",
     "reveal": "Show me",
     "useSolution": "Use the ready-made answer",
@@ -93,6 +95,7 @@
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",
+    "levelLoadFailed": "This level could not be loaded",
     "retry": "Try again"
   },
   "tasks": {

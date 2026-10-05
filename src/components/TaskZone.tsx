@@ -13,7 +13,7 @@ export default function TaskZone({ taskText, teachTitle, teachBody, example, nar
     <section className="rounded-2xl bg-space-800/70 border-2 border-space-600 p-4 md:p-5 flex gap-4 md:gap-6 items-start">
       <div className="flex flex-col items-center gap-2 shrink-0">
         <img src="/assets/kid.svg" alt="" className="w-16 h-24 md:w-20 md:h-30" />
-        <span className="text-xs font-display font-bold text-space-300 text-center leading-tight max-w-20">
+        <span className="text-base font-display font-bold text-space-300 text-center leading-tight max-w-20">
           {narratorLabel}
         </span>
       </div>

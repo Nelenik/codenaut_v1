@@ -17,9 +17,24 @@ const WORLDS: World[] = [
   { id: 'sizes', labelKey: 'map.worlds.sizes', color: '#00e5ff', glow: '#00aaff', emojiFallback: '#22d3ee' },
 ];
 
+const TRAIL = 'M 120 130 Q 300 70 480 130';
+
+/**
+ * The trail's geometry, in the SVG's own units. It runs from the first planet to
+ * the last, and the rocket sits over its middle — so with the first planet open
+ * the lit trail reaches the middle and with both open it reaches the second
+ * planet. Widening the clip is how "one more world" becomes visible.
+ */
+const TRAIL_FROM = 120;
+const TRAIL_TO = 480;
+
 export default function MapScreen() {
   const { t } = useTranslation();
   const { progress } = useProgress();
+
+  const openWorlds = WORLDS.filter((world) => progress.unlocked.worlds.includes(world.id)).length;
+  const frontier =
+    TRAIL_FROM + (Math.min(openWorlds, WORLDS.length) / WORLDS.length) * (TRAIL_TO - TRAIL_FROM);
 
   return (
     <main className="relative min-h-screen flex flex-col">
@@ -42,17 +57,35 @@ export default function MapScreen() {
                 <stop offset="0%" stopColor="#ffd600" stopOpacity="0.5" />
                 <stop offset="100%" stopColor="#00e5ff" stopOpacity="0.5" />
               </linearGradient>
+
+              <clipPath id="trailReached">
+                <rect x="0" y="0" width={frontier} height="220" className="trail-reveal" />
+              </clipPath>
             </defs>
 
+            {/* The whole road, faint: what is still ahead. */}
             <path
-              d="M 120 130 Q 300 70 480 130"
+              d={TRAIL}
               stroke="url(#trail)"
               strokeWidth="4"
               strokeDasharray="14 12"
               fill="none"
               strokeLinecap="round"
-              className="rocket-trail"
+              opacity="0.25"
             />
+
+            {/* The road travelled, lit and flowing — it grows as worlds open. */}
+            <g clipPath="url(#trailReached)">
+              <path
+                d={TRAIL}
+                stroke="url(#trail)"
+                strokeWidth="4"
+                strokeDasharray="14 12"
+                fill="none"
+                strokeLinecap="round"
+                className="rocket-trail"
+              />
+            </g>
           </svg>
 
           <div className="absolute inset-0">

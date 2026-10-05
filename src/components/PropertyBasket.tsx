@@ -64,7 +64,7 @@ export default function PropertyBasket({
 
   return (
     <div className="flex flex-col gap-2 rounded-2xl bg-space-800/70 border-2 border-space-600 p-3">
-      <p className="font-display font-bold text-planet-yellow text-sm">{label}</p>
+      <p className="font-display font-bold text-planet-yellow text-base">{label}</p>
 
       {available.length > 0 ? (
         <div className="flex flex-wrap items-center gap-x-1 gap-y-2 py-2 px-2">
@@ -96,7 +96,7 @@ export default function PropertyBasket({
 
       {inserted.length > 0 ? (
         <div className="flex flex-col gap-1">
-          <p className="font-display text-xs text-space-300">{placedLabel}</p>
+          <p className="font-display text-base text-space-300">{placedLabel}</p>
           <div className="flex flex-wrap gap-2">
             {inserted.map((property) => (
               <span
@@ -119,7 +119,7 @@ export default function PropertyBasket({
         </div>
       ) : null}
 
-      {hint ? <p className="font-display text-xs text-space-300">{hint}</p> : null}
+      {hint ? <p className="font-display text-base text-space-300">{hint}</p> : null}
     </div>
   );
 }

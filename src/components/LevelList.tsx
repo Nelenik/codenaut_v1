@@ -8,6 +8,7 @@ import { isLevelUnlocked } from '@/lib/progress';
 import { useProgress } from '@/lib/useProgress';
 import Loading from '@/components/Loading';
 
+/** Three stars, filled as many as were earned. */
 function StarRow({ count }: { count: number }) {
   return (
     <span className="flex gap-0.5" aria-label={`${count}/3`}>
@@ -82,7 +83,22 @@ export default function LevelList({ worldId }: { worldId: string }) {
               </span>
               <span className="flex-1" />
               {completed ? (
-                <StarRow count={task?.stars ?? 0} />
+                // A level finished with no stars is the price of the ready-made
+                // answer. Three empty stars would read as three lost stars, or as
+                // a level still to do — `prd.md > States and Boundaries` asks for
+                // "completed with 0 stars, not as locked", so it gets a tick.
+                (task?.stars ?? 0) > 0 ? (
+                  <StarRow count={task?.stars ?? 0} />
+                ) : (
+                  <span
+                    className="text-3xl text-lime-300"
+                    role="img"
+                    aria-label={t('levelList.doneNoStars')}
+                    title={t('levelList.doneNoStars')}
+                  >
+                    ✓
+                  </span>
+                )
               ) : isNext ? (
                 <span className="text-2xl text-planet-yellow" aria-hidden>
                   ▶

@@ -63,6 +63,22 @@ h1, h2, h3, h4, h5, h6, button, .font-display {
   animation: trail-flow 3s linear infinite;
 }
 
+/* The clip that decides how far the trail has been travelled. Transitions on an
+   SVG geometry property, so unlocking a world visibly extends the road. */
+.trail-reveal {
+  transition: width 800ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rocket-trail,
+  .celebrate {
+    animation: none;
+  }
+  .trail-reveal {
+    transition: none;
+  }
+}
+
 @keyframes trail-flow {
   to {
     stroke-dashoffset: 20;

@@ -45,6 +45,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
   const [celebrating, setCelebrating] = useState(false);
+  const [previewBlank, setPreviewBlank] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -66,6 +67,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       setFailedAttempts(0);
       setResult(null);
       setCelebrating(false);
+      setPreviewBlank(false);
     });
 
     return () => {
@@ -96,8 +98,8 @@ export default function LevelScreen({ worldId, levelId }: Props) {
   if (loadError) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-6 text-center">
-        <p className="text-2xl font-display font-bold text-white">{t('common.error')}</p>
-        <p className="text-lg font-mono text-space-300 break-all">{loadError}</p>
+        <p className="text-2xl font-display font-bold text-white">{t('common.levelLoadFailed')}</p>
+          <p className="text-lg font-mono text-space-300 break-all">{loadError}</p>
         <button
           onClick={() => setRetryKey((k) => k + 1)}
           className="px-8 py-3 rounded-full bg-planet-yellow text-space-900 font-display font-extrabold text-lg hover:bg-yellow-300 transition-colors"
@@ -237,6 +239,13 @@ export default function LevelScreen({ worldId, levelId }: Props) {
             hint={t('basket.hint')}
           />
           <CssEditor value={childCss} onChange={setChildCss} />
+
+          {previewBlank ? (
+            <p className="rounded-2xl border-2 border-dashed border-planet-orange/70 bg-space-800/70 px-4 py-3 font-display text-base text-planet-orange">
+              {t('level.previewBlank')}
+            </p>
+          ) : null}
+
           <CheckButton onCheck={runCheck} label={t('level.check')} />
         </section>
 
@@ -250,6 +259,8 @@ export default function LevelScreen({ worldId, levelId }: Props) {
             compareHint={t('level.compareHint')}
             childLabel={t('level.yours')}
             referenceLabel={t('level.target')}
+            blankSelector={task.config.selector}
+            onBlankChange={setPreviewBlank}
           />
         </section>
       </div>
