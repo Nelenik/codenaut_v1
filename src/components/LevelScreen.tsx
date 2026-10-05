@@ -17,6 +17,7 @@ import PropertyBasket from '@/components/PropertyBasket';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
 import CheckButton from '@/components/CheckButton';
 import ResultToast from '@/components/ResultToast';
+import NoticeToast from '@/components/NoticeToast';
 import Loading from '@/components/Loading';
 
 type Result = {
@@ -239,13 +240,6 @@ export default function LevelScreen({ worldId, levelId }: Props) {
             hint={t('basket.hint')}
           />
           <CssEditor value={childCss} onChange={setChildCss} />
-
-          {previewBlank ? (
-            <p className="rounded-2xl border-2 border-dashed border-planet-orange/70 bg-space-800/70 px-4 py-3 font-display text-base text-planet-orange">
-              {t('level.previewBlank')}
-            </p>
-          ) : null}
-
           <CheckButton onCheck={runCheck} label={t('level.check')} />
         </section>
 
@@ -330,6 +324,21 @@ export default function LevelScreen({ worldId, levelId }: Props) {
           }}
           onUseSolution={useSolution}
           onDismiss={() => setResult(null)}
+        />
+      ) : null}
+
+      {/*
+        A warning about the screen, not an answer to a check — so it is its own
+        toast at the top, and it never takes the hint toast's place at the
+        bottom. A child who is stuck needs the hint even while the picture is
+        blank.
+      */}
+      {previewBlank ? (
+        <NoticeToast
+          title={t('toast.noticeTitle')}
+          text={t('level.previewBlank')}
+          closeLabel={t('toast.closeNotice')}
+          onDismiss={() => setPreviewBlank(false)}
         />
       ) : null}
     </main>

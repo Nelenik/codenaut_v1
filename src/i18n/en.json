@@ -90,7 +90,9 @@
   "toast": {
     "hintTitle": "Here's a hint",
     "praiseTitle": "Almost!",
-    "close": "Close the hint"
+    "close": "Close the hint",
+    "noticeTitle": "Something to fix",
+    "closeNotice": "Close"
   },
   "common": {
     "loading": "Loading...",
@@ -100,9 +102,9 @@
   },
   "tasks": {
     "colors/01-ball-color": {
-      "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the ball green.",
+      "text": "{{name}} bought a ball on the Colors planet, but the seller mixed it up and gave a grey one. Make the ball [[green]].",
       "teachTitle": "How to do it",
-      "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\". The colour you need here is called green.",
+      "teachBody": "background-color paints the inside of a shape. It is written like this: a name, then a colon, then the colour. A colon is the sign that says \"and here is the value\". The colour you need here is called [[green]].",
       "example": "background-color: blue",
       "hints": [
         "You need to paint the shape, not the text. Remember which property paints the inside of a shape — its name is already written in the editor."
@@ -110,9 +112,9 @@
       "success": "Great job! The ball is green."
     },
     "colors/02-color-too-dark": {
-      "text": "{{name}} found an old sign on the Colors planet. The letters are almost black, so you can hardly read them. Make the letters white.",
+      "text": "{{name}} found an old sign on the Colors planet. The letters are almost black, so you can hardly read them. Make the letters [[white]].",
       "teachTitle": "How to do it",
-      "teachBody": "color paints the letters. Its name is already written in the editor. After the colon write the colour the letters need — here they have to be white.",
+      "teachBody": "color paints the letters. Its name is already written in the editor. After the colon write the colour the letters need — here they have to be [[white]].",
       "example": "color: black",
       "hints": [
         "The letters are too dark to read. They need to be light instead — the colour for that is called white."
@@ -120,9 +122,9 @@
       "success": "Great job! Now the sign can be read."
     },
     "colors/03-pick-background": {
-      "text": "{{name}} landed at night, but the sky is still grey and bright. Make the sky dark blue.",
+      "text": "{{name}} landed at night, but the sky is still grey and bright. Make the sky [[darkblue]].",
       "teachTitle": "How to do it",
-      "teachBody": "The sky is a shape too — a very big one. Drag the property that paints the inside of a shape into the editor: it comes with its colour already written, and that colour is called darkblue.",
+      "teachBody": "The sky is a shape too — a very big one. Drag the property that paints the inside of a shape into the editor: it comes with its colour already written, and that colour is called [[darkblue]].",
       "example": "background-color: blue",
       "hints": [
         "The sky is a shape, and you need the property that paints the inside of a shape. Its name is in the basket."
@@ -130,9 +132,9 @@
       "success": "Great job! It is night on this planet."
     },
     "colors/04-pick-border": {
-      "text": "{{name}} found the school sign, but its frame is dark grey and easy to miss. Make the frame yellow.",
+      "text": "{{name}} found the school sign, but its frame is dark grey and easy to miss. Make the frame [[yellow]].",
       "teachTitle": "How to do it",
-      "teachBody": "The frame around a shape is called its border, and there is a property that paints only that frame. Drag its name from the basket into the editor — it brings the yellow with it.",
+      "teachBody": "The frame around a shape is called its border, and there is a property that paints only that frame. Drag its name from the basket into the editor — it brings the [[yellow]] with it.",
       "example": "border-color: red",
       "hints": [
         "You are not painting the inside this time, and not the letters — the frame around the sign. The property with border in its name does that."
@@ -140,9 +142,9 @@
       "success": "Great job! That sign is impossible to miss now."
     },
     "colors/05-color-combo": {
-      "text": "{{name}} wants a real Codenaut badge: the inside blue, the frame yellow, the letters white. Three commands!",
+      "text": "{{name}} wants a real Codenaut badge: the inside [[blue]], the frame [[yellow]], the letters [[white]]. Three commands!",
       "teachTitle": "How to do it",
-      "teachBody": "You already know all three. One command paints the inside, one paints the frame, one paints the letters. Write each on its own line, and end every command with a semicolon.",
+      "teachBody": "You already know all three. One command paints the inside, one paints the frame, one paints the letters. And the colours are familiar ones: inside [[blue]], frame [[yellow]], letters [[white]]. Write each on its own line, and end every command with a semicolon.",
       "example": "background-color: green;\nborder-color: green;\ncolor: green;",
       "hints": [
         "Check the badge part by part: the inside, the frame, the letters. Two of them may already be right — look at the third."
