@@ -97,20 +97,6 @@ These are only honoured where `MarkedText` runs — task text, the "how to do it
 block, and the hint toast — so an author mistake stays visible in review and
 harmless to a child.
 
-## Verification
-
-The project ships no `npm test`. It is verified with a set of node scripts (kept
-alongside the project by the maintainer) that drive a headless browser against a
-running `npm run dev`:
-
-- `check-dictionaries.js` — EN/RU key parity, no duplicate keys, every
-  `[[token]]` resolves to a real colour or property, every value a task expects
-  is reachable by a child.
-- `check-learner-requests.js` — the two-column layout, colour chips, the
-  blank-picture toast, basket chips ending in `;`, and property-name pills.
-- `check-language-browser.js`, `check-edge-cases.js`, `check-playfields.js`,
-  `check-trail.js` — i18n, edge cases, playfield assets, and the rocket trail.
-
 ## Notes
 
 - Playfields use only plain CSS/HTML — no Tailwind class touches a playfield.
