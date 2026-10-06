@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { markOnboardingDone } from '@/lib/progress';
 import { useProgress } from '@/lib/useProgress';
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 3;
 
 type Props = {
   onFinish: () => void;
@@ -40,9 +40,8 @@ export default function Onboarding({ onFinish }: Props) {
             {Array.from({ length: TOTAL_STEPS }, (_, i) => (
               <span
                 key={i}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  i === step ? 'bg-planet-yellow' : 'bg-space-600'
-                }`}
+                className={`w-3 h-3 rounded-full transition-colors ${i === step ? 'bg-planet-yellow' : 'bg-space-600'
+                  }`}
               />
             ))}
           </div>
@@ -89,8 +88,8 @@ function Step({ step }: { step: number }) {
       </div>
 
       {step === 1 ? <TwoHelpers /> : null}
-      {step === 2 ? <CommandExample /> : null}
-      {step === 3 ? <PlanetRow /> : null}
+      {/* {step === 2 ? <CommandExample /> : null} */}
+      {step === 2 ? <PlanetRow /> : null}
     </div>
   );
 }
@@ -121,34 +120,52 @@ function Welcome() {
 function TwoHelpers() {
   const { t } = useTranslation();
   return (
-    <div className="grid grid-cols-2 gap-4 mt-2">
-      <div className="rounded-2xl bg-space-900/60 border-2 border-space-600 p-5 flex flex-col items-center gap-3">
-        <img src="/assets/builder.svg" alt="" className="w-20 h-24" />
-        <span className="font-display font-extrabold text-lg text-planet-orange">
-          {t('onboarding.html')}
-        </span>
-        <span className="text-sm text-space-100 font-display text-center leading-snug">
-          {t('onboarding.htmlHint')}
-        </span>
-        <div className="flex gap-1.5" aria-hidden>
-          <span className="w-6 h-6 bg-space-500 rounded" />
-          <span className="w-6 h-6 bg-space-600 rounded" />
-          <span className="w-6 h-6 bg-space-500 rounded" />
+    <div className="flex flex-col gap-5">
+      <div className="rounded-2xl bg-space-900/60 border-2 border-space-600 p-5 flex gap-3">
+        <div className='flex flex-col items-center gap-3 w-1/2'>
+          <span className="font-display font-extrabold text-lg text-planet-orange">
+            {t('onboarding.step2.html')}
+          </span>
+          <span className="text-lg text-space-100 font-display text-center leading-snug max-w-[90%]">
+            {t('onboarding.step2.htmlHint')}
+          </span>
+          <img src="/assets/builder.svg" alt="" className="w-1/2 mt-auto" />
+
+        </div>
+        <div className="w-1/2 flex flex-col items-center gap-1" aria-hidden>
+          <p className="font-semibold">{t('onboarding.step2.rocket')}</p>
+          <div className="**:p-2.5 **:border **:border-planet-orange **:border-dashed">
+            <div >{t('onboarding.step2.rocketNose')}</div>
+            <div>
+              <div>{t('onboarding.step2.rocketWindow')}</div>
+              <div>{t('onboarding.step2.rocketFin')}</div>
+              <div>{t('onboarding.step2.rocketFin')}</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="rounded-2xl bg-space-900/60 border-2 border-planet-yellow p-5 flex flex-col items-center gap-3">
-        <img src="/assets/artist.svg" alt="" className="w-20 h-24" />
-        <span className="font-display font-extrabold text-lg text-planet-magenta">
-          {t('onboarding.css')}
-        </span>
-        <span className="text-sm text-space-100 font-display text-center leading-snug">
-          {t('onboarding.cssHint')}
-        </span>
-        <div className="flex gap-1.5" aria-hidden>
-          <span className="w-6 h-6 bg-planet-cyan rounded" />
-          <span className="w-6 h-6 bg-planet-magenta rounded" />
-          <span className="w-6 h-6 bg-planet-lime rounded" />
+      <div className="rounded-2xl bg-space-900/60 border-2 border-planet-yellow p-5 flex gap-3">
+        <div className='flex flex-col items-center gap-3 w-1/2'>
+          <span className="font-display font-extrabold text-lg text-planet-orange">
+            {t('onboarding.step2.css')}
+          </span>
+          <span className="text-lg text-space-100 font-display text-center leading-snug max-w-[90%]">
+            {t('onboarding.step2.cssHint')}
+          </span>
+          <img src="/assets/artist.svg" alt="" className="w-1/2 mt-auto" />
+
+        </div>
+        <div className="w-1/2 flex flex-col items-center gap-1" aria-hidden>
+          <p className="font-semibold">{t('onboarding.step2.rocketFinal')}</p>
+          <div className="">
+            <div className="bg-planet-orange w-20.5 h-15 [clip-path:polygon(50%_0%,0%_100%,100%_100%)]"></div>
+            <div className="relative h-39.5 rounded-[15px] bg-amber-50 border-2 border-planet-orange">
+              <div className="absolute top-1/6 left-1/2 -translate-x-1/2 bg-blue-400 rounded-full w-10 h-10"></div>
+              <div className="absolute bottom-0 w-6 h-12 bg-planet-orange -left-6"></div>
+              <div className="absolute bottom-0 w-6 h-12 bg-planet-orange -right-6"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -156,39 +173,39 @@ function TwoHelpers() {
 }
 
 /** Step 3 — the one line of CSS, with each part named. */
-function CommandExample() {
-  const { t } = useTranslation();
-  return (
-    <div className="mt-2 rounded-2xl bg-space-900/70 border-2 border-planet-yellow p-6 flex flex-col gap-5">
-      <div className="font-mono text-3xl md:text-4xl text-planet-lime">
-        <span className="text-planet-cyan">color</span>
-        <span className="text-planet-orange">:</span> blue
-        <span className="text-planet-orange">;</span>
-      </div>
+// function CommandExample() {
+//   const { t } = useTranslation();
+//   return (
+//     <div className="mt-2 rounded-2xl bg-space-900/70 border-2 border-planet-yellow p-6 flex flex-col gap-5">
+//       <div className="font-mono text-3xl md:text-4xl text-planet-lime">
+//         <span className="text-planet-cyan">color</span>
+//         <span className="text-planet-orange">:</span> blue
+//         <span className="text-planet-orange">;</span>
+//       </div>
 
-      <dl className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-cyan">
-          <dt className="font-display font-extrabold text-planet-cyan">
-            {t('onboarding.color')}
-          </dt>
-          <dd className="text-space-100">{t('onboarding.colorHint')}</dd>
-        </div>
-        <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-cyan">
-          <dt className="font-display font-extrabold text-planet-cyan">blue</dt>
-          <dd className="text-space-100">{t('onboarding.blueHint')}</dd>
-        </div>
-        <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-orange">
-          <dt className="font-display font-extrabold text-planet-orange">:</dt>
-          <dd className="text-space-100">{t('onboarding.colonHint')}</dd>
-        </div>
-        <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-orange">
-          <dt className="font-display font-extrabold text-planet-orange">;</dt>
-          <dd className="text-space-100">{t('onboarding.semicolonHint')}</dd>
-        </div>
-      </dl>
-    </div>
-  );
-}
+//       <dl className="grid gap-3 sm:grid-cols-2">
+//         <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-cyan">
+//           <dt className="font-display font-extrabold text-planet-cyan">
+//             {t('onboarding.color')}
+//           </dt>
+//           <dd className="text-space-100">{t('onboarding.colorHint')}</dd>
+//         </div>
+//         <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-cyan">
+//           <dt className="font-display font-extrabold text-planet-cyan">blue</dt>
+//           <dd className="text-space-100">{t('onboarding.blueHint')}</dd>
+//         </div>
+//         <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-orange">
+//           <dt className="font-display font-extrabold text-planet-orange">:</dt>
+//           <dd className="text-space-100">{t('onboarding.colonHint')}</dd>
+//         </div>
+//         <div className="rounded-xl bg-space-800 p-3 border-l-4 border-planet-orange">
+//           <dt className="font-display font-extrabold text-planet-orange">;</dt>
+//           <dd className="text-space-100">{t('onboarding.semicolonHint')}</dd>
+//         </div>
+//       </dl>
+//     </div>
+//   );
+// }
 
 /** Step 4 — the worlds waiting ahead. */
 function PlanetRow() {

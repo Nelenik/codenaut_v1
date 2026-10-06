@@ -16,8 +16,8 @@
   },
   "story": {
     "title": "Codenaut",
-    "greeting": "Welcome aboard, {{name}}!",
-    "text": "You are a Codenaut — a navigator of code. Your ship can land on a planet only when that planet's code is in order. But the code is broken: colours washed out, sizes mixed up.\n\nEvery planet needs one small command from you. Write it, and the planet answers at once.",
+    "greeting": "Welcome, Codenaut!",
+    "text": "Long ago, the planets in this part of space were bright and colorful: houses in every color, giant and tiny stars, neat borders around every little house. But cosmic disasters struck the planets — star storms, meteor showers — and wiped out all the magic words-commands.\n\nYour ship found the first planet in trouble. You are the only one who knows how to find the lost words-commands and write them again.\n\nSit down at the controls, write the commands, and watch the planet come alive right before your eyes. Save one planet — the path opens to the next.\n\nReady? Let's fly and save the cosmos!",
     "close": "Back to Map",
     "bookHint": "You can go through the welcome again here and refresh how it all works.",
     "replayOnboarding": "Start the welcome"
@@ -53,10 +53,6 @@
     "back": "Back",
     "next": "Next",
     "start": "Start the journey",
-    "html": "HTML",
-    "htmlHint": "the builder — puts the blocks in place",
-    "css": "CSS",
-    "cssHint": "the artist — repaints them",
     "color": "color",
     "colorHint": "the name of the ability",
     "blueHint": "the value — what we make it",
@@ -64,25 +60,23 @@
     "semicolonHint": "means the command is finished",
     "moreWorlds": "and more",
     "step2": {
-      "title": "Two helpers",
+      "title": "You have two helpers - HTML and CSS.",
       "body": [
-        "You have two helpers. Their names are HTML and CSS.",
-        "HTML is the builder: it puts the blocks in place.",
-        "CSS is the artist: it repaints them."
-      ]
+        "Together you'll set things straight quickly, as long as you give them the right commands."
+      ],
+      "html": "HTML is like a builder: ",
+      "htmlHint": "it creates the parts of a web page",
+      "css": "CSS is like an artist:",
+      "cssHint": "it makes them look the way you want",
+      "rocket": "The Rocket skeleton",
+      "rocketFinal": "The finished rocket",
+      "rocketNose": "The nose",
+      "rocketWindow": "The window",
+      "rocketFin": "The fin"
     },
     "step3": {
-      "title": "CSS can change anything",
-      "body": [
-        "CSS has many abilities: colour, size, background, borders.",
-        "To use one, you give CSS a command."
-      ]
-    },
-    "step4": {
       "title": "Ready to explore?",
       "body": [
-        "Every planet waits with a new CSS ability.",
-        "First you learn colour, then size, background and borders.",
         "Your first planet is waiting now!"
       ]
     }
@@ -134,7 +128,7 @@
     "colors/04-pick-border": {
       "text": "{{name}} found the school sign, but its frame is dark grey and easy to miss. Make the frame [[yellow]].",
       "teachTitle": "How to do it",
-      "teachBody": "The frame around a shape is called its border, and there is a property that paints only that frame. Drag its name from the basket into the editor — it brings the [[yellow]] with it.",
+      "teachBody": "The frame around a shape is called its border, and there is a property [[border-color]] that paints only that frame. Drag its name from the basket into the editor — it brings the [[yellow]] with it.",
       "example": "border-color: red",
       "hints": [
         "You are not painting the inside this time, and not the letters — the frame around the sign. The property with border in its name does that."
