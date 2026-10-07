@@ -16,7 +16,7 @@ const DEFAULT_PROGRESS: Progress = {
   tasks: {},
   unlocked: {
     worlds: ['colors'],
-    levels: ['colors/01'],
+    levels: ['colors/00'],
   },
 };
 

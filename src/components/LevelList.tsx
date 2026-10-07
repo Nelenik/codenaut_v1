@@ -56,7 +56,7 @@ export default function LevelList({ worldId }: { worldId: string }) {
           {t(world.labelKey)}
         </h1>
         <span className="ml-auto font-display font-bold text-xl text-planet-yellow whitespace-nowrap">
-          ★ {totalStars} / 15
+          ★ {totalStars} / {world.levels.length * 3}
         </span>
       </header>
 

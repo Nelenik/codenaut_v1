@@ -1,0 +1,14 @@
+{
+  "id": "colors/00-command-parts",
+  "selector": "#target",
+  "expects": [
+    {
+      "property": "background-color",
+      "mode": "rgb",
+      "value": [255, 165, 0]
+    }
+  ],
+  "givesProperty": null,
+  "basket": [],
+  "solution": "background-color: orange"
+}

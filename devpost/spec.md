@@ -120,7 +120,7 @@ Opened from a planet (`prd.md > Screens and Layout` #3, `prd.md > Level list`). 
 The three-zone screen (`prd.md > Screens and Layout` #4, `prd.md > The editor`, `prd.md > Live preview and reference`, `prd.md > Check and result`). Owns the editor string, the live preview, the check, the hint ladder, and the success path. This is the most complex component in the app and the one `5-build` should slice carefully.
 
 ### TaskZone
-The left zone (`prd.md > Screens and Layout` #4). Renders the short story sentence, and — the first time a property appears — the short explanation of what it does. Both come from the i18n dictionaries. Carries no state.
+The left zone (`prd.md > Screens and Layout` #4). Renders the short story sentence, and — the first time a property appears — the short explanation of what it does. Both come from the i18n dictionaries, and the explanation is an array of strings, one idea per line, rendered one paragraph per line. Carries no state. On the lesson level that teaches the command itself, the explanation block also carries the four command parts as coloured cards (`CommandParts`): one row of cards on a wide screen, two per row on a phone, each card showing its token in its own colour with its number above it.
 
 ### CssEditor
 The center zone. A **CodeMirror 6** instance holding CSS (`prd.md > The editor`). The property name may arrive pre-filled, from a drag, or typed; the value is typed. Emits the current CSS on every keystroke, driving the live preview. Configured not to throw on invalid CSS; if highlighting misbehaves on a task, the extension is turned off for that editor and the library stays in place for the future HTML tasks.
@@ -152,20 +152,20 @@ Three separate kinds of data, deliberately not mixed.
 
 **1. Task content — files on disk, read-only at runtime.**
 ```
-public/tasks/colors/01-ball-color.html     the playfield: markup + untouchable CSS
-public/tasks/colors/01-ball-color.json     the check + which part is given
+public/tasks/colors/00-command-parts.html  the playfield: markup + untouchable CSS
+public/tasks/colors/00-command-parts.json  the check + which part is given
 ```
 `task.json`:
 ```json
 {
-  "id": "colors/01-ball-color",
+  "id": "colors/00-command-parts",
   "selector": "#target",
   "expects": [
-    { "property": "background-color", "mode": "rgb", "value": [0, 128, 0] }
+    { "property": "background-color", "mode": "rgb", "value": [255, 165, 0] }
   ],
-  "givesProperty": "background-color",
+  "givesProperty": null,
   "basket": [],
-  "solution": "background-color: green"
+  "solution": "background-color: orange"
 }
 ```
 - `selector` — the element the child's CSS is applied to. **Required.** The child types declarations (`background-color: green`), and a bare declaration outside a rule is invalid CSS that the browser drops silently, so declarations are wrapped in this selector by `wrapDeclarations()`. Anything the child writes that already contains a `{` is passed through untouched, so full-rule answers keep working.
@@ -175,7 +175,7 @@ public/tasks/colors/01-ball-color.json     the check + which part is given
   - `"px"` — a length. Every playfield is `box-sizing: border-box`, so the number the child writes is the whole shape — the padding and the border are inside it — and `getComputedStyle` reports exactly that number. Measured in headless Chrome to settle it: with `border-box`, `width: 160px` + 16px padding + 8px border gives `getComputedStyle(...).width === "160px"`, and `getBoundingClientRect().width === 160`; the same box under `content-box` gives `160px` computed and `224px` on the rect. This is also what makes `1.25em` and `160px` compare equal: both land on the same pixels.
   - `"rgb"` — a color. Browsers return colors as a normalized `rgb(r, g, b)` string, so compare the three numbers, allowing a tolerance (children typing `#0f0` vs `#00ff00` must not differ by more than rounding). This is what makes `#0f0`, `lime`, and `rgb(0,255,0)` all pass.
   - `"round"` — a shape, not a number, and it carries no `value`. `getComputedStyle` returns `border-radius` exactly as written — measured in headless Chrome on a 120px square: `60px` → `"60px"`, `50%` → `"50%"`, `100%` → `"100%"` — so a percentage can never be compared against pixels, and a corner radius also resolves against the box, so `60px`, `50%` and `100%` are the same circle. The check resolves each of the one-to-four corners (and the `/` vertical pair) against `getBoundingClientRect()` and asks whether every corner reached the middle — which is what "make it round" actually means.
-- `givesProperty` / `basket` — which part of the task is given, encoding the three stages of `prd.md > Task progression within a world`. `givesProperty` pre-fills the editor with `property: `; otherwise the child drags from the basket. A basket entry is `{ property, value }` and is dropped in whole, because at that stage the only open question is *which* property does this job. What the basket offers is derived from the editor text (`parseDeclarations`), so a property already written is not offered again and returns when it leaves the editor — by the × button or by deleting the text.
+- `givesProperty` / `basket` — which part of the task is given, encoding the stages of `prd.md > Task progression within a world`. `givesProperty` pre-fills the editor with `property: `; otherwise the child drags from the basket. A basket entry is `{ property, value }` and is dropped in whole, because at that stage the only open question is *which* property does this job. What the basket offers is derived from the editor text (`parseDeclarations`), so a property already written is not offered again and returns when it leaves the editor — by the × button or by deleting the text. The first level gives neither: `givesProperty` is `null` and the basket is empty, so the editor starts empty and the child writes the whole command — on that level, writing all four parts *is* the lesson.
 - `solution` — the ready-made answer: the shape of every expected declaration in one string, used by the third hint step and by the reference target.
 - **Hint text is not in this file.** It lives in the dictionaries under `tasks.<id>.hints`, so the EN and RU wording stay together with every other child-facing string, and CSS stays out of the task files.
 
@@ -187,7 +187,7 @@ public/tasks/colors/01-ball-color.json     the check + which part is given
   "tasks": {
     "colors/01-ball-color": { "stars": 3, "completed": true, "attempts": 1 }
   },
-  "unlocked": { "worlds": ["colors"], "levels": ["colors/01"] }
+  "unlocked": { "worlds": ["colors"], "levels": ["colors/00"] }
 }
 ```
 - `playerName` — empty until the name screen is completed; `NameEntry` is shown while it is empty. The name is the character's name, so every task text interpolates it.
@@ -212,6 +212,8 @@ codenaut/
 │   │   └── planets/
 │   └── tasks/                     # every playfield, a real editable HTML file
 │       ├── colors/
+│       │   ├── 00-command-parts.html  # background-color, the whole command given
+│       │   ├── 00-command-parts.json
 │       │   ├── 01-ball-color.html     # background-color, property given
 │       │   ├── 01-ball-color.json
 │       │   ├── 02-color-too-dark.html # color, property given

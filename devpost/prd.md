@@ -5,21 +5,21 @@ status: approved
 
 # Codenaut — Product Requirements
 
-A browser game that teaches CSS to children aged 7–9 by having them write real properties in a code editor and see the result immediately. Two worlds, five tasks each.
+A browser game that teaches CSS to children aged 7–9 by having them write real properties in a code editor and see the result immediately. Two worlds — six tasks in Colors, five in Sizes.
 Source: `scope.md > Initial Idea`, `scope.md > The Unique Kernel`.
 
 ## The Core Journey
 
 1. The child opens the app and is asked for their **name**. It is required — there is no skip and no default. The name is the character's name and is used in every task from then on.
 2. The child is taken to a **map of planets in space**. Two worlds exist — Colors and Sizes. The first is open and lit; the second is dimmed and locked with a padlock. A rocket trail connects the planets.
-3. The child clicks the first planet. The map re-renders with the five levels of that world listed, each showing a number and its stars. The first level is available; the rest are locked.
+3. The child clicks the first planet. The map re-renders with the levels of that world listed, each showing a number and its stars. The first level is available; the rest are locked.
 4. The child clicks an available level. Three zones appear side by side: the **task** (one short story sentence plus a small hint icon), the **editor**, and the **preview** with the reference target laid over it semi-transparently. **The child character stands on the playfield in every task**, watching from the side of the scene.
 5. The child types or drags CSS into the editor. The preview updates live with every keystroke — no confirmation needed to see the effect. The semi-transparent reference stays on top for comparison.
 6. The child presses **Check**.
    - **Right property, right effect** → success, stars awarded, celebration, move to the next task.
    - **Right effect, wrong property** → encouragement first ("great, you got the look you wanted"), then the correct property is named. **No attempt is spent** and the task is **not** completed — the child stays in it and tries again.
    - **Wrong effect** → a hint pointing at what needs changing. An attempt is spent.
-7. After task five of a world, the next planet lights up and the rocket trail extends.
+7. After the last task of a world, the next planet lights up and the rocket trail extends.
 8. The child returns to the map or re-enters a completed level to improve their stars.
 
 Success in one line: a child who has never written CSS changes an object's appearance by typing a real property, and the game confirms *which* property was right.
@@ -168,9 +168,9 @@ Colors covers background, text color, and border, learned in that order and then
 - A map of planets, two of which light up in sequence, with a rocket trail and a book button.
 - A name entry screen, asked once at the start, mandatory.
 - A story/about screen.
-- Level lists of five per world, numbered, with stars and locks.
+- Level lists per world, numbered, with stars and locks.
 - A level screen with three zones: task, editor with basket, live preview with a semi-transparent reference.
-- Ten tasks across two worlds, with three stages of scaffolding and a recombination task at the end of each world.
+- Eleven tasks across two worlds, with three stages of scaffolding and a recombination task at the end of each world.
 - Two-part checking (property by meaning, value by effect), with two distinct kinds of failure message.
 - A star table: 3 stars for success in 1–2 attempts, down to 0 after 6, with completion regardless.
 - Replay that resets a level's stars.

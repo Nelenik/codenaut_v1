@@ -12,6 +12,7 @@ import { starsForAttempts, MAX_STARS } from '@/lib/stars';
 import { recordTaskSuccess, resetTaskForReplay, unlockLevel, unlockWorld } from '@/lib/progress';
 import { useProgress } from '@/lib/useProgress';
 import TaskZone from '@/components/TaskZone';
+import type { CommandPart } from '@/components/CommandParts';
 import CssEditor from '@/components/CssEditor';
 import PropertyBasket from '@/components/PropertyBasket';
 import PlayfieldPreview from '@/components/PlayfieldPreview';
@@ -100,7 +101,7 @@ export default function LevelScreen({ worldId, levelId }: Props) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-6 text-center">
         <p className="text-2xl font-display font-bold text-white">{t('common.levelLoadFailed')}</p>
-          <p className="text-lg font-mono text-space-300 break-all">{loadError}</p>
+        <p className="text-lg font-mono text-space-300 break-all">{loadError}</p>
         <button
           onClick={() => setRetryKey((k) => k + 1)}
           className="px-8 py-3 rounded-full bg-planet-yellow text-space-900 font-display font-extrabold text-lg hover:bg-yellow-300 transition-colors"
@@ -115,6 +116,22 @@ export default function LevelScreen({ worldId, levelId }: Props) {
 
   const taskKey = `tasks.${task.config.id}`;
   const taskId = `${worldId}/${level.file}`;
+
+  // The lesson level carries the command as an array of parts; other tasks
+  // have none, and `t` hands back the key string for a missing one, so only
+  // a real array is used.
+  const partsRaw = t(`${taskKey}.parts`, { returnObjects: true });
+  const taskParts = Array.isArray(partsRaw)
+    ? (partsRaw as unknown as CommandPart[])
+    : undefined;
+
+  // The how-to is one idea per line, an array of strings in the
+  // dictionary; `t` hands back the key string for a missing one,
+  // so only a real array is used.
+  const teachBodyRaw = t(`${taskKey}.teachBody`, { returnObjects: true });
+  const taskTeachBody = Array.isArray(teachBodyRaw)
+    ? (teachBodyRaw as unknown as string[])
+    : undefined;
 
   const runCheck = () => {
     const outcome = check(iframeRef.current, childCss, task.config);
@@ -223,8 +240,9 @@ export default function LevelScreen({ worldId, levelId }: Props) {
       <TaskZone
         taskText={t(`${taskKey}.text`, { name: progress.playerName })}
         teachTitle={t(`${taskKey}.teachTitle`)}
-        teachBody={t(`${taskKey}.teachBody`)}
+        teachBody={taskTeachBody}
         example={t(`${taskKey}.example`)}
+        parts={taskParts}
         narratorLabel={progress.playerName || t('level.narrator')}
       />
 
@@ -311,9 +329,9 @@ export default function LevelScreen({ worldId, levelId }: Props) {
           text={
             result.kind === 'rightLookWrongProperty'
               ? // The property name arrives from the checker, not the dictionary,
-                // so it is marked here — the toast renders it as a pill, the same
-                // one the child has been reading all task.
-                t('level.wrongProperty', { property: result.expected ? `[[${result.expected}]]` : '' })
+              // so it is marked here — the toast renders it as a pill, the same
+              // one the child has been reading all task.
+              t('level.wrongProperty', { property: result.expected ? `[[${result.expected}]]` : '' })
               : result.kind === 'nothingTyped'
                 ? t('level.nothingTyped')
                 : t(`${taskKey}.hints.0`)
